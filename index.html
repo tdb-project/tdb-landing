@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Data-Bridge (TDB) — turn any data source into a governed REST + MCP API</title>
+  <meta name="description" content="TDB is a self-hosted middleware that turns your data into a secure, auditable REST and MCP API. CSV is free and open-source (AGPLv3); Postgres, MySQL, SQL Server and Snowflake are in the commercial edition.">
+
+  <!-- Open Graph / social preview -->
+  <meta property="og:title" content="The Data-Bridge (TDB)">
+  <meta property="og:description" content="Turn any data source into a secure, LLM-ready REST + MCP API — with an audit log on every query. Self-hosted.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tdb.jiracorp.co.in/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --indigo: #3f51b5;
+      --indigo-dark: #303f9f;
+      --ink: #1a1a2e;
+      --muted: #5b5b70;
+      --bg: #ffffff;
+      --bg-soft: #f5f6fb;
+      --border: #e4e6f0;
+      --code-bg: #1e1e2e;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--indigo); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 940px; margin: 0 auto; padding: 0 24px; }
+
+    /* Hero */
+    header.hero {
+      background: linear-gradient(135deg, var(--indigo) 0%, var(--indigo-dark) 100%);
+      color: #fff;
+      padding: 84px 0 72px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 2.6rem; font-weight: 700; margin: 0 0 14px; letter-spacing: -0.02em; }
+    .hero p.tag { font-size: 1.25rem; font-weight: 400; opacity: 0.95; margin: 0 auto 32px; max-width: 640px; }
+    .badges { margin-bottom: 30px; }
+    .badges img { height: 22px; margin: 0 4px; vertical-align: middle; }
+    .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 13px 26px; border-radius: 8px;
+      font-weight: 600; font-size: 1rem; transition: transform .08s ease, box-shadow .15s ease;
+    }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+    .btn-primary { background: #fff; color: var(--indigo-dark); box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+    .btn-ghost { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.4); }
+
+    /* Sections */
+    section { padding: 64px 0; }
+    section.soft { background: var(--bg-soft); }
+    h2 { font-size: 1.8rem; font-weight: 700; margin: 0 0 28px; letter-spacing: -0.01em; }
+
+    /* quickstart code */
+    pre {
+      background: var(--code-bg); color: #e6e6f0; border-radius: 10px;
+      padding: 22px 24px; overflow-x: auto; font-family: 'JetBrains Mono', monospace;
+      font-size: 0.92rem; line-height: 1.7;
+    }
+    pre .c { color: #8b8ba7; }
+    pre .k { color: #a6e3a1; }
+
+    /* feature grid */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .card h3 { margin: 0 0 8px; font-size: 1.1rem; }
+    .card p { margin: 0; color: var(--muted); font-size: 0.96rem; }
+
+    /* editions */
+    .editions { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .edition { border: 1px solid var(--border); border-radius: 12px; padding: 28px; background: #fff; }
+    .edition.paid { border-color: var(--indigo); box-shadow: 0 6px 24px rgba(63,81,181,.12); }
+    .edition h3 { margin: 0 0 4px; font-size: 1.3rem; }
+    .edition .price { color: var(--muted); font-size: 0.95rem; margin-bottom: 16px; }
+    .edition ul { margin: 0 0 20px; padding-left: 18px; color: var(--muted); }
+    .edition li { margin-bottom: 6px; }
+
+    footer { background: var(--ink); color: #c9c9da; padding: 40px 0; text-align: center; font-size: 0.92rem; }
+    footer a { color: #b3bcf5; }
+
+    @media (max-width: 680px) {
+      .hero h1 { font-size: 2rem; }
+      .editions { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="wrap">
+      <h1>The Data-Bridge</h1>
+      <p class="tag">Turn any data source into a secure, LLM-ready REST + MCP API — with an audit log on every query. Self-hosted.</p>
+      <div class="badges">
+        <img src="https://img.shields.io/badge/license-AGPLv3-blue.svg" alt="AGPLv3">
+        <img src="https://img.shields.io/badge/docker-ghcr.io-blue.svg" alt="Docker">
+        <img src="https://img.shields.io/badge/python-3.12+-green.svg" alt="Python 3.12+">
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://github.com/tdb-project/tdb-community">Get started — free</a>
+        <a class="btn btn-ghost" href="https://docs.tdb.jiracorp.co.in/">Read the docs</a>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="wrap">
+      <h2>What it does</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Register once, query anywhere</h3>
+          <p>Point TDB at a data source and get a clean SQL interface over REST, plus a native MCP endpoint for AI tools.</p>
+        </div>
+        <div class="card">
+          <h3>Built for AI tools</h3>
+          <p>Connect Claude Desktop, Cursor, or any MCP client directly — no custom integration. Read-only is enforced.</p>
+        </div>
+        <div class="card">
+          <h3>Audit log on every query</h3>
+          <p>Every query — including what the AI issued — is logged. You always know what was asked and what came back.</p>
+        </div>
+        <div class="card">
+          <h3>Self-hosted, your infrastructure</h3>
+          <p>Runs in one Docker command. Your data never leaves your environment. The audit log lives where you control it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="soft">
+    <div class="wrap">
+      <h2>Try it in 30 seconds</h2>
+      <pre><span class="c"># Free Community Edition — CSV, no clone, no build</span>
+export TDB_API_KEYS=$(python3 -c <span class="k">"import secrets; print(secrets.token_hex(32))"</span>)
+
+docker run --rm -p 8000:8000 \
+  -e TDB_API_KEYS \
+  -v <span class="k">"$PWD/data:/data:ro"</span> \
+  ghcr.io/tdb-project/tdb-community:latest</pre>
+      <p style="color:var(--muted); margin-top:16px;">Then open <code>http://localhost:8000/docs</code>, register a CSV, and query it from REST or an AI tool. <a href="https://docs.tdb.jiracorp.co.in/getting-started/community/">Full quickstart →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Community &amp; Enterprise</h2>
+      <div class="editions">
+        <div class="edition">
+          <h3>Community</h3>
+          <div class="price">Free · AGPLv3 · self-hosted</div>
+          <ul>
+            <li>CSV data source</li>
+            <li>REST + MCP API (<code>query_source</code>)</li>
+            <li>Read-only, 1,000-row cap</li>
+            <li>Local NDJSON audit log</li>
+            <li>One Docker command</li>
+          </ul>
+          <a class="btn btn-primary" style="background:var(--indigo); color:#fff;" href="https://github.com/tdb-project/tdb-community">View on GitHub</a>
+        </div>
+        <div class="edition paid">
+          <h3>Enterprise</h3>
+          <div class="price">From $499/month · commercial license</div>
+          <ul>
+            <li>PostgreSQL, MySQL, SQL Server, Snowflake</li>
+            <li>Multiple sources, OAuth 2.1 + PKCE, RBAC</li>
+            <li>Signed, tamper-evident audit log + SIEM export</li>
+            <li>Extra MCP tools, named views, rate limiting</li>
+            <li>SLA-backed support</li>
+          </ul>
+          <a class="btn btn-primary" style="background:var(--indigo); color:#fff;" href="https://docs.tdb.jiracorp.co.in/pricing/">See pricing &amp; tiers</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p>
+        <a href="https://github.com/tdb-project/tdb-community">GitHub</a> ·
+        <a href="https://docs.tdb.jiracorp.co.in/">Docs</a> ·
+        <a href="https://docs.tdb.jiracorp.co.in/pricing/">Pricing</a> ·
+        <a href="mailto:hello@tdb.jiracorp.co.in">hello@tdb.jiracorp.co.in</a>
+      </p>
+      <p style="opacity:.7; margin-top:10px;">The Data-Bridge — a JIRA CORP product. Community edition is AGPLv3.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
