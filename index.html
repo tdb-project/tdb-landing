@@ -87,7 +87,14 @@
     .navlinks { display: flex; gap: 24px; margin-left: auto; align-items: center; }
     .navlinks a { color: var(--text-dim); font-size: .93rem; font-weight: 500; }
     .navlinks a:hover { color: var(--text); }
+    /* The nav is the one row that cannot wrap, so it sets the document's
+       minimum width — if it overflows, every section below it is clipped too.
+       Measured at 390px: brand (~152px) + three links + padding needed ~444px.
+       Shed links as width drops; the GitHub button is the last to go. */
+    @media (max-width: 720px) { nav.top .wrap { gap: 16px; } .navlinks { gap: 18px; } }
     @media (max-width: 620px) { .navlinks a.hide-sm { display: none; } }
+    @media (max-width: 470px) { .navlinks a.hide-xs { display: none; } }
+    @media (max-width: 380px) { .brand span:not(.mark) { display: none; } }
 
     /* ---------- buttons ---------- */
     .btn {
@@ -123,7 +130,7 @@
     h1 {
       font-size: clamp(2.3rem, 5.6vw, 3.6rem);
       line-height: 1.06; letter-spacing: -.032em; font-weight: 700;
-      margin: 0 0 22px; max-width: 17ch;
+      margin: 0 0 22px; max-width: 22ch;
     }
     h1 .grad {
       background: linear-gradient(100deg, var(--accent-hi), var(--accent) 55%, #6F7FE8);
@@ -189,7 +196,10 @@
     }
 
     /* ---------- feature grid ---------- */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: 18px; }
+    /* Four cards: auto-fit gives 3+1 at desktop width, which reads as a mistake.
+       Explicit 2x2, collapsing to one column on narrow screens. */
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
     .card {
       border: 1px solid var(--line); border-radius: var(--radius);
       background: var(--bg-raised); padding: 26px 24px;
@@ -254,13 +264,13 @@
         <span class="mark" aria-hidden="true">
           <svg width="15" height="15" viewBox="0 0 32 32" fill="none"><path d="M8 11h16M8 16h16M8 21h10" stroke="#0A0B0D" stroke-width="3" stroke-linecap="round"/></svg>
         </span>
-        The Data-Bridge
+        <span>The Data-Bridge</span>
       </a>
       <div class="navlinks">
         <a class="hide-sm" href="#how">How it works</a>
         <a class="hide-sm" href="#audit">Audit</a>
-        <a href="#editions">Editions</a>
-        <a href="https://docs.tdb.jiracorp.co.in/">Docs</a>
+        <a class="hide-xs" href="#editions">Editions</a>
+        <a class="hide-xs" href="https://docs.tdb.jiracorp.co.in/">Docs</a>
         <a class="btn btn-ghost btn-sm" href="https://github.com/tdb-project/tdb-community">GitHub</a>
       </div>
     </div>
