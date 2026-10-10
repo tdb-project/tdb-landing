@@ -344,6 +344,7 @@
     -e TDB_API_KEYS \
     -v <span class="s">"$PWD/data:/data:ro"</span> \
     ghcr.io/tdb-project/tdb-community:latest
+<span class="p">$</span> until curl -sf localhost:8000/health &gt;/dev/null; do sleep 1; done
 
 <span class="c"># Register it once</span>
 <span class="p">$</span> curl -X POST localhost:8000/v1/sources \
