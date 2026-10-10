@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Data-Bridge (TDB) — governed AI access to the data you already have</title>
-  <meta name="description" content="Self-hosted middleware that makes your existing databases queryable over REST, SQL and MCP — without moving them into a cloud warehouse or routing them through a SaaS copilot. Every query is audited, and the audit log is yours. CSV is free and open source (AGPLv3); PostgreSQL, MySQL, SQL Server and Snowflake are in the commercial edition.">
+  <meta name="description" content="Self-hosted middleware that makes your existing databases queryable over REST, SQL and MCP, and from the PostgreSQL clients and BI tools you already use — without moving them into a cloud warehouse or routing them through a SaaS copilot. Every query is audited, and the audit log is yours. CSV is free and open source (AGPLv3); PostgreSQL, MySQL, SQL Server and Snowflake are in the commercial edition.">
   <meta name="theme-color" content="#0A0B0D">
 
   <link rel="canonical" href="https://tdb.jiracorp.co.in/">
@@ -12,7 +12,13 @@
   <meta property="og:description" content="Governed AI access to the data you already have — wherever it already is. Self-hosted; query your existing databases over REST, SQL and MCP without moving them to a cloud warehouse or a SaaS copilot. Every query audited; the log is yours.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tdb.jiracorp.co.in/">
+  <meta property="og:site_name" content="The Data-Bridge">
+  <meta property="og:image" content="https://tdb.jiracorp.co.in/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Data-Bridge: governed AI access to the data you already have. Self-hosted; REST, SQL and MCP; every query audited.">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://tdb.jiracorp.co.in/og.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,8 +98,26 @@
        Measured at 390px: brand (~152px) + three links + padding needed ~444px.
        Shed links as width drops; the GitHub button is the last to go. */
     @media (max-width: 720px) { nav.top .wrap { gap: 16px; } .navlinks { gap: 18px; } }
-    @media (max-width: 620px) { .navlinks a.hide-sm { display: none; } }
-    @media (max-width: 470px) { .navlinks a.hide-xs { display: none; } }
+    /* Below 620px the section links move into a menu rather than disappearing,
+       so Editions and Docs stay one tap away on a phone. */
+    .navmenu { display: none; position: relative; }
+    .navmenu summary {
+      list-style: none; cursor: pointer; display: grid; place-items: center;
+      width: 40px; height: 36px; border: 1px solid var(--line-strong); border-radius: 8px; color: var(--text);
+    }
+    .navmenu summary::-webkit-details-marker { display: none; }
+    .navmenu-panel {
+      position: absolute; right: 0; top: 46px; min-width: 200px; padding: 8px;
+      background: var(--bg-raised); border: 1px solid var(--line-strong); border-radius: 10px;
+      box-shadow: 0 18px 40px -18px rgba(0,0,0,.9); display: flex; flex-direction: column;
+    }
+    .navmenu-panel a { color: var(--text-dim); padding: 10px 12px; border-radius: 7px; font-weight: 500; }
+    .navmenu-panel a:hover { color: var(--text); background: var(--bg-inset); }
+    @media (max-width: 620px) {
+      .navlinks a.hide-sm { display: none; }
+      .navmenu { display: block; }
+      .navlinks { gap: 10px; }
+    }
     @media (max-width: 380px) { .brand span:not(.mark) { display: none; } }
 
     /* ---------- buttons ---------- */
@@ -163,6 +187,7 @@
     pre.term .s { color: var(--green); }
     pre.term .y { color: var(--amber); }
     pre.term .o { color: #98A2B3; }
+    @media (max-width: 620px) { pre.term { font-size: .78rem; padding: 16px 16px; } }
 
     /* ---------- sections ---------- */
     section { padding: 84px 0; border-top: 1px solid var(--line); }
@@ -250,7 +275,7 @@
     /* ---------- footer ---------- */
     footer { border-top: 1px solid var(--line); padding: 42px 0 56px; color: var(--text-faint); font-size: .9rem; }
     .foot-row { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: center; }
-    footer a { color: var(--text-dim); }
+    footer a { color: var(--text-dim); display: inline-block; padding: 5px 0; }
     footer a:hover { color: var(--text); }
     .foot-legal { margin: 22px 0 0; font-size: .84rem; color: var(--text-faint); }
   </style>
@@ -269,9 +294,20 @@
       <div class="navlinks">
         <a class="hide-sm" href="#how">How it works</a>
         <a class="hide-sm" href="#audit">Audit</a>
-        <a class="hide-xs" href="#editions">Editions</a>
-        <a class="hide-xs" href="https://docs.tdb.jiracorp.co.in/">Docs</a>
+        <a class="hide-sm" href="#editions">Editions</a>
+        <a class="hide-sm" href="https://docs.tdb.jiracorp.co.in/">Docs</a>
         <a class="btn btn-ghost btn-sm" href="https://github.com/tdb-project/tdb-community">GitHub</a>
+        <details class="navmenu">
+          <summary aria-label="Menu">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </summary>
+          <div class="navmenu-panel">
+            <a href="#how">How it works</a>
+            <a href="#audit">Audit</a>
+            <a href="#editions">Editions</a>
+            <a href="https://docs.tdb.jiracorp.co.in/">Docs</a>
+          </div>
+        </details>
       </div>
     </div>
   </nav>
@@ -301,7 +337,7 @@
             <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
             <span class="title">bash</span>
           </div>
-<pre class="term"><span class="c"># Community edition — CSV source, free and open source</span>
+<pre class="term"><span class="c"># Community edition, free and open source. Put a CSV at ./data/orders.csv</span>
 <span class="p">$</span> export TDB_API_KEYS=$(python3 -c <span class="s">"import secrets; print(secrets.token_hex(32))"</span>)
 
 <span class="p">$</span> docker run -d --rm --name tdb -p 8000:8000 \
@@ -309,13 +345,20 @@
     -v <span class="s">"$PWD/data:/data:ro"</span> \
     ghcr.io/tdb-project/tdb-community:latest
 
+<span class="c"># Register it once</span>
+<span class="p">$</span> curl -X POST localhost:8000/v1/sources \
+    -H <span class="s">"Authorization: Bearer $TDB_API_KEYS"</span> \
+    -H <span class="s">"Content-Type: application/json"</span> \
+    -d <span class="s">'{"name":"orders","source_type":"csv",
+         "connection":{"file_path":"/data/orders.csv"}}'</span>
+
 <span class="c"># Ask it a question — read-only SQL, over HTTP</span>
 <span class="p">$</span> curl -X POST localhost:8000/v1/query \
     -H <span class="s">"Authorization: Bearer $TDB_API_KEYS"</span> \
     -H <span class="s">"Content-Type: application/json"</span> \
-    -d <span class="s">'{"source_id":"orders","sql":"WITH t AS (SELECT * FROM data) SELECT customer FROM t"}'</span>
+    -d <span class="s">'{"source_id":"orders","sql":"SELECT * FROM data LIMIT 5"}'</span>
 
-<span class="o">{</span><span class="y">"columns"</span><span class="o">:</span> <span class="s">["customer"]</span><span class="o">,</span> <span class="y">"rows"</span><span class="o">:</span> <span class="s">[…]</span><span class="o">,</span> <span class="y">"truncated"</span><span class="o">:</span> <span class="s">false</span><span class="o">}</span></pre>
+<span class="o">{</span><span class="y">"columns"</span><span class="o">:</span> <span class="s">[…]</span><span class="o">,</span> <span class="y">"rows"</span><span class="o">:</span> <span class="s">[…]</span><span class="o">,</span> <span class="y">"truncated"</span><span class="o">:</span> <span class="s">false</span><span class="o">}</span></pre>
         </div>
       </div>
     </header>
@@ -363,8 +406,8 @@
             <p class="hint">No custom integration</p>
             <ul>
               <li>Claude · Cursor · MCP</li>
+              <li>Metabase · DBeaver · psql</li>
               <li>REST / OpenAPI</li>
-              <li>read-only SQL</li>
               <li>your own services</li>
             </ul>
           </div>
@@ -390,7 +433,7 @@
           <div class="card">
             <div class="ico" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 8h18M3 16h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
             <h3>REST, SQL and MCP at once</h3>
-            <p>Point Claude Desktop, Cursor or any MCP client straight at it — or call the same source over REST. Read-only is enforced before the statement reaches the engine.</p>
+            <p>Point Claude, Cursor or any MCP client straight at it — current with the 2026-07-28 spec, older clients still welcome. Call the same source over REST, or connect Metabase, DBeaver and other Postgres clients unchanged. Read-only is enforced before a statement reaches the engine.</p>
           </div>
           <div class="card">
             <div class="ico" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 3 4 6.5V12c0 5 3.4 8.2 8 9 4.6-.8 8-4 8-9V6.5L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2.2 2.2L15.5 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -428,6 +471,10 @@
               </li>
               <li>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Every MCP call names the AI client and protocol version that made it.</span>
+              </li>
+              <li>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 <span>Retention by sealing, never deletion — segments stay independently verifiable.</span>
               </li>
               <li>
@@ -443,21 +490,24 @@
               <span class="title">tdb_audit.jsonl</span>
             </div>
 <pre class="term"><span class="o">{</span>
-  <span class="y">"seq"</span><span class="o">:</span> 4127<span class="o">,</span>
   <span class="y">"event"</span><span class="o">:</span> <span class="s">"query"</span><span class="o">,</span>
-  <span class="y">"actor"</span><span class="o">:</span> <span class="s">"mcp:claude-desktop"</span><span class="o">,</span>
   <span class="y">"source_id"</span><span class="o">:</span> <span class="s">"3f1c…a90b"</span><span class="o">,</span>
   <span class="y">"sql"</span><span class="o">:</span> <span class="s">"SELECT region, SUM(amount) …"</span><span class="o">,</span>
   <span class="y">"rows_returned"</span><span class="o">:</span> 112<span class="o">,</span>
-  <span class="y">"truncated"</span><span class="o">:</span> false<span class="o">,</span>
+  <span class="y">"key_hint"</span><span class="o">:</span> <span class="s">"tdbk_a…"</span><span class="o">,</span>
+  <span class="y">"mcp_client"</span><span class="o">:</span> <span class="s">"analytics-agent/2.1"</span><span class="o">,</span>
+  <span class="y">"mcp_protocol"</span><span class="o">:</span> <span class="s">"2026-07-28"</span><span class="o">,</span>
+  <span class="y">"seq"</span><span class="o">:</span> 4127<span class="o">,</span>
   <span class="y">"prev_hash"</span><span class="o">:</span> <span class="s">"9c2f…"</span><span class="o">,</span>
   <span class="y">"hash"</span><span class="o">:</span> <span class="s">"e70a…"</span>
 <span class="o">}</span>
 <span class="o">{</span>
-  <span class="y">"seq"</span><span class="o">:</span> 4128<span class="o">,</span>
   <span class="y">"event"</span><span class="o">:</span> <span class="s">"denied"</span><span class="o">,</span>
-  <span class="y">"action"</span><span class="o">:</span> <span class="s">"query"</span><span class="o">,</span>
-  <span class="y">"reason"</span><span class="o">:</span> <span class="s">"Blocked keyword: DELETE"</span>
+  <span class="y">"action"</span><span class="o">:</span> <span class="s">"mcp_query"</span><span class="o">,</span>
+  <span class="y">"reason"</span><span class="o">:</span> <span class="s">"sql_validation_failed"</span><span class="o">,</span>
+  <span class="y">"sql"</span><span class="o">:</span> <span class="s">"DELETE FROM orders …"</span><span class="o">,</span>
+  <span class="y">"mcp_client"</span><span class="o">:</span> <span class="s">"analytics-agent/2.1"</span><span class="o">,</span>
+  <span class="y">"seq"</span><span class="o">:</span> 4128
 <span class="o">}</span></pre>
           </div>
         </div>
@@ -482,7 +532,7 @@
             <p class="meta">AGPLv3 · self-hosted · one Docker command</p>
             <ul>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>One CSV data source</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>REST + MCP (<code>query_source</code>)</span></li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>REST + MCP (<code>query_source</code>), MCP spec 2026-07-28</span></li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Read-only SQL, 1,000-row ceiling</span></li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Local audit log (NDJSON)</span></li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Auto schema detection · CLI · OpenAPI</span></li>
@@ -501,6 +551,7 @@
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Unlimited sources · OAuth 2.1 + PKCE · RBAC</span></li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Signed audit log · retention · SIEM export</span></li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Seven MCP tools · named views · rate limiting</span></li>
+              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>PostgreSQL wire gateway for BI tools and SQL clients</span></li>
               <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prometheus metrics · schema caching · SLA support</span></li>
             </ul>
             <a class="btn btn-primary" href="https://docs.tdb.jiracorp.co.in/pricing/">Compare editions</a>
@@ -546,5 +597,13 @@
     </div>
   </footer>
 
+  <script>
+    document.querySelectorAll('.navmenu-panel a').forEach(function (a) {
+      a.addEventListener('click', function () { a.closest('details').removeAttribute('open'); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') document.querySelectorAll('.navmenu[open]').forEach(function (d) { d.removeAttribute('open'); });
+    });
+  </script>
 </body>
 </html>
