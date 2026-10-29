@@ -969,7 +969,7 @@ Authorization: Bearer tdbk_…   (role: read, tools: query_source)</pre></div>
       function build() {
         var weekly = num(fb, 'salary') / 52;
         outEl(fb, 'year1').textContent = usd.format(weekly * (num(fb, 'build') + num(fb, 'keep')));
-        outEl(fb, 'ongoing').textContent = usd.format(weekly * num(fb, 'keep')) + ' a year after that, before anyone on call';
+        outEl(fb, 'ongoing').textContent = usd.format(weekly * num(fb, 'keep')) + ' a year after that';
       }
       ft.addEventListener('input', tokens); fb.addEventListener('input', build); tokens(); build();
 
