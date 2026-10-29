@@ -386,13 +386,17 @@
     .tour-prog i.done b { width: 100%; }
     .tour-prog i.now b { animation: prog 5s linear forwards; }
     .tour-body { padding: 22px 24px 8px; min-height: 300px; }
-    .slide[hidden] { display: none; }
+    .slide[hidden], .tour-video[hidden], .tour-steps[hidden] { display: none; }
     .slide .step { font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
     .slide h3 { font-family: var(--serif); font-size: 1.7rem; margin: 6px 0 10px; line-height: 1.2; }
     .slide p { color: var(--text-dim); margin: 0 0 16px; }
     .slide pre { margin: 0; background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; font-family: var(--mono); font-size: .8rem; color: var(--text-dim); overflow-x: auto; line-height: 1.6; }
     @media (prefers-reduced-motion: no-preference) { .slide:not([hidden]) { animation: slidein .35s ease; } }
     @keyframes slidein { from { opacity: 0; transform: translateX(12px); } }
+    .tour-video { padding: 16px 20px 18px; }
+    .tour-video video { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; background: var(--bg-inset); border: 1px solid var(--line); }
+    .tour-cap { margin: 10px 0 0; font-size: .85rem; color: var(--text-faint); }
+    .linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--accent); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
     .tour-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 20px 18px; }
     .tour-foot .btn { padding: 9px 16px; font-size: .9rem; }
   </style>
@@ -501,7 +505,7 @@
           <div class="cta-row">
             <a class="btn btn-primary" href="https://docs.tdb.jiracorp.co.in/getting-started/community/">Get started — free</a>
             <a class="btn btn-ghost" href="mailto:hello@tdb.jiracorp.co.in?subject=TDB%2030-day%20evaluation">Request a 30-day evaluation</a>
-            <button class="btn btn-link" type="button" id="tour-open"><span class="play" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12"><path d="M1 1l9 5-9 5z" fill="currentColor"/></svg></span>Take the 60-second tour</button>
+            <button class="btn btn-link" type="button" id="tour-open"><span class="play" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12"><path d="M1 1l9 5-9 5z" fill="currentColor"/></svg></span>Watch the 60-second demo</button>
           </div>
           <p class="cta-note">Free edition: one Docker command, no account. Engineers: <a href="https://docs.tdb.jiracorp.co.in/">read the docs</a>.</p>
         </div>
@@ -804,7 +808,15 @@
   </footer>
 
   <dialog class="tour" id="tour" aria-labelledby="tour-title">
-    <div class="tour-head"><b id="tour-title">TDB in 60 seconds</b><button type="button" aria-label="Close tour" data-close>×</button></div>
+    <div class="tour-head"><b id="tour-title">The Data-Bridge in 60 seconds</b><button type="button" aria-label="Close tour" data-close>×</button></div>
+    <div class="tour-video" id="tour-video">
+      <video id="tour-player" controls muted playsinline preload="none" poster="media/tour-poster.jpg" aria-describedby="tour-cap">
+        <source src="media/tour.webm" type="video/webm">
+        <source src="media/tour.mp4" type="video/mp4">
+      </video>
+      <p class="tour-cap" id="tour-cap">Recorded against the published tdb-community 0.13.0 image: every response on screen is real output. No sound. <button type="button" class="linkish" id="tour-read">Prefer to read? Step through it instead.</button></p>
+    </div>
+    <div class="tour-steps" id="tour-steps" hidden>
     <div class="tour-prog" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
     <div class="tour-body">
       <div class="slide"><div class="step">Step 1 of 5 · Register</div><h3>Point TDB at the data you already have.</h3><p>One call registers a source under a governed name. Credentials are encrypted; nothing is copied.</p>
@@ -828,6 +840,7 @@ Authorization: Bearer tdbk_…   (role: read, tools: query_source)</pre></div>
       <button class="btn btn-ghost" type="button" data-prev>Back</button>
       <a class="btn btn-ghost" href="https://docs.tdb.jiracorp.co.in/getting-started/community/">Try it free</a>
       <button class="btn btn-primary" type="button" data-next>Next</button>
+    </div>
     </div>
   </dialog>
 
@@ -921,14 +934,22 @@ Authorization: Bearer tdbk_…   (role: read, tools: query_source)</pre></div>
         clearTimeout(tt);
         if (!reduce && at < slides.length - 1) tt = setTimeout(function () { show(at + 1); }, 5000);
       }
+      var player = document.getElementById('tour-player');
+      var vidBox = document.getElementById('tour-video'), steps = document.getElementById('tour-steps');
+      function mode(read) {
+        vidBox.hidden = read; steps.hidden = !read;
+        if (read) { player.pause(); show(0); } else { clearTimeout(tt); }
+      }
+      document.getElementById('tour-read').addEventListener('click', function () { mode(true); });
       document.getElementById('tour-open').addEventListener('click', function () {
-        if (typeof dlg.showModal === 'function') { dlg.showModal(); show(0); }
-        else { window.location.href = 'https://docs.tdb.jiracorp.co.in/architecture/'; }
+        if (typeof dlg.showModal !== 'function') { window.location.href = 'media/tour.mp4'; return; }
+        dlg.showModal(); mode(false);
+        if (!reduce) { var pr = player.play(); if (pr && pr.catch) pr.catch(function () {}); }
       });
       dlg.querySelector('[data-close]').addEventListener('click', function () { dlg.close(); });
       dlg.querySelector('[data-prev]').addEventListener('click', function () { show(at - 1); });
       dlg.querySelector('[data-next]').addEventListener('click', function () { if (at === slides.length - 1) dlg.close(); else show(at + 1); });
-      dlg.addEventListener('close', function () { clearTimeout(tt); });
+      dlg.addEventListener('close', function () { clearTimeout(tt); player.pause(); });
       dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
     })();
   </script>
