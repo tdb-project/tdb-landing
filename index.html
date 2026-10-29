@@ -4,255 +4,167 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Data-Bridge (TDB) — governed AI access to the data you already have</title>
-  <meta name="description" content="Self-hosted middleware that makes your existing databases queryable over REST, SQL and MCP, and from the PostgreSQL clients and BI tools you already use — without moving them into a cloud warehouse or routing them through a SaaS copilot. Every query is audited, and the audit log is yours, and results are sized for an agent's context window. CSV is free and open source (AGPLv3); PostgreSQL, MySQL, SQL Server, Snowflake and Parquet files are in the commercial edition.">
-  <meta name="theme-color" content="#0A0B0D">
+  <meta name="description" content="Self-hosted gateway that gives AI agents, scripts and BI tools read-only, audited access to your existing databases — with results sized to save tokens.">
+  <meta name="theme-color" content="#FFFFFF">
 
   <link rel="canonical" href="https://tdb.jiracorp.co.in/">
   <meta property="og:title" content="The Data-Bridge (TDB)">
-  <meta property="og:description" content="Governed AI access to the data you already have — wherever it already is. Self-hosted; query your existing databases over REST, SQL and MCP without moving them to a cloud warehouse or a SaaS copilot. Every query audited; the log is yours.">
+  <meta property="og:description" content="Governed AI access to the data you already have. Self-hosted, read-only, every query audited — and results sized for an agent's context window.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://tdb.jiracorp.co.in/">
   <meta property="og:site_name" content="The Data-Bridge">
   <meta property="og:image" content="https://tdb.jiracorp.co.in/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="The Data-Bridge: governed AI access to the data you already have. Self-hosted; REST, SQL and MCP; every query audited.">
+  <meta property="og:image:alt" content="The Data-Bridge: governed AI access to the data you already have. Self-hosted, read-only, audited, lean on tokens.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://tdb.jiracorp.co.in/og.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23818CF8'/><path d='M9 11h14M9 16h14M9 21h9' stroke='%230A0B0D' stroke-width='2.5' stroke-linecap='round'/></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234F46E5'/%3E%3Cpath d='M8 11h16M8 16h16M8 21h10' stroke='white' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
 
   <style>
     :root {
-      --bg:          #0A0B0D;
-      --bg-raised:   #101216;
-      --bg-inset:    #0D0F12;
-      --line:        #1C2027;
-      --line-strong: #2A2F38;
-      --text:        #E9EBEF;
-      --text-dim:    #A2A9B4;
-      --text-faint:  #6E7681;
-      --accent:      #818CF8;
-      --accent-hi:   #A5B0FF;
-      --accent-dim:  rgba(129,140,248,.11);
-      --green:       #7EE787;
-      --amber:       #E3B341;
-      --radius:      12px;
-      --maxw:        1360px;
+      --bg:          #FFFFFF;
+      --bg-soft:     #F8FAFC;
+      --bg-inset:    #F1F5F9;
+      --line:        #E2E8F0;
+      --line-strong: #CBD5E1;
+      --text:        #0F172A;
+      --text-dim:    #475569;
+      --text-faint:  #64748B;
+      --accent:      #4F46E5;
+      --accent-hi:   #4338CA;
+      --accent-dim:  rgba(79,70,229,.08);
+      --green:       #15803D;
+      --amber:       #B45309;
+      --radius:      14px;
+      --shadow:      0 1px 2px rgba(15,23,42,.04), 0 12px 32px -12px rgba(15,23,42,.12);
+      --maxw:        1320px;
+      --serif:       "Source Serif 4", Georgia, "Times New Roman", serif;
+      --mono:        "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     }
-
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
     }
-
     body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
+      margin: 0; background: var(--bg); color: var(--text);
       font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
-      font-size: 16px;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
     }
-
     a { color: var(--accent); text-decoration: none; }
     a:hover { color: var(--accent-hi); }
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+    code { font-family: var(--mono); font-size: .88em; background: var(--bg-inset); padding: 1px 5px; border-radius: 5px; }
     .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px); }
-
-    .skip {
-      position: absolute; left: -9999px; top: 0; background: var(--accent);
-      color: #0A0B0D; padding: 10px 16px; border-radius: 0 0 8px 0; font-weight: 600; z-index: 100;
-    }
-    .skip:focus { left: 0; }
-
-    /* ---------- nav ---------- */
-    nav.top {
-      position: sticky; top: 0; z-index: 50;
-      background: rgba(10,11,13,.72);
-      backdrop-filter: saturate(160%) blur(12px);
-      -webkit-backdrop-filter: saturate(160%) blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
-    nav.top .wrap { display: flex; align-items: center; gap: 28px; height: 60px; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--text); letter-spacing: -.01em; }
-    .brand:hover { color: var(--text); }
-    .brand .mark {
-      width: 24px; height: 24px; border-radius: 6px; background: var(--accent);
-      display: grid; place-items: center; flex: none;
-    }
-    .brand .mark svg { display: block; }
-    .navlinks { display: flex; gap: 24px; margin-left: auto; align-items: center; }
-    .navlinks a { color: var(--text-dim); font-size: .93rem; font-weight: 500; }
-    .navlinks a:hover { color: var(--text); }
-    /* The nav is the one row that cannot wrap, so it sets the document's
-       minimum width — if it overflows, every section below it is clipped too.
-       Measured at 390px: brand (~152px) + three links + padding needed ~444px.
-       Shed links as width drops; the GitHub button is the last to go. */
-    @media (max-width: 720px) { nav.top .wrap { gap: 16px; } .navlinks { gap: 18px; } }
-    /* Below 620px the section links move into a menu rather than disappearing,
-       so Editions and Docs stay one tap away on a phone. */
-    .navmenu { display: none; position: relative; }
-    .navmenu summary {
-      list-style: none; cursor: pointer; display: grid; place-items: center;
-      width: 40px; height: 36px; border: 1px solid var(--line-strong); border-radius: 8px; color: var(--text);
-    }
-    .navmenu summary::-webkit-details-marker { display: none; }
-    .navmenu-panel {
-      position: absolute; right: 0; top: 46px; min-width: 200px; padding: 8px;
-      background: var(--bg-raised); border: 1px solid var(--line-strong); border-radius: 10px;
-      box-shadow: 0 18px 40px -18px rgba(0,0,0,.9); display: flex; flex-direction: column;
-    }
-    .navmenu-panel a { color: var(--text-dim); padding: 10px 12px; border-radius: 7px; font-weight: 500; }
-    .navmenu-panel a:hover { color: var(--text); background: var(--bg-inset); }
-    @media (max-width: 620px) {
-      .navlinks a.hide-sm { display: none; }
-      .navmenu { display: block; }
-      .navlinks { gap: 10px; }
-    }
-    @media (max-width: 380px) { .brand span:not(.mark) { display: none; } }
+    .skip { position: absolute; left: -9999px; top: 0; background: var(--accent); color: #fff; padding: 8px 14px; border-radius: 8px; z-index: 100; }
+    .skip:focus { left: 12px; top: 12px; }
 
     /* ---------- buttons ---------- */
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 11px 20px; border-radius: 9px; font-weight: 600; font-size: .95rem;
-      border: 1px solid transparent; transition: background .15s ease, border-color .15s ease, color .15s ease;
-      white-space: nowrap;
-    }
-    .btn-primary { background: var(--accent); color: #0A0B0D; }
-    .btn-primary:hover { background: var(--accent-hi); color: #0A0B0D; }
-    .btn-ghost { border-color: var(--line-strong); color: var(--text); background: transparent; }
-    .btn-ghost:hover { border-color: var(--text-faint); color: var(--text); background: var(--bg-raised); }
-    .btn-sm { padding: 7px 14px; font-size: .88rem; border-radius: 8px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 600; font-size: .95rem;
+      padding: 12px 20px; border-radius: 10px; border: 1px solid transparent; cursor: pointer; font-family: inherit; line-height: 1.2;
+      transition: background .15s ease, border-color .15s ease, color .15s ease; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-hi); color: #fff; }
+    .btn-ghost { background: var(--bg); color: var(--text); border-color: var(--line-strong); }
+    .btn-ghost:hover { border-color: var(--text-faint); color: var(--text); }
+    .btn-sm { padding: 8px 14px; font-size: .88rem; }
+    .btn-link { background: none; border: 0; color: var(--text); padding: 12px 6px; }
+    .btn-link:hover { color: var(--accent); }
+    .play { width: 30px; height: 30px; border-radius: 50%; background: var(--accent-dim); color: var(--accent); display: grid; place-items: center; }
+
+    /* ---------- announcement ---------- */
+    .announce { background: var(--text); color: #E2E8F0; font-size: .88rem; }
+    .announce .wrap { display: flex; align-items: center; justify-content: center; gap: 12px; padding-top: 9px; padding-bottom: 9px; position: relative; }
+    .announce a { color: #fff; font-weight: 600; }
+    .announce a:hover { color: #C7D2FE; }
+    .announce .new { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 99px; }
+    .announce button { position: absolute; right: clamp(8px, 3vw, 32px); background: none; border: 0; color: #94A3B8; font-size: 1.2rem; cursor: pointer; line-height: 1; padding: 4px 8px; }
+    .announce button:hover { color: #fff; }
+    .announce[hidden] { display: none; }
+    @media (max-width: 560px) { .announce .wrap { justify-content: flex-start; padding-right: 44px; } .announce .long { display: none; } }
+
+    /* ---------- nav + mega menu ---------- */
+    nav.top { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.88); backdrop-filter: saturate(160%) blur(10px);
+      -webkit-backdrop-filter: saturate(160%) blur(10px); border-bottom: 1px solid var(--line); }
+    nav.top > .wrap { display: flex; align-items: center; gap: 28px; height: 68px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); letter-spacing: -.01em; font-size: 1.02rem; }
+    .brand:hover { color: var(--text); }
+    .mark { width: 26px; height: 26px; border-radius: 7px; background: var(--accent); display: grid; place-items: center; flex: none; }
+    .menu { display: flex; align-items: center; gap: 4px; margin: 0; padding: 0; list-style: none; }
+    .menu > li { position: relative; }
+    .menu-btn { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; font: inherit; font-size: .93rem; font-weight: 500;
+      color: var(--text-dim); padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+    .menu-btn:hover, .menu-btn[aria-expanded="true"] { color: var(--text); background: var(--bg-inset); }
+    .menu-btn svg { transition: transform .15s ease; }
+    .menu-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .mega { position: absolute; top: calc(100% + 10px); left: -12px; width: 520px; background: var(--bg); border: 1px solid var(--line);
+      border-radius: var(--radius); box-shadow: 0 24px 60px -20px rgba(15,23,42,.25); padding: 14px; display: none;
+      grid-template-columns: 1fr 1fr; gap: 4px; }
+    .mega.open { display: grid; }
+    .mega a { display: block; padding: 11px 12px; border-radius: 10px; color: var(--text); }
+    .mega a:hover { background: var(--bg-soft); color: var(--text); }
+    .mega a b { display: block; font-size: .92rem; font-weight: 600; }
+    .mega a span { display: block; font-size: .82rem; color: var(--text-faint); line-height: 1.45; margin-top: 2px; }
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .mobnav { display: none; margin-left: auto; }
+    .mobnav > summary { list-style: none; cursor: pointer; width: 42px; height: 38px; border: 1px solid var(--line-strong); border-radius: 9px; display: grid; place-items: center; color: var(--text); }
+    .mobnav > summary::-webkit-details-marker { display: none; }
+    .mobpanel { position: absolute; left: 0; right: 0; top: 68px; background: var(--bg); border-bottom: 1px solid var(--line);
+      box-shadow: 0 24px 40px -24px rgba(15,23,42,.3); padding: 8px clamp(16px, 4vw, 40px) 20px; max-height: calc(100vh - 68px); overflow-y: auto; }
+    .mobpanel details { border-bottom: 1px solid var(--line); }
+    .mobpanel details summary { padding: 14px 4px; font-weight: 600; list-style: none; cursor: pointer; display: flex; justify-content: space-between; }
+    .mobpanel details summary::-webkit-details-marker { display: none; }
+    .mobpanel details summary::after { content: "+"; color: var(--text-faint); }
+    .mobpanel details[open] summary::after { content: "–"; }
+    .mobpanel details a { display: block; padding: 8px 4px 8px 12px; color: var(--text-dim); }
+    .mobpanel .mob-cta { display: grid; gap: 10px; margin-top: 18px; }
+    @media (max-width: 1040px) { .menu, .nav-right { display: none; } .mobnav { display: block; } }
 
     /* ---------- hero ---------- */
-    .hero { position: relative; padding: 88px 0 72px; overflow: hidden; }
-    .hero::before {
-      content: ""; position: absolute; inset: -40% 0 auto 50%;
-      width: 900px; height: 700px; transform: translateX(-50%);
-      background: radial-gradient(closest-side, rgba(129,140,248,.16), transparent 72%);
-      pointer-events: none;
-    }
-    .hero .wrap { position: relative; }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 9px;
-      border: 1px solid var(--line-strong); background: var(--bg-raised);
-      border-radius: 999px; padding: 5px 14px 5px 10px;
-      font-size: .84rem; color: var(--text-dim); margin-bottom: 26px;
-    }
-    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex: none; }
-    .eyebrow strong { color: var(--text); font-weight: 600; }
-
-    h1 {
-      font-size: clamp(2.3rem, 5.6vw, 3.6rem);
-      line-height: 1.06; letter-spacing: -.032em; font-weight: 700;
-      margin: 0 0 22px; max-width: 22ch;
-    }
-    h1 .grad {
-      background: linear-gradient(100deg, var(--accent-hi), var(--accent) 55%, #6F7FE8);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-    .lede { font-size: clamp(1.02rem, 1.9vw, 1.18rem); color: var(--text-dim); max-width: 62ch; margin: 0 0 34px; }
-    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-    .cta-note { color: var(--text-faint); font-size: .88rem; margin: 18px 0 0; }
-
-    /* ---------- terminal ---------- */
-    .terminal {
-      border: 1px solid var(--line); border-radius: var(--radius);
-      background: var(--bg-inset); overflow: hidden;
-      box-shadow: 0 24px 60px -30px rgba(0,0,0,.9);
-    }
-    .terminal-bar {
-      display: flex; align-items: center; gap: 8px;
-      padding: 11px 16px; border-bottom: 1px solid var(--line); background: var(--bg-raised);
-    }
-    .terminal-bar .dots { display: flex; gap: 6px; }
-    .terminal-bar .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); display: block; }
-    .terminal-bar .title { font-size: .8rem; color: var(--text-faint); margin-left: 6px; font-family: 'JetBrains Mono', monospace; }
-    pre.term {
-      margin: 0; padding: 20px 22px; overflow-x: auto;
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      font-size: .855rem; line-height: 1.85; color: #D6DAE1; tab-size: 2;
-    }
-    pre.term .p { color: var(--accent); user-select: none; }
-    pre.term .c { color: var(--text-faint); }
-    pre.term .s { color: var(--green); }
-    pre.term .y { color: var(--amber); }
-    pre.term .o { color: #98A2B3; }
-    @media (max-width: 620px) { pre.term { font-size: .78rem; padding: 16px 16px; } }
-
-    /* ---------- sections ---------- */
-    section { padding: 84px 0; border-top: 1px solid var(--line); }
-    .sec-label {
-      font-size: .78rem; text-transform: uppercase; letter-spacing: .1em;
-      color: var(--accent); font-weight: 600; margin: 0 0 14px;
-    }
-    h2 { font-size: clamp(1.6rem, 3.2vw, 2.1rem); line-height: 1.2; letter-spacing: -.022em; font-weight: 700; margin: 0 0 16px; max-width: 22ch; }
-    .sec-lede { color: var(--text-dim); max-width: 60ch; margin: 0 0 44px; font-size: 1.02rem; }
-
-    /* ---------- flow diagram ---------- */
-    .flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 0; align-items: stretch; }
-    .flow-col {
-      border: 1px solid var(--line); border-radius: var(--radius);
-      background: var(--bg-raised); padding: 22px;
-    }
-    .flow-col.mid { border-color: var(--accent); background: linear-gradient(180deg, var(--accent-dim), transparent); }
-    .flow-col h3 { margin: 0 0 4px; font-size: .95rem; font-weight: 600; }
-    .flow-col p.hint { margin: 0 0 16px; font-size: .82rem; color: var(--text-faint); }
-    .flow-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-    .flow-col li {
-      font-family: 'JetBrains Mono', monospace; font-size: .8rem; color: var(--text-dim);
-      border: 1px solid var(--line); border-radius: 7px; padding: 7px 11px; background: var(--bg-inset);
-    }
-    .flow-col.mid li { border-color: var(--line-strong); color: var(--text); background: rgba(10,11,13,.55); }
-    .flow-arrow { display: grid; place-items: center; padding: 0 14px; color: var(--text-faint); }
-    .flow-arrow svg { display: block; }
-    @media (max-width: 860px) {
-      .flow { grid-template-columns: 1fr; gap: 12px; }
-      .flow-arrow { padding: 2px 0; transform: rotate(90deg); }
-    }
-
-    /* ---------- feature grid ---------- */
-    /* Four cards: auto-fit gives 3+1 at desktop width, which reads as a mistake.
-       Explicit 2x2, collapsing to one column on narrow screens. */
-    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
-    .card-wide { grid-column: 1 / -1; }
-
-
-    /* ---------- hero layout + live demo ---------- */
-    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(32px, 4vw, 64px); align-items: center; }
+    .hero { position: relative; padding: clamp(48px, 7vw, 96px) 0 56px; overflow: hidden;
+      background: radial-gradient(900px 480px at 85% 10%, rgba(79,70,229,.09), transparent 70%), linear-gradient(180deg, var(--bg-soft), var(--bg) 70%); }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
     @media (max-width: 1000px) { .hero-grid { grid-template-columns: 1fr; } }
-    .demo { border: 1px solid var(--line-strong); border-radius: 16px; background: linear-gradient(180deg, var(--bg-raised), var(--bg-inset));
-      box-shadow: 0 30px 80px -40px rgba(129,140,248,.45); padding: 18px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-    .demo-head { display: flex; align-items: center; justify-content: space-between; font-size: .76rem; color: var(--text-faint);
-      text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; border: 1px solid var(--line-strong); background: var(--bg);
+      border-radius: 999px; padding: 5px 14px 5px 10px; font-size: .84rem; color: var(--text-dim); margin-bottom: 24px; }
+    .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex: none; }
+    .eyebrow strong { color: var(--text); font-weight: 600; }
+    h1, h2, .serif { font-family: var(--serif); font-weight: 700; letter-spacing: -.015em; }
+    h1 { font-size: clamp(2.5rem, 5.4vw, 4.1rem); line-height: 1.04; margin: 0 0 22px; max-width: 16ch; }
+    h1 em { font-style: normal; color: var(--accent); }
+    .lede { font-size: clamp(1.04rem, 1.6vw, 1.2rem); color: var(--text-dim); max-width: 58ch; margin: 0 0 32px; }
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .cta-note { color: var(--text-faint); font-size: .9rem; margin: 18px 0 0; }
+
+    /* ---------- live request card ---------- */
+    .demo { margin: 0; border: 1px solid var(--line); border-radius: 18px; background: var(--bg); box-shadow: 0 30px 70px -30px rgba(79,70,229,.35), var(--shadow);
+      padding: 20px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+    .demo-head { display: flex; align-items: center; justify-content: space-between; font-size: .74rem; color: var(--text-faint);
+      text-transform: uppercase; letter-spacing: .08em; font-weight: 700; }
     .live { display: inline-flex; align-items: center; gap: 7px; color: var(--green); }
     .live i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); display: block; }
-    .bubble { border: 1px solid var(--line); border-radius: 12px; padding: 11px 14px; background: var(--bg-inset); font-size: .93rem; line-height: 1.45; }
-    .bubble small { display: block; font-size: .72rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: .07em; font-weight: 600; margin-bottom: 4px; }
-    .bubble.answer { border-color: rgba(126,231,135,.3); }
+    .bubble { border: 1px solid var(--line); border-radius: 12px; padding: 11px 14px; background: var(--bg-soft); font-size: .95rem; line-height: 1.45; }
+    .bubble small { display: block; font-size: .7rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: .07em; font-weight: 700; margin-bottom: 3px; }
+    .bubble.answer { border-color: rgba(21,128,61,.3); background: rgba(21,128,61,.05); }
     .chips { display: flex; flex-wrap: wrap; gap: 7px; }
     .chip { font-size: .78rem; font-weight: 600; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--accent); color: var(--accent-hi); background: var(--accent-dim); white-space: nowrap; }
-    .tokens { display: grid; gap: 7px; font-size: .8rem; color: var(--text-dim); }
+    .tokens { display: grid; gap: 7px; font-size: .82rem; color: var(--text-dim); }
     .tok { display: grid; grid-template-columns: 112px 1fr 62px; gap: 10px; align-items: center; }
-    .tok b { font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; color: var(--text); }
-    .bar { height: 9px; border-radius: 99px; background: var(--line); overflow: hidden; }
+    .tok b { font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; color: var(--text); }
+    .bar { height: 9px; border-radius: 99px; background: var(--bg-inset); overflow: hidden; }
     .bar i { display: block; height: 100%; border-radius: 99px; background: var(--line-strong); width: 100%; }
-    .bar.lean i { background: linear-gradient(90deg, var(--accent), var(--accent-hi)); width: 66%; }
-    .auditline { font-family: 'JetBrains Mono', monospace; font-size: .74rem; color: var(--text-dim); background: var(--bg-inset);
+    .bar.lean i { background: linear-gradient(90deg, var(--accent), #7C3AED); width: 66%; }
+    .auditline { font-family: var(--mono); font-size: .74rem; color: var(--text-dim); background: var(--bg-soft);
       border: 1px dashed var(--line-strong); border-radius: 9px; padding: 9px 11px; overflow-wrap: anywhere; }
     .auditline .k { color: var(--amber); } .auditline .v { color: var(--green); }
-    .demo-note { font-size: .74rem; color: var(--text-faint); margin: 0; }
-    @media (max-width: 420px) { .tok { grid-template-columns: 90px 1fr 54px; } }
+    .demo-note { font-size: .76rem; color: var(--text-faint); margin: 0; }
+    @media (max-width: 420px) { .tok { grid-template-columns: 92px 1fr 54px; } }
     @media (prefers-reduced-motion: no-preference) {
       .live i { animation: pulse 1.6s ease-in-out infinite; }
       .d1 { animation: d1 11s ease infinite; } .d2 { animation: d2 11s ease infinite; }
@@ -274,26 +186,81 @@
     @keyframes c4 { 0%, 32% { border-color: var(--line-strong); color: var(--text-faint); background: transparent; opacity: 1; } 35%, 92% { border-color: var(--accent); color: var(--accent-hi); background: var(--accent-dim); opacity: 1; } 100% { opacity: 0; } }
     @keyframes shrink { 0%, 38% { width: 100%; opacity: 1; } 48%, 92% { width: 66%; opacity: 1; } 100% { width: 66%; opacity: 0; } }
 
-    /* ---------- how it works: pipeline ---------- */
+    /* ---------- stats ---------- */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); margin-top: clamp(40px, 6vw, 72px); }
+    .stat { padding: 26px 24px 4px 0; }
+    .stat + .stat { padding-left: 24px; border-left: 1px solid var(--line); }
+    .stat b { display: block; font-family: var(--serif); font-size: clamp(1.9rem, 3vw, 2.5rem); font-weight: 700; line-height: 1.05; color: var(--text); letter-spacing: -.02em; }
+    .stat span { display: block; margin-top: 8px; color: var(--text-dim); font-size: .9rem; line-height: 1.5; }
+    .stats-note { margin: 18px 0 0; color: var(--text-faint); font-size: .84rem; }
+    @media (max-width: 860px) {
+      .stats { grid-template-columns: 1fr 1fr; }
+      .stat:nth-child(3) { padding-left: 0; border-left: 0; }
+      .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
+    }
+    @media (max-width: 420px) { .stats { grid-template-columns: 1fr; } .stat, .stat + .stat { padding-left: 0; border-left: 0; } .stat + .stat { border-top: 1px solid var(--line); } }
+
+    /* ---------- sections ---------- */
+    section { padding: clamp(64px, 8vw, 104px) 0; }
+    section.soft { background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .sec-label { font-size: .78rem; text-transform: uppercase; letter-spacing: .12em; color: var(--accent); font-weight: 700; margin: 0 0 14px; }
+    h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); line-height: 1.1; margin: 0 0 16px; max-width: 22ch; }
+    .sec-lede { color: var(--text-dim); max-width: 62ch; margin: 0 0 44px; font-size: 1.06rem; }
+    .center { text-align: center; } .center h2, .center .sec-lede { margin-left: auto; margin-right: auto; }
+
+    /* ---------- lifecycle strip ---------- */
+    .stages-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 0 0 18px; }
+    .stage-tab { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; text-align: left; background: var(--bg); border: 1px solid var(--line);
+      border-radius: 12px; padding: 14px 16px; cursor: pointer; font: inherit; color: var(--text-dim); position: relative; overflow: hidden; }
+    .stage-tab .n { font-size: .74rem; font-weight: 700; color: var(--text-faint); letter-spacing: .06em; }
+    .stage-tab b { font-size: 1.02rem; color: var(--text); font-weight: 600; }
+    .stage-tab:hover { border-color: var(--line-strong); }
+    .stage-tab[aria-selected="true"] { border-color: var(--accent); background: var(--accent-dim); }
+    .stage-tab[aria-selected="true"] .n { color: var(--accent); }
+    .stage-tab .prog { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; background: var(--accent); }
+    .stage-tab[aria-selected="true"] .prog.run { animation: prog 6s linear forwards; }
+    @keyframes prog { to { width: 100%; } }
+    .stage-panel { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); box-shadow: var(--shadow);
+      padding: clamp(22px, 3vw, 36px); display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: start; }
+    .stage-panel[hidden] { display: none; }
+    .stage-panel h3 { font-family: var(--serif); font-size: 1.6rem; margin: 0 0 10px; letter-spacing: -.01em; }
+    .stage-panel p { color: var(--text-dim); margin: 0 0 16px; }
+    .stage-panel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    .stage-panel li { display: flex; gap: 10px; font-size: .95rem; color: var(--text); background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+    .stage-panel li::before { content: "✓"; color: var(--green); font-weight: 700; }
+    @media (max-width: 860px) {
+      .stages-tabs { grid-template-columns: repeat(5, minmax(120px, 1fr)); overflow-x: auto; scrollbar-width: thin; padding-bottom: 4px; }
+      .stage-panel { grid-template-columns: 1fr; }
+    }
+
+    /* ---------- numbered value cards ---------- */
+    .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .value { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); padding: 30px 28px; box-shadow: var(--shadow); }
+    .value .num { font-family: var(--serif); font-size: 2.6rem; font-weight: 700; color: var(--accent); line-height: 1; }
+    .value h3 { font-family: var(--serif); font-size: 1.45rem; line-height: 1.2; margin: 18px 0 12px; letter-spacing: -.01em; }
+    .value p { color: var(--text-dim); margin: 0; font-size: .97rem; }
+    @media (max-width: 900px) { .values { grid-template-columns: 1fr; } }
+
+    /* ---------- pipeline ---------- */
     .pipeline { display: grid; grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1.5fr) 56px minmax(0, 1fr); align-items: stretch; }
-    .pipe-col { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-raised); padding: 22px; }
-    .pipe-col h3 { margin: 0 0 4px; font-size: .95rem; font-weight: 600; }
-    .pipe-col .hint { margin: 0 0 14px; font-size: .82rem; color: var(--text-faint); }
-    .pipe-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-    .pipe-col li { font-size: .86rem; color: var(--text-dim); border: 1px solid var(--line); border-radius: 8px; padding: 8px 11px; background: var(--bg-inset); }
-    .pipe-col.mid { border-color: var(--accent); background: linear-gradient(180deg, var(--accent-dim), transparent 70%); position: relative; }
+    .pipe-col { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); padding: 22px; }
+    .pipe-col h3 { margin: 0 0 4px; font-size: 1rem; font-weight: 700; }
+    .pipe-col .hint { margin: 0 0 14px; font-size: .85rem; color: var(--text-faint); }
+    .pipe-col ul, .pipe-col ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .pipe-col li { font-size: .9rem; color: var(--text-dim); border: 1px solid var(--line); border-radius: 9px; padding: 9px 12px; background: var(--bg-soft); }
+    .pipe-col.mid { border-color: var(--accent); box-shadow: 0 20px 50px -30px rgba(79,70,229,.45); }
     .stages { counter-reset: st; }
-    .stages li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start; color: var(--text); position: relative; }
+    .stages li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; align-items: start; color: var(--text); background: var(--bg); }
     .stages li::before { counter-increment: st; content: counter(st); width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
-      font-size: .72rem; font-weight: 700; background: var(--accent-dim); color: var(--accent-hi); border: 1px solid var(--accent); }
-    .stages li span { display: block; color: var(--text-dim); font-size: .8rem; margin-top: 2px; }
-    .stages li.hl { border-color: var(--accent); }
+      font-size: .72rem; font-weight: 700; background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent); }
+    .stages li span { display: block; color: var(--text-dim); font-size: .82rem; margin-top: 2px; }
+    .stages li.hl { border-color: var(--accent); background: var(--accent-dim); }
     .stages li.hl b::after { content: "new"; margin-left: 8px; font-size: .64rem; text-transform: uppercase; letter-spacing: .07em; color: var(--green);
-      border: 1px solid rgba(126,231,135,.35); border-radius: 99px; padding: 1px 6px; vertical-align: 2px; }
+      border: 1px solid rgba(21,128,61,.35); border-radius: 99px; padding: 1px 6px; vertical-align: 2px; }
     .wire { position: relative; display: grid; place-items: center; }
     .wire::before { content: ""; position: absolute; left: 6px; right: 6px; top: 50%; height: 2px; background: var(--line-strong); }
-    .wire i { position: absolute; top: calc(50% - 4px); left: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent-hi); box-shadow: 0 0 12px var(--accent); }
-    .wire i:nth-child(2) { background: var(--green); box-shadow: 0 0 12px var(--green); }
+    .wire i { position: absolute; top: calc(50% - 4px); left: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px rgba(79,70,229,.6); }
+    .wire i:nth-child(2) { background: var(--green); box-shadow: 0 0 10px rgba(21,128,61,.5); }
     @media (prefers-reduced-motion: no-preference) {
       .wire i:nth-child(1) { animation: req 2.6s linear infinite; }
       .wire i:nth-child(2) { animation: res 2.6s linear infinite 1.3s; opacity: 0; }
@@ -310,152 +277,221 @@
     }
 
     /* ---------- comparison ---------- */
-    .compare { margin-top: 56px; }
-    .compare h3 { font-size: 1.15rem; margin: 0 0 6px; }
-    .compare > p { color: var(--text-dim); margin: 0 0 20px; font-size: .95rem; max-width: 62ch; }
-    .ctable { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .compare { margin-top: 64px; }
+    .compare h3 { font-family: var(--serif); font-size: 1.6rem; margin: 0 0 6px; }
+    .compare > p { color: var(--text-dim); margin: 0 0 22px; max-width: 62ch; }
+    .ctable { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--bg); }
     .crow { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); border-top: 1px solid var(--line); }
     .crow:first-child { border-top: 0; }
-    .crow > div { padding: 13px 16px; font-size: .9rem; color: var(--text-dim); background: var(--bg-raised); }
-    .crow > div:nth-child(2) { background: linear-gradient(180deg, var(--accent-dim), var(--accent-dim)), var(--bg-raised); color: var(--text); font-weight: 600; }
-    .crow.head > div { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; color: var(--text-faint); background: var(--bg-inset); }
-    .crow.head > div:nth-child(2) { color: var(--accent-hi); }
+    .crow > div { padding: 14px 16px; font-size: .92rem; color: var(--text-dim); }
+    .crow > div:nth-child(2) { background: var(--accent-dim); color: var(--text); font-weight: 600; }
+    .crow.head > div { font-size: .76rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; color: var(--text-faint); background: var(--bg-soft); }
+    .crow.head > div:nth-child(2) { color: var(--accent); background: var(--accent-dim); }
     .crow > div:first-child { color: var(--text); font-weight: 500; }
     .yes { color: var(--green) !important; } .no { color: var(--text-faint) !important; }
-    .compare .fine { font-size: .8rem; color: var(--text-faint); margin: 12px 0 0; }
+    .fine { font-size: .84rem; color: var(--text-faint); margin: 12px 0 0; }
     @media (max-width: 760px) {
       .crow.head { display: none; }
       .crow { grid-template-columns: 1fr 1fr; }
-      .crow > div:first-child { grid-column: 1 / -1; background: var(--bg-inset); }
-      .crow > div:not(:first-child)::before { content: attr(data-l); display: block; font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; color: var(--text-faint); font-weight: 600; margin-bottom: 2px; }
+      .crow > div:first-child { grid-column: 1 / -1; background: var(--bg-soft); }
+      .crow > div:not(:first-child)::before { content: attr(data-l); display: block; font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; color: var(--text-faint); font-weight: 700; margin-bottom: 2px; }
     }
-    /* ---------- hero stats ---------- */
-    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line);
-      border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin: 40px 0 0; }
-    .stat { background: var(--bg-raised); padding: 20px 20px 18px; }
-    .stat b { display: block; font-size: 1.25rem; font-weight: 700; letter-spacing: -.02em; color: var(--text); line-height: 1.1; }
-    .stat span { display: block; margin-top: 6px; color: var(--text-dim); font-size: .86rem; line-height: 1.45; }
-    .stats-note { margin: 10px 0 0; color: var(--text-faint); font-size: .8rem; }
-    @media (max-width: 760px) { .stats { grid-template-columns: repeat(2, 1fr); } }
 
     /* ---------- build vs buy ---------- */
-    .build { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 40px; margin: 0; padding: 0; list-style: none; }
-    .build li { border-top: 1px solid var(--line); padding: 18px 0; }
-    .build h3 { margin: 0 0 6px; font-size: .98rem; font-weight: 600; }
-    .build p { margin: 0; color: var(--text-dim); font-size: .92rem; line-height: 1.6; }
-    @media (max-width: 760px) { .build { grid-template-columns: 1fr; } }
-    .build-close { margin: 30px 0 0; color: var(--text); font-size: 1.02rem; max-width: 62ch; }
+    .build { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 0; padding: 0; list-style: none; }
+    .build li { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); padding: 24px; }
+    .build h3 { margin: 0 0 8px; font-size: 1.05rem; font-weight: 700; }
+    .build p { margin: 0; color: var(--text-dim); font-size: .94rem; line-height: 1.6; }
+    @media (max-width: 960px) { .build { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 620px) { .build { grid-template-columns: 1fr; } }
+    .build-close { margin: 32px 0 0; font-family: var(--serif); font-size: 1.35rem; font-weight: 600; color: var(--text); max-width: 46ch; line-height: 1.35; }
 
     /* ---------- requirements ---------- */
-    .reqs { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-    .req { display: grid; grid-template-columns: 1.1fr 130px 2fr; gap: 18px; align-items: start;
-      padding: 15px 22px; border-top: 1px solid var(--line); background: var(--bg-raised); }
+    .reqs { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--bg); }
+    .req { display: grid; grid-template-columns: 1.1fr 120px 2fr; gap: 18px; align-items: start; padding: 15px 22px; border-top: 1px solid var(--line); }
     .req:first-child { border-top: 0; }
-    .req h3 { margin: 0; font-size: .95rem; font-weight: 600; }
-    .req p { margin: 0; color: var(--text-dim); font-size: .9rem; line-height: 1.55; }
-    .pill { justify-self: start; font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
-      padding: 3px 9px; border-radius: 999px; border: 1px solid; white-space: nowrap; }
-    .pill.ok { color: var(--green); border-color: rgba(126,231,135,.35); background: rgba(126,231,135,.07); }
-    .pill.road { color: var(--amber); border-color: rgba(227,179,65,.35); background: rgba(227,179,65,.07); }
+    .req h3 { margin: 0; font-size: .97rem; font-weight: 600; }
+    .req p { margin: 0; color: var(--text-dim); font-size: .93rem; line-height: 1.55; }
+    .pill { justify-self: start; font-size: .72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; border: 1px solid; white-space: nowrap; }
+    .pill.ok { color: var(--green); border-color: rgba(21,128,61,.35); background: rgba(21,128,61,.06); }
+    .pill.road { color: var(--amber); border-color: rgba(180,83,9,.35); background: rgba(180,83,9,.06); }
     @media (max-width: 720px) { .req { grid-template-columns: 1fr; gap: 6px; } }
-    .card {
-      border: 1px solid var(--line); border-radius: var(--radius);
-      background: var(--bg-raised); padding: 26px 24px;
-      transition: border-color .15s ease;
-    }
-    .card:hover { border-color: var(--line-strong); }
-    .card .ico {
-      width: 34px; height: 34px; border-radius: 9px; background: var(--accent-dim);
-      display: grid; place-items: center; margin-bottom: 16px; color: var(--accent);
-    }
-    .card h3 { margin: 0 0 8px; font-size: 1.02rem; font-weight: 600; letter-spacing: -.01em; }
-    .card p { margin: 0; color: var(--text-dim); font-size: .93rem; line-height: 1.65; }
 
-    /* ---------- audit spotlight ---------- */
-    .spotlight { display: grid; grid-template-columns: 1fr 1.15fr; gap: 52px; align-items: center; }
-    @media (max-width: 860px) { .spotlight { grid-template-columns: 1fr; gap: 32px; } }
-    .checklist { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-direction: column; gap: 13px; }
-    .checklist li { display: flex; gap: 11px; color: var(--text-dim); font-size: .95rem; }
-    .checklist svg { flex: none; margin-top: 4px; color: var(--green); }
+    /* ---------- audit ---------- */
+    .spotlight { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
+    @media (max-width: 900px) { .spotlight { grid-template-columns: 1fr; gap: 32px; } }
+    .checklist { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 13px; }
+    .checklist li { display: flex; gap: 11px; color: var(--text-dim); }
+    .checklist li::before { content: "✓"; color: var(--green); font-weight: 700; flex: none; }
+    .codecard { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); box-shadow: var(--shadow); overflow: hidden; min-width: 0; }
+    .codecard-bar { display: flex; align-items: center; gap: 8px; padding: 11px 16px; border-bottom: 1px solid var(--line); background: var(--bg-soft);
+      font-family: var(--mono); font-size: .78rem; color: var(--text-faint); }
+    .codecard-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); display: block; }
+    .codecard pre { margin: 0; padding: 18px 20px; font-family: var(--mono); font-size: .82rem; line-height: 1.7; color: var(--text-dim); overflow-x: auto; }
+    .codecard .k { color: var(--accent-hi); } .codecard .s { color: var(--green); } .codecard .r { color: #B91C1C; }
+
+    /* ---------- proof strip ---------- */
+    .proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); }
+    .proof > div { padding: 26px 28px; }
+    .proof > div + div { border-left: 1px solid var(--line); }
+    .proof b { display: block; font-family: var(--serif); font-size: 1.3rem; margin-bottom: 6px; }
+    .proof p { margin: 0; color: var(--text-dim); font-size: .94rem; }
+    .names { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .names span { font-size: .8rem; font-weight: 600; color: var(--text-dim); border: 1px solid var(--line); border-radius: 99px; padding: 3px 10px; background: var(--bg-soft); }
+    @media (max-width: 860px) { .proof { grid-template-columns: 1fr; } .proof > div + div { border-left: 0; border-top: 1px solid var(--line); } }
 
     /* ---------- editions ---------- */
-    .editions { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    @media (max-width: 780px) { .editions { grid-template-columns: 1fr; } }
-    .edition {
-      border: 1px solid var(--line); border-radius: var(--radius);
-      background: var(--bg-raised); padding: 30px 28px; display: flex; flex-direction: column;
-    }
-    .edition.paid { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent-dim), 0 20px 50px -34px var(--accent); }
+    .editions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    @media (max-width: 780px) { .editions { grid-template-columns: minmax(0, 1fr); } }
+    .edition { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); padding: clamp(22px, 5vw, 30px) clamp(18px, 5vw, 28px); display: flex; flex-direction: column; }
+    .edition.paid { border-color: var(--accent); box-shadow: 0 24px 60px -34px rgba(79,70,229,.5); }
     .edition-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
-    .edition h3 { margin: 0; font-size: 1.22rem; font-weight: 700; letter-spacing: -.015em; }
-    .tag {
-      font-size: .72rem; text-transform: uppercase; letter-spacing: .07em; font-weight: 600;
-      border: 1px solid var(--line-strong); border-radius: 999px; padding: 3px 10px; color: var(--text-dim);
-    }
-    .edition.paid .tag { border-color: var(--accent); color: var(--accent); }
-    .edition .meta { color: var(--text-faint); font-size: .88rem; margin: 0 0 22px; }
-    .edition ul { list-style: none; margin: 0 0 28px; padding: 0; display: flex; flex-direction: column; gap: 11px; }
-    .edition li { display: flex; gap: 10px; font-size: .93rem; color: var(--text-dim); }
-    .edition li svg { flex: none; margin-top: 4px; color: var(--accent); }
-    .edition .btn { margin-top: auto; justify-content: center; }
+    .edition h3 { margin: 0; font-family: var(--serif); font-size: 1.6rem; }
+    .tag { font-size: .72rem; text-transform: uppercase; letter-spacing: .07em; font-weight: 700; color: var(--text-dim); border: 1px solid var(--line-strong); border-radius: 99px; padding: 3px 10px; }
+    .edition.paid .tag { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
+    .edition .meta { color: var(--text-faint); font-size: .9rem; margin: 0 0 18px; }
+    .edition ul { list-style: none; margin: 0 0 26px; padding: 0; display: grid; gap: 10px; flex: 1; }
+    .edition li { display: flex; gap: 10px; font-size: .95rem; color: var(--text-dim); overflow-wrap: anywhere; }
+    .edition li::before { content: "✓"; color: var(--green); font-weight: 700; flex: none; }
+    .edition .btn { align-self: flex-start; }
 
-    /* ---------- closing cta ---------- */
-    .closer { text-align: center; }
-    .closer h2 { margin: 0 auto 16px; max-width: 20ch; }
-    .closer .sec-lede { margin: 0 auto 30px; }
-    .closer .cta-row { justify-content: center; }
+    /* ---------- closer ---------- */
+    .closer { background: var(--text); color: #E2E8F0; }
+    .closer h2 { color: #fff; }
+    .closer .sec-lede { color: #CBD5E1; }
+    .closer .btn-ghost { background: transparent; color: #fff; border-color: #475569; }
+    .closer .btn-ghost:hover { border-color: #CBD5E1; }
 
     /* ---------- footer ---------- */
-    footer { border-top: 1px solid var(--line); padding: 42px 0 56px; color: var(--text-faint); font-size: .9rem; }
-    .foot-row { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: center; }
-    footer a { color: var(--text-dim); display: inline-block; padding: 5px 0; }
-    footer a:hover { color: var(--text); }
-    .foot-legal { margin: 22px 0 0; font-size: .84rem; color: var(--text-faint); }
+    footer { padding: 56px 0 36px; border-top: 1px solid var(--line); background: var(--bg); }
+    .foot { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 32px; }
+    .foot h4 { margin: 0 0 12px; font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: var(--text-faint); }
+    .foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .foot a { color: var(--text-dim); font-size: .93rem; }
+    .foot a:hover { color: var(--accent); }
+    .foot .about { color: var(--text-dim); font-size: .93rem; max-width: 34ch; margin: 12px 0 0; }
+    .copy { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--text-faint); font-size: .85rem; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+    @media (max-width: 860px) { .foot { grid-template-columns: 1fr 1fr; } .foot > div:first-child { grid-column: 1 / -1; } }
+
+    /* ---------- tour dialog ---------- */
+    dialog.tour { width: min(760px, calc(100vw - 32px)); max-height: calc(100vh - 32px); border: 0; border-radius: 20px; padding: 0; color: var(--text);
+      box-shadow: 0 40px 100px -20px rgba(15,23,42,.5); }
+    dialog.tour::backdrop { background: rgba(15,23,42,.55); backdrop-filter: blur(3px); }
+    .tour-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+    .tour-head b { font-family: var(--serif); font-size: 1.15rem; }
+    .tour-head button { background: none; border: 0; font-size: 1.4rem; color: var(--text-faint); cursor: pointer; padding: 2px 8px; line-height: 1; }
+    .tour-prog { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; padding: 14px 20px 0; }
+    .tour-prog i { height: 4px; border-radius: 99px; background: var(--bg-inset); overflow: hidden; display: block; }
+    .tour-prog i b { display: block; height: 100%; width: 0; background: var(--accent); }
+    .tour-prog i.done b { width: 100%; }
+    .tour-prog i.now b { animation: prog 5s linear forwards; }
+    .tour-body { padding: 22px 24px 8px; min-height: 300px; }
+    .slide[hidden] { display: none; }
+    .slide .step { font-size: .76rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+    .slide h3 { font-family: var(--serif); font-size: 1.7rem; margin: 6px 0 10px; line-height: 1.2; }
+    .slide p { color: var(--text-dim); margin: 0 0 16px; }
+    .slide pre { margin: 0; background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; font-family: var(--mono); font-size: .8rem; color: var(--text-dim); overflow-x: auto; line-height: 1.6; }
+    @media (prefers-reduced-motion: no-preference) { .slide:not([hidden]) { animation: slidein .35s ease; } }
+    @keyframes slidein { from { opacity: 0; transform: translateX(12px); } }
+    .tour-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 20px 18px; }
+    .tour-foot .btn { padding: 9px 16px; font-size: .9rem; }
   </style>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <nav class="top">
+  <div class="announce" id="announce">
+    <div class="wrap">
+      <span class="new">New</span>
+      <span><span class="long">Lean Mode: about a third fewer tokens per answer, same results. </span><a href="https://docs.tdb.jiracorp.co.in/api/mcp/#saving-tokens-lean-mode">See how it works →</a></span>
+      <button type="button" aria-label="Dismiss announcement" id="announce-close">×</button>
+    </div>
+  </div>
+
+  <nav class="top" aria-label="Main">
     <div class="wrap">
       <a class="brand" href="/">
-        <span class="mark" aria-hidden="true">
-          <svg width="15" height="15" viewBox="0 0 32 32" fill="none"><path d="M8 11h16M8 16h16M8 21h10" stroke="#0A0B0D" stroke-width="3" stroke-linecap="round"/></svg>
-        </span>
+        <span class="mark" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 32 32" fill="none"><path d="M8 11h16M8 16h16M8 21h10" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg></span>
         <span>The Data-Bridge</span>
       </a>
-      <div class="navlinks">
-        <a class="hide-sm" href="#how">How it works</a>
-        <a class="hide-sm" href="#requirements">Requirements</a>
-        <a class="hide-sm" href="#audit">Audit</a>
-        <a class="hide-sm" href="#editions">Editions</a>
-        <a class="hide-sm" href="https://docs.tdb.jiracorp.co.in/">Docs</a>
-        <a class="btn btn-ghost btn-sm" href="https://github.com/tdb-project/tdb-community">GitHub</a>
-        <details class="navmenu">
-          <summary aria-label="Menu">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          </summary>
-          <div class="navmenu-panel">
-            <a href="#how">How it works</a>
-            <a href="#audit">Audit</a>
-            <a href="#editions">Editions</a>
-            <a href="https://docs.tdb.jiracorp.co.in/">Docs</a>
+
+      <ul class="menu">
+        <li>
+          <button class="menu-btn" type="button" aria-expanded="false" aria-controls="m-product">Product <svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></button>
+          <div class="mega" id="m-product">
+            <a href="#how"><b>How it works</b><span>Six steps between every agent and your data</span></a>
+            <a href="#lifecycle"><b>The lifecycle</b><span>Register, govern, query, lean, audit</span></a>
+            <a href="https://docs.tdb.jiracorp.co.in/api/mcp/#saving-tokens-lean-mode"><b>Lean Mode</b><span>Results sized for an agent's context window</span></a>
+            <a href="#audit"><b>Audit log</b><span>Hash-chained evidence you own</span></a>
+            <a href="https://docs.tdb.jiracorp.co.in/integrations/postgres-wire/"><b>Postgres wire gateway</b><span>Metabase, DBeaver and psql, governed</span></a>
+            <a href="#editions"><b>Editions</b><span>Free community, commercial enterprise</span></a>
           </div>
-        </details>
+        </li>
+        <li>
+          <button class="menu-btn" type="button" aria-expanded="false" aria-controls="m-role">For your role <svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></button>
+          <div class="mega" id="m-role">
+            <a href="#build"><b>CTOs and delivery heads</b><span>Build or buy, and what it saves</span></a>
+            <a href="#requirements"><b>Procurement</b><span>Requirements: what ships, what's on the roadmap</span></a>
+            <a href="https://docs.tdb.jiracorp.co.in/architecture/"><b>Security reviewers</b><span>Architecture and what TDB does not protect</span></a>
+            <a href="https://docs.tdb.jiracorp.co.in/deployment/it-admin-guide/"><b>Platform engineers</b><span>Deploy, configure, operate</span></a>
+            <a href="https://docs.tdb.jiracorp.co.in/getting-started/ide-setup/"><b>AI engineers</b><span>Connect Claude, Cursor and VS Code</span></a>
+          </div>
+        </li>
+        <li>
+          <button class="menu-btn" type="button" aria-expanded="false" aria-controls="m-docs">Docs <svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></button>
+          <div class="mega" id="m-docs">
+            <a href="https://docs.tdb.jiracorp.co.in/getting-started/community/"><b>Quickstart</b><span>One CSV, one Docker command</span></a>
+            <a href="https://docs.tdb.jiracorp.co.in/architecture/"><b>Architecture</b><span>The path of a request, layer by layer</span></a>
+            <a href="https://docs.tdb.jiracorp.co.in/api/mcp/"><b>MCP reference</b><span>Tools, protocol versions, Lean Mode</span></a>
+            <a href="https://docs.tdb.jiracorp.co.in/release-notes/"><b>Release notes</b><span>What changed, and what to do on upgrade</span></a>
+          </div>
+        </li>
+        <li>
+          <button class="menu-btn" type="button" aria-expanded="false" aria-controls="m-sec">Security <svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></button>
+          <div class="mega" id="m-sec">
+            <a href="#requirements"><b>Requirements</b><span>Checklist for your review</span></a>
+            <a href="https://docs.tdb.jiracorp.co.in/security/updates/"><b>Advisories</b><span>Every security update, published</span></a>
+            <a href="https://docs.tdb.jiracorp.co.in/security/audit/"><b>Audit log</b><span>Fields, verification, export</span></a>
+            <a href="https://docs.tdb.jiracorp.co.in/security/rbac/"><b>Access control</b><span>Roles and per-key tool scopes</span></a>
+          </div>
+        </li>
+      </ul>
+
+      <div class="nav-right">
+        <a class="btn btn-ghost btn-sm" href="https://github.com/tdb-project/tdb-community">GitHub</a>
+        <a class="btn btn-primary btn-sm" href="mailto:hello@tdb.jiracorp.co.in?subject=TDB%2030-day%20evaluation">Request evaluation</a>
       </div>
+
+      <details class="mobnav">
+        <summary aria-label="Open menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></summary>
+        <div class="mobpanel">
+          <details><summary>Product</summary>
+            <a href="#how">How it works</a><a href="#lifecycle">The lifecycle</a><a href="https://docs.tdb.jiracorp.co.in/api/mcp/#saving-tokens-lean-mode">Lean Mode</a><a href="#audit">Audit log</a><a href="https://docs.tdb.jiracorp.co.in/integrations/postgres-wire/">Postgres wire gateway</a><a href="#editions">Editions</a>
+          </details>
+          <details><summary>For your role</summary>
+            <a href="#build">CTOs and delivery heads</a><a href="#requirements">Procurement</a><a href="https://docs.tdb.jiracorp.co.in/architecture/">Security reviewers</a><a href="https://docs.tdb.jiracorp.co.in/deployment/it-admin-guide/">Platform engineers</a><a href="https://docs.tdb.jiracorp.co.in/getting-started/ide-setup/">AI engineers</a>
+          </details>
+          <details><summary>Docs</summary>
+            <a href="https://docs.tdb.jiracorp.co.in/getting-started/community/">Quickstart</a><a href="https://docs.tdb.jiracorp.co.in/architecture/">Architecture</a><a href="https://docs.tdb.jiracorp.co.in/api/mcp/">MCP reference</a><a href="https://docs.tdb.jiracorp.co.in/release-notes/">Release notes</a>
+          </details>
+          <details><summary>Security</summary>
+            <a href="#requirements">Requirements</a><a href="https://docs.tdb.jiracorp.co.in/security/updates/">Advisories</a><a href="https://docs.tdb.jiracorp.co.in/security/audit/">Audit log</a><a href="https://docs.tdb.jiracorp.co.in/security/rbac/">Access control</a>
+          </details>
+          <div class="mob-cta">
+            <a class="btn btn-primary" href="mailto:hello@tdb.jiracorp.co.in?subject=TDB%2030-day%20evaluation">Request evaluation</a>
+            <a class="btn btn-ghost" href="https://github.com/tdb-project/tdb-community">GitHub</a>
+          </div>
+        </div>
+      </details>
     </div>
   </nav>
 
   <main id="main">
-
     <header class="hero">
       <div class="wrap hero-grid">
-        <div class="hero-copy">
-          <span class="eyebrow">
-            <span class="dot" aria-hidden="true"></span>
-            <strong>Self-hosted</strong> · open-source core, AGPLv3
-          </span>
-          <h1>Give AI agents governed access to <span class="grad">the data you already have</span>.</h1>
+        <div>
+          <span class="eyebrow"><span class="dot" aria-hidden="true"></span><strong>Self-hosted</strong> · open-source core, AGPLv3</span>
+          <h1>Give AI agents governed access to <em>the data you already have.</em></h1>
           <p class="lede">
             The Data-Bridge sits in front of the databases you already run and makes them
             queryable by AI agents, scripts and BI tools — read-only, audited, and inside your
@@ -465,11 +501,12 @@
           <div class="cta-row">
             <a class="btn btn-primary" href="https://docs.tdb.jiracorp.co.in/getting-started/community/">Get started — free</a>
             <a class="btn btn-ghost" href="mailto:hello@tdb.jiracorp.co.in?subject=TDB%2030-day%20evaluation">Request a 30-day evaluation</a>
+            <button class="btn btn-link" type="button" id="tour-open"><span class="play" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12"><path d="M1 1l9 5-9 5z" fill="currentColor"/></svg></span>Take the 60-second tour</button>
           </div>
           <p class="cta-note">Free edition: one Docker command, no account. Engineers: <a href="https://docs.tdb.jiracorp.co.in/">read the docs</a>.</p>
         </div>
 
-        <figure class="demo" role="img" aria-label="An AI agent asks a question; TDB authenticates it, checks the SQL is read-only, sends a Lean result about a third smaller, and writes a signed audit entry.">
+        <figure class="demo" role="img" aria-label="An AI agent asks a question; TDB checks its key, checks the SQL is read-only, sends a Lean result about a third smaller, and writes a signed audit entry.">
           <div class="demo-head"><span>One request through TDB</span><span class="live"><i></i>live</span></div>
           <div class="bubble d1"><small>Claude Code asks</small>Which region grew fastest last quarter?</div>
           <div class="chips d2" aria-hidden="true">
@@ -487,24 +524,70 @@
 
       <div class="wrap">
         <div class="stats" role="list">
-          <div class="stat" role="listitem"><b>~⅓ fewer tokens</b><span>on large results with Lean Mode — a smaller bill and more room for the agent to think</span></div>
+          <div class="stat" role="listitem"><b>~⅓ fewer</b><span>tokens on large results with Lean Mode — a smaller bill and more room for the agent to think</span></div>
           <div class="stat" role="listitem"><b>Same answers</b><span>Lean Mode on or off, all 21 questions in our accuracy test came back the same</span></div>
-          <div class="stat" role="listitem"><b>Your stack, as is</b><span>PostgreSQL, MySQL, SQL Server, Snowflake, CSV, Parquet — and any MCP client or Postgres BI tool</span></div>
-          <div class="stat" role="listitem"><b>One command to try</b><span>The free edition runs in a single Docker container. No account, no data copied</span></div>
+          <div class="stat" role="listitem"><b>6 sources</b><span>PostgreSQL, MySQL, SQL Server, Snowflake, CSV, Parquet — any MCP client or Postgres BI tool</span></div>
+          <div class="stat" role="listitem"><b>1 command</b><span>The free edition runs in a single Docker container. No account, no data copied</span></div>
         </div>
         <p class="stats-note">Token figures measured with Claude Code and Claude Opus 5.5, October 2026. Lean Mode is opt-in. <a href="https://docs.tdb.jiracorp.co.in/api/mcp/#saving-tokens-lean-mode">How we measured</a></p>
       </div>
     </header>
 
-    <section id="how">
+    <section id="lifecycle" class="soft">
+      <div class="wrap">
+        <p class="sec-label">The lifecycle</p>
+        <h2>From a registered source to an audited answer.</h2>
+        <p class="sec-lede">Five stages, the same for every caller. Pick one to see what happens there.</p>
+
+        <div class="stages-tabs" role="tablist" aria-label="Lifecycle stages">
+          <button class="stage-tab" role="tab" id="t-reg" aria-controls="p-reg" aria-selected="true"><span class="n">01</span><b>Register</b><i class="prog"></i></button>
+          <button class="stage-tab" role="tab" id="t-gov" aria-controls="p-gov" aria-selected="false" tabindex="-1"><span class="n">02</span><b>Govern</b><i class="prog"></i></button>
+          <button class="stage-tab" role="tab" id="t-qry" aria-controls="p-qry" aria-selected="false" tabindex="-1"><span class="n">03</span><b>Query</b><i class="prog"></i></button>
+          <button class="stage-tab" role="tab" id="t-lean" aria-controls="p-lean" aria-selected="false" tabindex="-1"><span class="n">04</span><b>Lean</b><i class="prog"></i></button>
+          <button class="stage-tab" role="tab" id="t-aud" aria-controls="p-aud" aria-selected="false" tabindex="-1"><span class="n">05</span><b>Audit</b><i class="prog"></i></button>
+        </div>
+
+        <div class="stage-panel" role="tabpanel" id="p-reg" aria-labelledby="t-reg" tabindex="0">
+          <div><h3>Register a source once.</h3><p>Point TDB at a database or a file. It keeps the credentials encrypted and gives the source a governed name; nobody downstream ever sees a connection string.</p><a href="https://docs.tdb.jiracorp.co.in/api/sources/">Registering sources →</a></div>
+          <ul><li>PostgreSQL, MySQL, SQL Server, Snowflake, CSV and Parquet</li><li>A whole database or a single table</li><li>Credentials encrypted at rest, no plaintext mode</li></ul>
+        </div>
+        <div class="stage-panel" role="tabpanel" id="p-gov" aria-labelledby="t-gov" tabindex="0" hidden>
+          <div><h3>Decide who may ask what.</h3><p>Each caller gets an identity and a scope. Every statement is checked as read-only before it runs, and the database session enforces it again.</p><a href="https://docs.tdb.jiracorp.co.in/architecture/">Architecture &amp; security model →</a></div>
+          <ul><li>OAuth 2.1 with PKCE, API keys, JWT</li><li>Roles, per-key tool scopes, rate limits</li><li>Read-only checked the way each SQL dialect reads it</li></ul>
+        </div>
+        <div class="stage-panel" role="tabpanel" id="p-qry" aria-labelledby="t-qry" tabindex="0" hidden>
+          <div><h3>Answer on whatever protocol asks.</h3><p>Agents speak MCP, scripts speak REST, BI tools speak Postgres. TDB answers all three from one governed surface, with the same values on each.</p><a href="https://docs.tdb.jiracorp.co.in/api/mcp/">MCP reference →</a></div>
+          <ul><li>MCP 2026-07-28 and earlier revisions, side by side</li><li>REST with an OpenAPI description</li><li>Postgres wire gateway for Metabase, DBeaver, psql</li></ul>
+        </div>
+        <div class="stage-panel" role="tabpanel" id="p-lean" aria-labelledby="t-lean" tabindex="0" hidden>
+          <div><h3>Send the answer, not the overhead.</h3><p>Lean Mode shapes results for an agent's context window. Rows travel as arrays, schemas as types, and long text can be trimmed with a visible marker.</p><a href="https://docs.tdb.jiracorp.co.in/api/mcp/#saving-tokens-lean-mode">Saving tokens →</a></div>
+          <ul><li>A 100-row answer: 10,412 → 6,868 tokens</li><li>A 30-table schema: 5,235 → 3,025 tokens</li><li>Same answers on all 21 test questions</li></ul>
+        </div>
+        <div class="stage-panel" role="tabpanel" id="p-aud" aria-labelledby="t-aud" tabindex="0" hidden>
+          <div><h3>Keep the evidence.</h3><p>Every query and every refusal is written to a log on your infrastructure, naming the caller and the AI client, and chained so an edit is detectable.</p><a href="https://docs.tdb.jiracorp.co.in/security/audit/">Audit log →</a></div>
+          <ul><li>Hash-chained entries with on-demand verification</li><li>Refusals recorded, not just successes</li><li>Incremental export to Splunk or S3</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="why">
+      <div class="wrap">
+        <p class="sec-label">Why teams choose it</p>
+        <h2>Production-safe AI access, without building it yourself.</h2>
+        <p class="sec-lede">Connecting a model to a database is the easy half. The governance around it is the half that keeps projects out of production.</p>
+        <div class="values">
+          <div class="value"><div class="num">01</div><h3>Governed access, not raw credentials.</h3><p>Agents get a key scoped to what they may ask — never your database password. Every statement is checked as read-only before it runs, and the database session enforces it again.</p></div>
+          <div class="value"><div class="num">02</div><h3>Answers, not token overhead.</h3><p>Lean Mode sends results sized for the agent: about a third fewer tokens on large results, with the same answers. Aggregates and filters run in the database, so the agent reads the answer, not the rows behind it.</p></div>
+          <div class="value"><div class="num">03</div><h3>Evidence, not trust.</h3><p>Every query, refusal and AI client is recorded in a hash-chained log you own, ready for the SIEM you already run — even the free edition writes one.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="how" class="soft">
       <div class="wrap">
         <p class="sec-label">How it works</p>
         <h2>One governed, lean surface in front of every database you run.</h2>
-        <p class="sec-lede">
-          Register a source once. Every request — from an agent, a script or a BI tool —
-          passes the same six steps on its way to your data and back, with no per-dataset API
-          to build.
-        </p>
+        <p class="sec-lede">Every request — from an agent, a script or a BI tool — passes the same six steps on its way to your data and back, with no per-dataset API to build.</p>
 
         <div class="pipeline">
           <div class="pipe-col">
@@ -521,7 +604,7 @@
           <div class="pipe-col mid">
             <h3>The Data-Bridge</h3>
             <p class="hint">On your infrastructure</p>
-            <ol class="stages" style="list-style:none;margin:0;padding:0;display:grid;gap:8px">
+            <ol class="stages">
               <li><div><b>Identity</b><span>OAuth 2.1, API keys, roles, per-key tool scopes</span></div></li>
               <li><div><b>Read-only check</b><span>Read the way each of five SQL dialects reads it</span></div></li>
               <li><div><b>Bounded run</b><span>Read-only session, row ceiling, timeout at the source</span></div></li>
@@ -560,56 +643,13 @@
       </div>
     </section>
 
-    <section>
-      <div class="wrap">
-        <p class="sec-label">What you get</p>
-        <h2>Built for the part everyone else leaves to you.</h2>
-        <p class="sec-lede">
-          Connecting a model to a database is the easy half. The governance around it —
-          who asked, what ran, what came back, and how you prove it later — is the half
-          that keeps the project out of production.
-        </p>
-        <div class="grid">
-          <div class="card">
-            <div class="ico" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="6" rx="8" ry="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" stroke="currentColor" stroke-width="1.8"/></svg></div>
-            <h3>Your data, where it already lives</h3>
-            <p>Connect the databases you already run. No migration, no consolidating everything into one warehouse first, and nothing copied to a vendor you have to trust.</p>
-          </div>
-          <div class="card">
-            <div class="ico" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M3 8h18M3 16h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-            <h3>REST, SQL and MCP at once</h3>
-            <p>Point Claude, Cursor or any MCP client straight at it — current with the 2026-07-28 spec, older clients still welcome. In VS Code, the free <a href="https://marketplace.visualstudio.com/items?itemName=tdb-project.tdb-vscode">TDB extension</a> connects it in one command. Call the same source over REST and get the same JSON, value for value: exact decimals, binary data as base64, timestamps in ISO 8601. Or connect Metabase, DBeaver and other Postgres clients unchanged. Read-only is enforced before a statement reaches the engine.</p>
-          </div>
-          <div class="card">
-            <div class="ico" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 3 4 6.5V12c0 5 3.4 8.2 8 9 4.6-.8 8-4 8-9V6.5L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2.2 2.2L15.5 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <h3>An audit log you own</h3>
-            <p>Every query, every result, every AI tool call — recorded on your own infrastructure in a tamper-evident hash chain. Even the free edition writes one.</p>
-          </div>
-          <div class="card">
-            <div class="ico" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="3" y="10" width="18" height="11" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M7.5 10V7a4.5 4.5 0 0 1 9 0v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-            <h3>Inside your perimeter</h3>
-            <p>Runs in one Docker command on infrastructure you control. Your data never leaves it, and OAuth 2.1 with PKCE, RBAC and per-key rate limiting keep access governed.</p>
-          </div>
-          <div class="card card-wide">
-            <div class="ico" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h10M4 17h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
-            <h3>Lean by design</h3>
-            <p>Every token an agent spends reading a result is one it can't spend on your question. <a href="https://docs.tdb.jiracorp.co.in/api/mcp/#saving-tokens-lean-mode">Lean Mode</a> cuts a 100-row answer from 10,412 to 6,868 tokens and a 30-table schema from 5,235 to 3,025, with the same answers on a 21-question check. Aggregates and filters run in the database, so an agent fetches the answer instead of the rows behind it, and a response that hit the row ceiling says so. Set it per call, per API key or server-wide. Nothing set means nothing changes.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section id="build">
       <div class="wrap">
         <p class="sec-label">Build or buy</p>
         <h2>What your team would otherwise build — and keep building.</h2>
-        <p class="sec-lede">
-          Connecting one agent to one database takes an afternoon. Making it safe enough for
-          production data, and keeping it that way as databases, clients and the MCP spec move,
-          is a standing commitment. This is the part TDB takes off your roadmap.
-        </p>
+        <p class="sec-lede">Connecting one agent to one database takes an afternoon. Making it safe enough for production data, and keeping it that way as databases, clients and the MCP spec move, is a standing commitment. This is the part TDB takes off your roadmap.</p>
         <ul class="build">
-          <li><h3>Read-only, in five SQL dialects</h3><p>A check that reads SQL the way each engine does, plus read-only sessions at the source and refusal of over-privileged database roles. We published two security advisories for this layer in 2026; your own version would need the same scrutiny.</p></li>
+          <li><h3>Read-only, in five SQL dialects</h3><p>A check that reads SQL the way each engine does, read-only sessions at the source, and refusal of over-privileged database roles. We published two security advisories for this layer in 2026; your own version would need the same scrutiny.</p></li>
           <li><h3>An audit log a reviewer accepts</h3><p>Hash-chained entries, refusals included, verification on demand, retention without deletion, and incremental export to Splunk or S3.</p></li>
           <li><h3>Keeping up with MCP</h3><p>Four protocol revisions served side by side, so an AI client upgrade doesn't break your integration — and the next revision is our job, not yours.</p></li>
           <li><h3>Identity and access</h3><p>API keys with rotation, JWT, OAuth 2.1 with PKCE for AI clients, roles, per-key tool scopes and rate limits.</p></li>
@@ -620,14 +660,11 @@
       </div>
     </section>
 
-    <section id="requirements">
+    <section id="requirements" class="soft">
       <div class="wrap">
         <p class="sec-label">Requirements</p>
         <h2>Check it against your requirements list.</h2>
-        <p class="sec-lede">
-          What ships today and what is on the roadmap, without dates we can't keep. Unless
-          marked, each item is in the commercial edition.
-        </p>
+        <p class="sec-lede">What ships today and what is on the roadmap, without dates we can't keep. Unless marked, each item is in the commercial edition.</p>
         <div class="reqs">
           <div class="req"><h3>Data stays in your perimeter</h3><span class="pill ok">Ships</span><p>One container on your infrastructure. Your data is never copied, and TDB sends no telemetry. Free edition included.</p></div>
           <div class="req"><h3>Air-gapped install</h3><span class="pill ok">Ships</span><p>The licensed image is delivered as a tar bundle; no registry or internet access needed to run it.</p></div>
@@ -652,61 +689,51 @@
           <div>
             <p class="sec-label">The audit log</p>
             <h2>Not a checkbox. The reason this exists.</h2>
-            <p class="sec-lede" style="margin-bottom:0">
-              When an agent can query production data, "what did it actually do?" stops being
-              a curiosity and becomes an audit question. TDB answers it by default, in a format
-              you can hand to a compliance reviewer.
-            </p>
+            <p class="sec-lede" style="margin-bottom:0">When an agent can query production data, "what did it actually do?" stops being a curiosity and becomes an audit question. TDB answers it by default, in a format you can hand to a compliance reviewer.</p>
             <ul class="checklist">
-              <li>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Hash-chained records — a removed or edited entry breaks the chain and is detectable.</span>
-              </li>
-              <li>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Refusals are logged too, so a blocked write is evidence rather than silence.</span>
-              </li>
-              <li>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Every MCP call names the AI client and protocol version that made it.</span>
-              </li>
-              <li>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Retention by sealing, never deletion — segments stay independently verifiable.</span>
-              </li>
-              <li>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <span>Incremental export to Splunk or S3, so it lands in the SIEM you already run.</span>
-              </li>
+              <li>Hash-chained records — a removed or edited entry breaks the chain and is detectable.</li>
+              <li>Refusals are logged too, so a blocked write is evidence rather than silence.</li>
+              <li>Every MCP call names the AI client and protocol version that made it.</li>
+              <li>Retention by sealing, never deletion — segments stay independently verifiable.</li>
+              <li>Incremental export to Splunk or S3, so it lands in the SIEM you already run.</li>
             </ul>
           </div>
-
-          <div class="terminal">
-            <div class="terminal-bar">
-              <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="title">tdb_audit.jsonl</span>
-            </div>
-<pre class="term"><span class="o">{</span>
-  <span class="y">"event"</span><span class="o">:</span> <span class="s">"query"</span><span class="o">,</span>
-  <span class="y">"source_id"</span><span class="o">:</span> <span class="s">"3f1c…a90b"</span><span class="o">,</span>
-  <span class="y">"sql"</span><span class="o">:</span> <span class="s">"SELECT region, SUM(amount) …"</span><span class="o">,</span>
-  <span class="y">"rows_returned"</span><span class="o">:</span> 112<span class="o">,</span>
-  <span class="y">"key_hint"</span><span class="o">:</span> <span class="s">"tdbk_a…"</span><span class="o">,</span>
-  <span class="y">"mcp_client"</span><span class="o">:</span> <span class="s">"analytics-agent/2.1"</span><span class="o">,</span>
-  <span class="y">"mcp_protocol"</span><span class="o">:</span> <span class="s">"2026-07-28"</span><span class="o">,</span>
-  <span class="y">"seq"</span><span class="o">:</span> 4127<span class="o">,</span>
-  <span class="y">"prev_hash"</span><span class="o">:</span> <span class="s">"9c2f…"</span><span class="o">,</span>
-  <span class="y">"hash"</span><span class="o">:</span> <span class="s">"e70a…"</span>
-<span class="o">}</span>
-<span class="o">{</span>
-  <span class="y">"event"</span><span class="o">:</span> <span class="s">"denied"</span><span class="o">,</span>
-  <span class="y">"action"</span><span class="o">:</span> <span class="s">"mcp_query"</span><span class="o">,</span>
-  <span class="y">"reason"</span><span class="o">:</span> <span class="s">"sql_validation_failed"</span><span class="o">,</span>
-  <span class="y">"sql"</span><span class="o">:</span> <span class="s">"DELETE FROM orders …"</span><span class="o">,</span>
-  <span class="y">"mcp_client"</span><span class="o">:</span> <span class="s">"analytics-agent/2.1"</span><span class="o">,</span>
-  <span class="y">"seq"</span><span class="o">:</span> 4128
-<span class="o">}</span></pre>
+          <div class="codecard">
+            <div class="codecard-bar"><i></i><i></i><i></i><span>tdb_audit.jsonl</span></div>
+<pre>{
+  <span class="k">"event"</span>: <span class="s">"query"</span>,
+  <span class="k">"source_id"</span>: <span class="s">"3f1c…a90b"</span>,
+  <span class="k">"sql"</span>: <span class="s">"SELECT region, SUM(amount) …"</span>,
+  <span class="k">"rows_returned"</span>: 112,
+  <span class="k">"key_hint"</span>: <span class="s">"tdbk_a…"</span>,
+  <span class="k">"mcp_client"</span>: <span class="s">"analytics-agent/2.1"</span>,
+  <span class="k">"mcp_protocol"</span>: <span class="s">"2026-07-28"</span>,
+  <span class="k">"seq"</span>: 4127,
+  <span class="k">"prev_hash"</span>: <span class="s">"9c2f…"</span>,
+  <span class="k">"hash"</span>: <span class="s">"e70a…"</span>
+}
+{
+  <span class="k">"event"</span>: <span class="r">"denied"</span>,
+  <span class="k">"action"</span>: <span class="s">"mcp_query"</span>,
+  <span class="k">"reason"</span>: <span class="r">"sql_validation_failed"</span>,
+  <span class="k">"sql"</span>: <span class="s">"DELETE FROM orders …"</span>,
+  <span class="k">"mcp_client"</span>: <span class="s">"analytics-agent/2.1"</span>,
+  <span class="k">"seq"</span>: 4128
+}</pre>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="proof" class="soft">
+      <div class="wrap">
+        <p class="sec-label">Proof you can check</p>
+        <h2>Don't take our word for it.</h2>
+        <p class="sec-lede">No logos yet, so here is what you can verify yourself today.</p>
+        <div class="proof">
+          <div><b>Open source core</b><p>The community edition is AGPLv3. Read the read-only check, the audit log and Lean Mode line by line. <a href="https://github.com/tdb-project/tdb-community">GitHub →</a></p></div>
+          <div><b>Published advisories</b><p>Eight security updates since September 2026, each saying what was exposed and what to do. <a href="https://docs.tdb.jiracorp.co.in/security/updates/">Advisories →</a></p></div>
+          <div><b>Tested with</b><p>Checked end to end against real clients:</p><div class="names"><span>Claude Code</span><span>Claude Desktop</span><span>VS Code</span><span>Metabase</span><span>DBeaver</span><span>psql</span><span>pgjdbc</span></div></div>
         </div>
       </div>
     </section>
@@ -715,43 +742,32 @@
       <div class="wrap">
         <p class="sec-label">Editions</p>
         <h2>Evaluate it free. Upgrade when a second source shows up.</h2>
-        <p class="sec-lede">
-          The community edition is a complete, honest version of the idea for one CSV source —
-          enough to answer "does this work for us?" without talking to anyone.
-        </p>
-
+        <p class="sec-lede">The community edition is a complete, honest version of the idea for one CSV source — enough to answer "does this work for us?" without talking to anyone.</p>
         <div class="editions">
           <div class="edition">
-            <div class="edition-head">
-              <h3>Community</h3>
-              <span class="tag">Free</span>
-            </div>
+            <div class="edition-head"><h3>Community</h3><span class="tag">Free</span></div>
             <p class="meta">AGPLv3 · self-hosted · one Docker command</p>
             <ul>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>One CSV data source</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>REST + MCP (<code>query_source</code>), MCP spec 2026-07-28</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Read-only SQL, 1,000-row ceiling</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lean Mode: smaller results for agents</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Local audit log (NDJSON)</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Auto schema detection · CLI · OpenAPI</span></li>
+              <li>One CSV data source</li>
+              <li>REST + MCP (<code>query_source</code>), MCP spec 2026-07-28</li>
+              <li>Read-only SQL, 1,000-row ceiling</li>
+              <li>Lean Mode: smaller results for agents</li>
+              <li>Local audit log (NDJSON)</li>
+              <li>Auto schema detection · CLI · OpenAPI</li>
             </ul>
             <a class="btn btn-ghost" href="https://github.com/tdb-project/tdb-community">View on GitHub</a>
           </div>
-
           <div class="edition paid">
-            <div class="edition-head">
-              <h3>Enterprise</h3>
-              <span class="tag">Commercial</span>
-            </div>
+            <div class="edition-head"><h3>Enterprise</h3><span class="tag">Commercial</span></div>
             <p class="meta">Self-hosted · 30-day evaluation available</p>
             <ul>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>PostgreSQL, MySQL, SQL Server, Snowflake, Parquet files</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Unlimited sources · OAuth 2.1 + PKCE · RBAC</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Signed audit log · retention · SIEM export</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Seven MCP tools · named views · rate limiting</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Lean Mode per API key · schema detail levels</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>PostgreSQL wire gateway for BI tools and SQL clients</span></li>
-              <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Prometheus metrics · schema caching · SLA support</span></li>
+              <li>PostgreSQL, MySQL, SQL Server, Snowflake, Parquet files</li>
+              <li>Unlimited sources · OAuth 2.1 + PKCE · RBAC</li>
+              <li>Signed audit log · retention · SIEM export</li>
+              <li>Seven MCP tools · named views · rate limiting</li>
+              <li>Lean Mode per API key · schema detail levels</li>
+              <li>PostgreSQL wire gateway for BI tools and SQL clients</li>
+              <li>Prometheus metrics · schema caching · SLA support</li>
             </ul>
             <a class="btn btn-primary" href="https://docs.tdb.jiracorp.co.in/pricing/">Compare editions</a>
           </div>
@@ -760,49 +776,161 @@
     </section>
 
     <section class="closer">
-      <div class="wrap">
+      <div class="wrap center">
         <h2>Try it against your own CSV in a minute.</h2>
-        <p class="sec-lede">
-          Nothing to sign up for. If it fits, get in touch about the commercial edition
-          and a 30-day evaluation.
-        </p>
-        <div class="cta-row">
+        <p class="sec-lede">Nothing to sign up for. If it fits, get in touch about the commercial edition and a 30-day evaluation.</p>
+        <div class="cta-row" style="justify-content:center">
           <a class="btn btn-primary" href="https://docs.tdb.jiracorp.co.in/getting-started/community/">Start with the quickstart</a>
           <a class="btn btn-ghost" href="mailto:hello@tdb.jiracorp.co.in">Talk to us</a>
         </div>
       </div>
     </section>
-
   </main>
 
   <footer>
     <div class="wrap">
-      <div class="foot-row">
-        <a class="brand" href="/" style="margin-right:auto">
-          <span class="mark" aria-hidden="true">
-            <svg width="15" height="15" viewBox="0 0 32 32" fill="none"><path d="M8 11h16M8 16h16M8 21h10" stroke="#0A0B0D" stroke-width="3" stroke-linecap="round"/></svg>
-          </span>
-          The Data-Bridge
-        </a>
-        <a href="https://docs.tdb.jiracorp.co.in/">Docs</a>
-        <a href="https://github.com/tdb-project/tdb-community">GitHub</a>
-        <a href="https://docs.tdb.jiracorp.co.in/pricing/">Editions</a>
-        <a href="https://docs.tdb.jiracorp.co.in/security/audit/">Audit log</a>
-        <a href="mailto:hello@tdb.jiracorp.co.in">hello@tdb.jiracorp.co.in</a>
+      <div class="foot">
+        <div>
+          <a class="brand" href="/"><span class="mark" aria-hidden="true"><svg width="15" height="15" viewBox="0 0 32 32" fill="none"><path d="M8 11h16M8 16h16M8 21h10" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg></span>The Data-Bridge</a>
+          <p class="about">Governed, audited, lean AI access to the data you already have — on your own infrastructure.</p>
+        </div>
+        <div><h4>Product</h4><ul><li><a href="#how">How it works</a></li><li><a href="#lifecycle">The lifecycle</a></li><li><a href="https://docs.tdb.jiracorp.co.in/api/mcp/#saving-tokens-lean-mode">Lean Mode</a></li><li><a href="#editions">Editions</a></li></ul></div>
+        <div><h4>Docs</h4><ul><li><a href="https://docs.tdb.jiracorp.co.in/getting-started/community/">Quickstart</a></li><li><a href="https://docs.tdb.jiracorp.co.in/architecture/">Architecture</a></li><li><a href="https://docs.tdb.jiracorp.co.in/release-notes/">Release notes</a></li><li><a href="https://docs.tdb.jiracorp.co.in/">All docs</a></li></ul></div>
+        <div><h4>Security</h4><ul><li><a href="https://docs.tdb.jiracorp.co.in/security/updates/">Advisories</a></li><li><a href="https://docs.tdb.jiracorp.co.in/security/audit/">Audit log</a></li><li><a href="#requirements">Requirements</a></li></ul></div>
+        <div><h4>Get in touch</h4><ul><li><a href="mailto:hello@tdb.jiracorp.co.in">hello@tdb.jiracorp.co.in</a></li><li><a href="https://github.com/tdb-project/tdb-community">GitHub</a></li><li><a href="https://marketplace.visualstudio.com/items?itemName=tdb-project.tdb-vscode">VS Code extension</a></li></ul></div>
       </div>
-      <p class="foot-legal">
-        The Data-Bridge — a JIRA CORP product. Community edition is free and open source under the AGPLv3.
-      </p>
+      <div class="copy"><span>© 2026 The Data-Bridge</span><span>Community edition: AGPLv3 · Enterprise edition: commercial licence</span></div>
     </div>
   </footer>
 
+  <dialog class="tour" id="tour" aria-labelledby="tour-title">
+    <div class="tour-head"><b id="tour-title">TDB in 60 seconds</b><button type="button" aria-label="Close tour" data-close>×</button></div>
+    <div class="tour-prog" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+    <div class="tour-body">
+      <div class="slide"><div class="step">Step 1 of 5 · Register</div><h3>Point TDB at the data you already have.</h3><p>One call registers a source under a governed name. Credentials are encrypted; nothing is copied.</p>
+<pre>POST /v1/sources
+{"name": "orders", "source_type": "postgres", "connection": {…}}</pre></div>
+      <div class="slide" hidden><div class="step">Step 2 of 5 · Connect</div><h3>Give an agent a key, not a password.</h3><p>Claude, Cursor or VS Code connect to one MCP endpoint. The key decides which tools the agent may use.</p>
+<pre>https://tdb.example.com/v1/mcp
+Authorization: Bearer tdbk_…   (role: read, tools: query_source)</pre></div>
+      <div class="slide" hidden><div class="step">Step 3 of 5 · Govern</div><h3>Every statement is checked before it runs.</h3><p>Read-only is checked the way the database reads SQL, then enforced again by the session. A write is refused — and recorded.</p>
+<pre>DELETE FROM orders …
+→ refused: sql_validation_failed (audited)</pre></div>
+      <div class="slide" hidden><div class="step">Step 4 of 5 · Lean</div><h3>The agent gets the answer, not the overhead.</h3><p>With Lean Mode, rows travel as arrays and schemas as types. Same answers, about a third fewer tokens on large results.</p>
+<pre>{"columns": ["region", "growth"],
+ "rows": [["EMEA", 0.18], ["APAC", 0.11]],
+ "lean": {"format": "table"}}</pre></div>
+      <div class="slide" hidden><div class="step">Step 5 of 5 · Audit</div><h3>And you keep the evidence.</h3><p>Each call is chained into a log on your infrastructure, naming the caller and AI client, ready for Splunk or S3.</p>
+<pre>{"event": "query", "mcp_client": "claude-code",
+ "rows_returned": 2, "seq": 4127, "hash": "e70a…"}</pre></div>
+    </div>
+    <div class="tour-foot">
+      <button class="btn btn-ghost" type="button" data-prev>Back</button>
+      <a class="btn btn-ghost" href="https://docs.tdb.jiracorp.co.in/getting-started/community/">Try it free</a>
+      <button class="btn btn-primary" type="button" data-next>Next</button>
+    </div>
+  </dialog>
+
   <script>
-    document.querySelectorAll('.navmenu-panel a').forEach(function (a) {
-      a.addEventListener('click', function () { a.closest('details').removeAttribute('open'); });
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') document.querySelectorAll('.navmenu[open]').forEach(function (d) { d.removeAttribute('open'); });
-    });
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      var bar = document.getElementById('announce');
+      try { if (localStorage.getItem('tdb-announce-lean') === '1') bar.hidden = true; } catch (e) {}
+      document.getElementById('announce-close').addEventListener('click', function () {
+        bar.hidden = true;
+        try { localStorage.setItem('tdb-announce-lean', '1'); } catch (e) {}
+      });
+
+      var btns = document.querySelectorAll('.menu-btn');
+      function closeAll(except) {
+        btns.forEach(function (b) {
+          if (b === except) return;
+          b.setAttribute('aria-expanded', 'false');
+          document.getElementById(b.getAttribute('aria-controls')).classList.remove('open');
+        });
+      }
+      btns.forEach(function (b) {
+        b.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var open = b.getAttribute('aria-expanded') === 'true';
+          closeAll(b);
+          b.setAttribute('aria-expanded', String(!open));
+          document.getElementById(b.getAttribute('aria-controls')).classList.toggle('open', !open);
+        });
+      });
+      document.addEventListener('click', function (e) { if (!e.target.closest('.menu')) closeAll(); });
+      document.querySelectorAll('.mega a, .mobpanel a').forEach(function (a) {
+        a.addEventListener('click', function () { closeAll(); var d = a.closest('details.mobnav'); if (d) d.removeAttribute('open'); });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key !== 'Escape') return;
+        var open = document.querySelector('.menu-btn[aria-expanded="true"]');
+        closeAll(); if (open) open.focus();
+        document.querySelectorAll('details.mobnav[open]').forEach(function (d) { d.removeAttribute('open'); });
+      });
+
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('.stage-tab'));
+      var current = 0, timer = null, paused = false;
+      function select(i, focus) {
+        current = (i + tabs.length) % tabs.length;
+        tabs.forEach(function (t, j) {
+          var on = j === current;
+          t.setAttribute('aria-selected', String(on));
+          t.tabIndex = on ? 0 : -1;
+          document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+          var p = t.querySelector('.prog'); p.classList.remove('run');
+          if (on && !paused && !reduce) { void p.offsetWidth; p.classList.add('run'); }
+        });
+        if (focus) tabs[current].focus();
+      }
+      function schedule() {
+        clearInterval(timer);
+        if (reduce || paused) return;
+        timer = setInterval(function () { select(current + 1); }, 6000);
+      }
+      tabs.forEach(function (t, i) {
+        t.addEventListener('click', function () { paused = true; clearInterval(timer); select(i); });
+        t.addEventListener('keydown', function (e) {
+          var k = e.key;
+          if (k === 'ArrowRight' || k === 'ArrowDown') { e.preventDefault(); paused = true; clearInterval(timer); select(current + 1, true); }
+          if (k === 'ArrowLeft' || k === 'ArrowUp') { e.preventDefault(); paused = true; clearInterval(timer); select(current - 1, true); }
+          if (k === 'Home') { e.preventDefault(); paused = true; clearInterval(timer); select(0, true); }
+          if (k === 'End') { e.preventDefault(); paused = true; clearInterval(timer); select(tabs.length - 1, true); }
+        });
+      });
+      var strip = document.getElementById('lifecycle');
+      strip.addEventListener('mouseenter', function () { if (!paused) { clearInterval(timer); tabs[current].querySelector('.prog').classList.remove('run'); } });
+      strip.addEventListener('mouseleave', function () { if (!paused) { select(current); schedule(); } });
+      strip.addEventListener('focusin', function () { paused = true; clearInterval(timer); tabs[current].querySelector('.prog').classList.remove('run'); });
+      select(0); schedule();
+
+      var dlg = document.getElementById('tour');
+      var slides = dlg.querySelectorAll('.slide');
+      var segs = dlg.querySelectorAll('.tour-prog i');
+      var at = 0, tt = null;
+      function show(i) {
+        at = Math.max(0, Math.min(i, slides.length - 1));
+        slides.forEach(function (s, j) { s.hidden = j !== at; });
+        segs.forEach(function (g, j) {
+          g.className = j < at ? 'done' : '';
+          if (j === at) { void g.offsetWidth; g.className = reduce ? 'done' : 'now'; }
+        });
+        dlg.querySelector('[data-prev]').disabled = at === 0;
+        dlg.querySelector('[data-next]').textContent = at === slides.length - 1 ? 'Done' : 'Next';
+        clearTimeout(tt);
+        if (!reduce && at < slides.length - 1) tt = setTimeout(function () { show(at + 1); }, 5000);
+      }
+      document.getElementById('tour-open').addEventListener('click', function () {
+        if (typeof dlg.showModal === 'function') { dlg.showModal(); show(0); }
+        else { window.location.href = 'https://docs.tdb.jiracorp.co.in/architecture/'; }
+      });
+      dlg.querySelector('[data-close]').addEventListener('click', function () { dlg.close(); });
+      dlg.querySelector('[data-prev]').addEventListener('click', function () { show(at - 1); });
+      dlg.querySelector('[data-next]').addEventListener('click', function () { if (at === slides.length - 1) dlg.close(); else show(at + 1); });
+      dlg.addEventListener('close', function () { clearTimeout(tt); });
+      dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+    })();
   </script>
 </body>
 </html>
