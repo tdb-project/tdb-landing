@@ -226,6 +226,36 @@
     .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
     @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
     .card-wide { grid-column: 1 / -1; }
+
+    /* ---------- hero stats ---------- */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line);
+      border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin: 40px 0 0; }
+    .stat { background: var(--bg-raised); padding: 20px 20px 18px; }
+    .stat b { display: block; font-size: 1.7rem; font-weight: 700; letter-spacing: -.02em; color: var(--text); line-height: 1.1; }
+    .stat span { display: block; margin-top: 6px; color: var(--text-dim); font-size: .86rem; line-height: 1.45; }
+    .stats-note { margin: 10px 0 0; color: var(--text-faint); font-size: .8rem; }
+    @media (max-width: 760px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
+    /* ---------- build vs buy ---------- */
+    .build { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 40px; margin: 0; padding: 0; list-style: none; }
+    .build li { border-top: 1px solid var(--line); padding: 18px 0; }
+    .build h3 { margin: 0 0 6px; font-size: .98rem; font-weight: 600; }
+    .build p { margin: 0; color: var(--text-dim); font-size: .92rem; line-height: 1.6; }
+    @media (max-width: 760px) { .build { grid-template-columns: 1fr; } }
+    .build-close { margin: 30px 0 0; color: var(--text); font-size: 1.02rem; max-width: 62ch; }
+
+    /* ---------- requirements ---------- */
+    .reqs { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .req { display: grid; grid-template-columns: 1.1fr 130px 2fr; gap: 18px; align-items: start;
+      padding: 15px 22px; border-top: 1px solid var(--line); background: var(--bg-raised); }
+    .req:first-child { border-top: 0; }
+    .req h3 { margin: 0; font-size: .95rem; font-weight: 600; }
+    .req p { margin: 0; color: var(--text-dim); font-size: .9rem; line-height: 1.55; }
+    .pill { justify-self: start; font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+      padding: 3px 9px; border-radius: 999px; border: 1px solid; white-space: nowrap; }
+    .pill.ok { color: var(--green); border-color: rgba(126,231,135,.35); background: rgba(126,231,135,.07); }
+    .pill.road { color: var(--amber); border-color: rgba(227,179,65,.35); background: rgba(227,179,65,.07); }
+    @media (max-width: 720px) { .req { grid-template-columns: 1fr; gap: 6px; } }
     .card {
       border: 1px solid var(--line); border-radius: var(--radius);
       background: var(--bg-raised); padding: 26px 24px;
@@ -294,6 +324,7 @@
       </a>
       <div class="navlinks">
         <a class="hide-sm" href="#how">How it works</a>
+        <a class="hide-sm" href="#requirements">Requirements</a>
         <a class="hide-sm" href="#audit">Audit</a>
         <a class="hide-sm" href="#editions">Editions</a>
         <a class="hide-sm" href="https://docs.tdb.jiracorp.co.in/">Docs</a>
@@ -321,19 +352,18 @@
           <span class="dot" aria-hidden="true"></span>
           <strong>Self-hosted</strong> · open-source core, AGPLv3
         </span>
-        <h1>Governed AI access to <span class="grad">the data you already have</span>.</h1>
+        <h1>Give AI agents governed access to <span class="grad">the data you already have</span>.</h1>
         <p class="lede">
-          The Data-Bridge is middleware that makes your existing databases queryable over
-          REST, SQL and MCP — without moving them into a cloud warehouse or routing them
-          through someone else's copilot. Every query is audited, and the audit log is yours.
-          And it is lean by design: agents get results sized for their context window, so
-          their tokens go on the answer.
+          The Data-Bridge sits in front of the databases you already run and makes them
+          queryable by AI agents, scripts and BI tools — read-only, audited, and inside your
+          own infrastructure. No migration, no SaaS copilot in the middle, and results sized
+          for an agent's context window, so you pay for answers rather than overhead.
         </p>
         <div class="cta-row">
           <a class="btn btn-primary" href="https://docs.tdb.jiracorp.co.in/getting-started/community/">Get started — free</a>
-          <a class="btn btn-ghost" href="https://docs.tdb.jiracorp.co.in/">Read the docs</a>
+          <a class="btn btn-ghost" href="mailto:hello@tdb.jiracorp.co.in?subject=TDB%2030-day%20evaluation">Request a 30-day evaluation</a>
         </div>
-        <p class="cta-note">One Docker command. No account, no clone, no build.</p>
+        <p class="cta-note">Free edition: one Docker command, no account. Engineers: <a href="https://docs.tdb.jiracorp.co.in/">read the docs</a>.</p>
 
         <div class="terminal">
           <div class="terminal-bar">
@@ -364,6 +394,14 @@
 
 <span class="o">{</span><span class="y">"columns"</span><span class="o">:</span> <span class="s">[…]</span><span class="o">,</span> <span class="y">"rows"</span><span class="o">:</span> <span class="s">[…]</span><span class="o">,</span> <span class="y">"truncated"</span><span class="o">:</span> <span class="s">false</span><span class="o">}</span></pre>
         </div>
+      
+        <div class="stats" role="list">
+          <div class="stat" role="listitem"><b>−34%</b><span>tokens on a 100-row answer, with Lean Mode</span></div>
+          <div class="stat" role="listitem"><b>up to −98%</b><span>on a database schema sent to an agent</span></div>
+          <div class="stat" role="listitem"><b>21 / 21</b><span>same answers with Lean Mode on, in our accuracy check</span></div>
+          <div class="stat" role="listitem"><b>4</b><span>MCP protocol versions on one endpoint, old and new clients alike</span></div>
+        </div>
+        <p class="stats-note">Measured with Claude Code and Claude Opus 5.5, October 2026. Lean Mode is opt-in. <a href="https://docs.tdb.jiracorp.co.in/api/mcp/#saving-tokens-lean-mode">How we measured</a></p>
       </div>
     </header>
 
@@ -454,6 +492,53 @@
             <h3>Lean by design</h3>
             <p>Every token an agent spends reading a result is one it can't spend on your question. <a href="https://docs.tdb.jiracorp.co.in/api/mcp/#saving-tokens-lean-mode">Lean Mode</a> cuts a 100-row answer from 10,412 to 6,868 tokens and a 30-table schema from 5,235 to 3,025, with the same answers on a 21-question check. Aggregates and filters run in the database, so an agent fetches the answer instead of the rows behind it, and a response that hit the row ceiling says so. Set it per call, per API key or server-wide. Nothing set means nothing changes.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="build">
+      <div class="wrap">
+        <p class="sec-label">Build or buy</p>
+        <h2>What your team would otherwise build — and keep building.</h2>
+        <p class="sec-lede">
+          Connecting one agent to one database takes an afternoon. Making it safe enough for
+          production data, and keeping it that way as databases, clients and the MCP spec move,
+          is a standing commitment. This is the part TDB takes off your roadmap.
+        </p>
+        <ul class="build">
+          <li><h3>Read-only, in five SQL dialects</h3><p>A check that reads SQL the way each engine does, plus read-only sessions at the source and refusal of over-privileged database roles. We published two security advisories for this layer in 2026; your own version would need the same scrutiny.</p></li>
+          <li><h3>An audit log a reviewer accepts</h3><p>Hash-chained entries, refusals included, verification on demand, retention without deletion, and incremental export to Splunk or S3.</p></li>
+          <li><h3>Keeping up with MCP</h3><p>Four protocol revisions served side by side, so an AI client upgrade doesn't break your integration — and the next revision is our job, not yours.</p></li>
+          <li><h3>Identity and access</h3><p>API keys with rotation, JWT, OAuth 2.1 with PKCE for AI clients, roles, per-key tool scopes and rate limits.</p></li>
+          <li><h3>Your BI tools, unchanged</h3><p>A PostgreSQL wire gateway, so Metabase, DBeaver and psql get the same governance and audit as the agents.</p></li>
+          <li><h3>Patching, forever</h3><p>Eight security updates published since September 2026, each with what was exposed and what to do. <a href="https://docs.tdb.jiracorp.co.in/security/updates/">See them all</a>.</p></li>
+        </ul>
+        <p class="build-close">Your engineers keep the work only you can do — the agents and what they're for. TDB keeps the plumbing current.</p>
+      </div>
+    </section>
+
+    <section id="requirements">
+      <div class="wrap">
+        <p class="sec-label">Requirements</p>
+        <h2>Check it against your requirements list.</h2>
+        <p class="sec-lede">
+          What ships today and what is on the roadmap, without dates we can't keep. Unless
+          marked, each item is in the commercial edition.
+        </p>
+        <div class="reqs">
+          <div class="req"><h3>Data stays in your perimeter</h3><span class="pill ok">Ships</span><p>One container on your infrastructure. Your data is never copied, and TDB sends no telemetry. Free edition included.</p></div>
+          <div class="req"><h3>Air-gapped install</h3><span class="pill ok">Ships</span><p>The licensed image is delivered as a tar bundle; no registry or internet access needed to run it.</p></div>
+          <div class="req"><h3>Read-only access</h3><span class="pill ok">Ships</span><p>Checked before a statement runs and enforced by the database session. Free edition included.</p></div>
+          <div class="req"><h3>Audit evidence</h3><span class="pill ok">Ships</span><p>Evidence for SOC 2, HIPAA and EU AI Act reviews: a hash-chained log naming the caller and AI client of every query, verification, sealed retention, Splunk and S3 export.</p></div>
+          <div class="req"><h3>Identity</h3><span class="pill ok">Ships</span><p>API keys with rotation, JWT, OAuth 2.1 with PKCE.</p></div>
+          <div class="req"><h3>Access control</h3><span class="pill ok">Ships</span><p>Roles (read, read and register, admin), per-key tool scopes, per-key rate limits.</p></div>
+          <div class="req"><h3>Secrets</h3><span class="pill ok">Ships</span><p>Source credentials encrypted at rest, with no plaintext mode; API keys never written to a log.</p></div>
+          <div class="req"><h3>Existing BI and SQL tools</h3><span class="pill ok">Ships</span><p>PostgreSQL wire gateway for Metabase, DBeaver, psql and JDBC clients.</p></div>
+          <div class="req"><h3>Agent token cost</h3><span class="pill ok">Ships</span><p>Lean Mode per call, per key or server-wide. Free edition included.</p></div>
+          <div class="req"><h3>Observability</h3><span class="pill ok">Ships</span><p>Prometheus metrics and a health check.</p></div>
+          <div class="req"><h3>Single sign-on and SCIM</h3><span class="pill road">Roadmap</span><p>OIDC first, then SAML; identity-provider groups mapped to roles.</p></div>
+          <div class="req"><h3>Column and row rules, PII masking</h3><span class="pill road">Roadmap</span><p>Per-key rules that withhold or mask columns and filter rows, on every path.</p></div>
+          <div class="req"><h3>Results beyond 1,000 rows</h3><span class="pill road">Roadmap</span><p>Pagination and streaming. Today, aggregates and named views keep results under the ceiling.</p></div>
         </div>
       </div>
     </section>
