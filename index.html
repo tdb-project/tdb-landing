@@ -526,7 +526,7 @@
         <div class="stats" role="list">
           <div class="stat" role="listitem"><b>~⅓ fewer</b><span>tokens on large results with Lean Mode — a smaller bill and more room for the agent to think</span></div>
           <div class="stat" role="listitem"><b>Same answers</b><span>Lean Mode on or off, all 21 questions in our accuracy test came back the same</span></div>
-          <div class="stat" role="listitem"><b>6 sources</b><span>PostgreSQL, MySQL, SQL Server, Snowflake, CSV, Parquet — any MCP client or Postgres BI tool</span></div>
+          <div class="stat" role="listitem"><b>6 sources</b><span>PostgreSQL, MySQL, SQL Server, Snowflake, CSV, Parquet — any MCP client, and Postgres BI tools in the commercial edition</span></div>
           <div class="stat" role="listitem"><b>1 command</b><span>The free edition runs in a single Docker container. No account, no data copied</span></div>
         </div>
         <p class="stats-note">Token figures measured with Claude Code and Claude Opus 5.5, October 2026. Lean Mode is opt-in. <a href="https://docs.tdb.jiracorp.co.in/api/mcp/#saving-tokens-lean-mode">How we measured</a></p>
@@ -578,7 +578,7 @@
         <div class="values">
           <div class="value"><div class="num">01</div><h3>Governed access, not raw credentials.</h3><p>Agents get a key scoped to what they may ask — never your database password. Every statement is checked as read-only before it runs, and the database session enforces it again.</p></div>
           <div class="value"><div class="num">02</div><h3>Answers, not token overhead.</h3><p>Lean Mode sends results sized for the agent: about a third fewer tokens on large results, with the same answers. Aggregates and filters run in the database, so the agent reads the answer, not the rows behind it.</p></div>
-          <div class="value"><div class="num">03</div><h3>Evidence, not trust.</h3><p>Every query, refusal and AI client is recorded in a hash-chained log you own, ready for the SIEM you already run — even the free edition writes one.</p></div>
+          <div class="value"><div class="num">03</div><h3>Evidence, not trust.</h3><p>Every query, refusal and AI client is recorded in a log you own — even the free edition writes one. The commercial edition chains it so an edit is detectable, and exports it to the SIEM you already run.</p></div>
         </div>
       </div>
     </section>
@@ -671,10 +671,10 @@
           <div class="req"><h3>Read-only access</h3><span class="pill ok">Ships</span><p>Checked before a statement runs and enforced by the database session. Free edition included.</p></div>
           <div class="req"><h3>Audit evidence</h3><span class="pill ok">Ships</span><p>Evidence for SOC 2, HIPAA and EU AI Act reviews: a hash-chained log naming the caller and AI client of every query, verification, sealed retention, Splunk and S3 export.</p></div>
           <div class="req"><h3>Identity</h3><span class="pill ok">Ships</span><p>API keys with rotation, JWT, OAuth 2.1 with PKCE.</p></div>
-          <div class="req"><h3>Access control</h3><span class="pill ok">Ships</span><p>Roles (read, read and register, admin), per-key tool scopes, per-key rate limits.</p></div>
+          <div class="req"><h3>Access control</h3><span class="pill ok">Ships</span><p>Roles (<code>read</code>, <code>readwrite</code>, <code>admin</code>), per-key tool scopes, per-key rate limits.</p></div>
           <div class="req"><h3>Secrets</h3><span class="pill ok">Ships</span><p>Source credentials encrypted at rest, with no plaintext mode; API keys never written to a log.</p></div>
           <div class="req"><h3>Existing BI and SQL tools</h3><span class="pill ok">Ships</span><p>PostgreSQL wire gateway for Metabase, DBeaver, psql and JDBC clients.</p></div>
-          <div class="req"><h3>Agent token cost</h3><span class="pill ok">Ships</span><p>Lean Mode per call, per key or server-wide. Free edition included.</p></div>
+          <div class="req"><h3>Agent token cost</h3><span class="pill ok">Ships</span><p>Lean Mode per call or server-wide, free edition included; per API key in the commercial edition.</p></div>
           <div class="req"><h3>Observability</h3><span class="pill ok">Ships</span><p>Prometheus metrics and a health check.</p></div>
           <div class="req"><h3>Single sign-on and SCIM</h3><span class="pill road">Roadmap</span><p>OIDC first, then SAML; identity-provider groups mapped to roles.</p></div>
           <div class="req"><h3>Column and row rules, PII masking</h3><span class="pill road">Roadmap</span><p>Per-key rules that withhold or mask columns and filter rows, on every path.</p></div>
@@ -767,7 +767,7 @@
               <li>Seven MCP tools · named views · rate limiting</li>
               <li>Lean Mode per API key · schema detail levels</li>
               <li>PostgreSQL wire gateway for BI tools and SQL clients</li>
-              <li>Prometheus metrics · schema caching · SLA support</li>
+              <li>Prometheus metrics · schema caching · SLA support (Mid-Market)</li>
             </ul>
             <a class="btn btn-primary" href="https://docs.tdb.jiracorp.co.in/pricing/">Compare editions</a>
           </div>
