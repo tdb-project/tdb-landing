@@ -712,12 +712,12 @@
           <div class="req"><h3>Audit evidence</h3><span class="pill ok">Ships</span><p>Evidence for SOC 2, HIPAA and EU AI Act reviews: a hash-chained log naming the caller and AI client of every query, verification, sealed retention, Splunk and S3 export.</p></div>
           <div class="req"><h3>Identity</h3><span class="pill ok">Ships</span><p>API keys with rotation, JWT, OAuth 2.1 with PKCE.</p></div>
           <div class="req"><h3>Access control</h3><span class="pill ok">Ships</span><p>Roles (<code>read</code>, <code>readwrite</code>, <code>admin</code>), per-key tool scopes, per-key rate limits.</p></div>
+          <div class="req"><h3>Column and row rules, PII masking</h3><span class="pill ok">Ships</span><p>Per-key rules that withhold or mask columns and filter rows, enforced in the database on REST, MCP and the wire gateway, with the rule in the audit log. Mid-Market.</p></div>
           <div class="req"><h3>Secrets</h3><span class="pill ok">Ships</span><p>Source credentials encrypted at rest, with no plaintext mode; API keys never written to a log.</p></div>
           <div class="req"><h3>Existing BI and SQL tools</h3><span class="pill ok">Ships</span><p>PostgreSQL wire gateway for Metabase, DBeaver, psql and JDBC clients.</p></div>
           <div class="req"><h3>Agent token cost</h3><span class="pill ok">Ships</span><p>Lean Mode per call or server-wide, free edition included; per API key in the commercial edition.</p></div>
           <div class="req"><h3>Observability</h3><span class="pill ok">Ships</span><p>Prometheus metrics and a health check.</p></div>
           <div class="req"><h3>Single sign-on and SCIM</h3><span class="pill road">Roadmap</span><p>OIDC first, then SAML; identity-provider groups mapped to roles.</p></div>
-          <div class="req"><h3>Column and row rules, PII masking</h3><span class="pill road">Roadmap</span><p>Per-key rules that withhold or mask columns and filter rows, on every path.</p></div>
           <div class="req"><h3>Results beyond 1,000 rows</h3><span class="pill road">Roadmap</span><p>Pagination and streaming. Today, aggregates and named views keep results under the ceiling.</p></div>
         </div>
       </div>
