@@ -545,7 +545,7 @@
         <div class="stats" role="list">
           <div class="stat" role="listitem"><b>~⅓ fewer</b><span>tokens on large results with Lean Mode — a smaller bill and more room for the agent to think</span></div>
           <div class="stat" role="listitem"><b>Same answers</b><span>Lean Mode on or off, all 21 questions in our accuracy test came back the same</span></div>
-          <div class="stat" role="listitem"><b>6 sources</b><span>PostgreSQL, MySQL, SQL Server, Snowflake, CSV, Parquet — any MCP client, and Postgres BI tools in the commercial edition</span></div>
+          <div class="stat" role="listitem"><b>7 sources</b><span>PostgreSQL, MySQL, SQL Server, Snowflake, CSV, Parquet, DuckDB — any MCP client, and Postgres BI tools in the commercial edition</span></div>
           <div class="stat" role="listitem"><b>1 command</b><span>The free edition runs in a single Docker container. No account, no data copied</span></div>
         </div>
         <p class="stats-note">Token figures measured with Claude Code and Claude Opus 5.5, October 2026. Lean Mode is opt-in. <a href="https://docs.tdb.jiracorp.co.in/api/mcp/#saving-tokens-lean-mode">How we measured</a></p>
@@ -568,7 +568,7 @@
 
         <div class="stage-panel" role="tabpanel" id="p-reg" aria-labelledby="t-reg" tabindex="0">
           <div><h3>Register a source once.</h3><p>Point TDB at a database or a file. It keeps the credentials encrypted and gives the source a governed name; nobody downstream ever sees a connection string.</p><a href="https://docs.tdb.jiracorp.co.in/api/sources/">Registering sources →</a></div>
-          <ul><li>PostgreSQL, MySQL, SQL Server, Snowflake, CSV and Parquet</li><li>A whole database or a single table</li><li>Credentials encrypted at rest, no plaintext mode</li></ul>
+          <ul><li>PostgreSQL, MySQL, SQL Server, Snowflake, CSV, Parquet and DuckDB</li><li>A whole database or a single table</li><li>Credentials encrypted at rest, no plaintext mode</li></ul>
         </div>
         <div class="stage-panel" role="tabpanel" id="p-gov" aria-labelledby="t-gov" tabindex="0" hidden>
           <div><h3>Decide who may ask what.</h3><p>Each caller gets an identity and a scope. Every statement is checked as read-only before it runs, and the database session enforces it again.</p><a href="https://docs.tdb.jiracorp.co.in/architecture/">Architecture &amp; security model →</a></div>
@@ -641,7 +641,7 @@
               <li>MySQL</li>
               <li>SQL Server</li>
               <li>Snowflake</li>
-              <li>CSV and Parquet files</li>
+              <li>CSV and Parquet files, DuckDB databases</li>
             </ul>
           </div>
         </div>
@@ -801,7 +801,7 @@
             <div class="edition-head"><h3>Enterprise</h3><span class="tag">Commercial</span></div>
             <p class="meta">Self-hosted · 30-day evaluation available</p>
             <ul>
-              <li>PostgreSQL, MySQL, SQL Server, Snowflake, Parquet files</li>
+              <li>PostgreSQL, MySQL, SQL Server, Snowflake, Parquet files, DuckDB databases</li>
               <li>Unlimited sources · OAuth 2.1 + PKCE · RBAC</li>
               <li>Signed audit log · retention · SIEM export</li>
               <li>Seven MCP tools · named views · rate limiting</li>
