@@ -584,8 +584,8 @@
           <ul><li>A 100-row answer: 10,412 → 6,868 tokens</li><li>A 30-table schema: 5,235 → 3,025 tokens</li><li>Same answers on all 21 test questions</li></ul>
         </div>
         <div class="stage-panel" role="tabpanel" id="p-aud" aria-labelledby="t-aud" tabindex="0" hidden>
-          <div><h3>Keep the evidence.</h3><p>Every query and every refusal is written to a log on your infrastructure, naming the caller and the AI client, and chained so an edit is detectable.</p><a href="https://docs.tdb.jiracorp.co.in/security/audit/">Audit log →</a></div>
-          <ul><li>Hash-chained entries with on-demand verification</li><li>Refusals recorded, not just successes</li><li>Incremental export to Splunk or S3</li></ul>
+          <div><h3>Keep the evidence.</h3><p>Every query, refusal and failure is written to a log on your infrastructure, naming the caller and the AI client, and chained so an edit is detectable.</p><a href="https://docs.tdb.jiracorp.co.in/security/audit/">Audit log →</a></div>
+          <ul><li>Hash-chained entries with on-demand verification</li><li>Refusals and failures recorded, not just successes</li><li>An option to keep values in SQL out of the log</li><li>Incremental export to Splunk or S3</li></ul>
         </div>
       </div>
     </section>
@@ -670,11 +670,11 @@
         <p class="sec-lede">Connecting one agent to one database takes an afternoon. Making it safe enough for production data, and keeping it that way as databases, clients and the MCP spec move, is a standing commitment. This is the part TDB takes off your roadmap.</p>
         <ul class="build">
           <li><h3>Read-only, in five SQL dialects</h3><p>A check that reads SQL the way each engine does, read-only sessions at the source, and refusal of over-privileged database roles. We published two security advisories for this layer in 2026; your own version would need the same scrutiny.</p></li>
-          <li><h3>An audit log a reviewer accepts</h3><p>Hash-chained entries, refusals included, verification on demand, retention without deletion, and incremental export to Splunk or S3.</p></li>
+          <li><h3>An audit log a reviewer accepts</h3><p>Hash-chained entries, refusals and failures included, values in SQL kept out if you choose, verification on demand, retention without deletion, and incremental export to Splunk or S3.</p></li>
           <li><h3>Keeping up with MCP</h3><p>Four protocol revisions served side by side, so an AI client upgrade doesn't break your integration — and the next revision is our job, not yours.</p></li>
           <li><h3>Identity and access</h3><p>Sign-in through your identity provider, SCIM provisioning, API keys with rotation, OAuth 2.1 with PKCE for AI clients, roles, tool scopes and rate limits.</p></li>
           <li><h3>Your BI tools, unchanged</h3><p>A PostgreSQL wire gateway, so Metabase, DBeaver and psql get the same governance and audit as the agents.</p></li>
-          <li><h3>Patching, forever</h3><p>Twelve security updates published since September 2026, each with what was exposed and what to do. <a href="https://docs.tdb.jiracorp.co.in/security/updates/">See them all</a>.</p></li>
+          <li><h3>Patching, forever</h3><p>Thirteen security updates published since September 2026, each with what was exposed and what to do. <a href="https://docs.tdb.jiracorp.co.in/security/updates/">See them all</a>.</p></li>
         </ul>
         <p class="build-close">Your engineers keep the work only you can do — the agents and what they're for. TDB keeps the plumbing current.</p>
 
@@ -710,10 +710,10 @@
           <div class="req"><h3>Data stays in your perimeter</h3><span class="pill ok">Ships</span><p>One container on your infrastructure. Your data is never copied, and TDB sends no telemetry. Free edition included.</p></div>
           <div class="req"><h3>Air-gapped install</h3><span class="pill ok">Ships</span><p>The licensed image is delivered as a tar bundle; no registry or internet access needed to run it.</p></div>
           <div class="req"><h3>Read-only access</h3><span class="pill ok">Ships</span><p>Checked before a statement runs and enforced by the database session. Free edition included.</p></div>
-          <div class="req"><h3>Audit evidence</h3><span class="pill ok">Ships</span><p>Evidence for SOC 2, HIPAA and EU AI Act reviews: a hash-chained log naming the caller and AI client of every query, verification, sealed retention, Splunk and S3 export.</p></div>
+          <div class="req"><h3>Audit evidence</h3><span class="pill ok">Ships</span><p>Evidence for SOC 2, HIPAA and EU AI Act reviews: a hash-chained log naming the caller and AI client of every query, refusal and failure, with values in SQL kept out if you choose, verification, sealed retention, Splunk and S3 export.</p></div>
           <div class="req"><h3>Identity</h3><span class="pill ok">Ships</span><p>API keys with rotation, JWT, OAuth 2.1 with PKCE. The person behind each request is named in the audit log.</p></div>
           <div class="req"><h3>Access control</h3><span class="pill ok">Ships</span><p>Roles (<code>read</code>, <code>readwrite</code>, <code>admin</code>), tool scopes by key or group, rate limits by key or person.</p></div>
-          <div class="req"><h3>Column and row rules, PII masking</h3><span class="pill ok">Ships</span><p>Rules by key, role or group that withhold or mask columns and filter rows, enforced in the database on REST, MCP and the wire gateway, with the rule in the audit log. Mid-Market.</p></div>
+          <div class="req"><h3>Column and row rules, PII masking</h3><span class="pill ok">Ships</span><p>Rules by key, role or group that withhold or mask columns and filter rows, enforced in the database on REST, MCP and the wire gateway, with the rule in the audit log. Mid-Market. With a rules file, a source it does not name is refused.</p></div>
           <div class="req"><h3>Secrets</h3><span class="pill ok">Ships</span><p>Source credentials encrypted at rest, with no plaintext mode; API keys never written to a log.</p></div>
           <div class="req"><h3>Existing BI and SQL tools</h3><span class="pill ok">Ships</span><p>PostgreSQL wire gateway for Metabase, DBeaver, psql and JDBC clients.</p></div>
           <div class="req"><h3>Agent token cost</h3><span class="pill ok">Ships</span><p>Lean Mode per call or server-wide, free edition included; per API key in the commercial edition.</p></div>
@@ -773,7 +773,7 @@
         <p class="sec-lede">No logos yet, so here is what you can verify yourself today.</p>
         <div class="proof">
           <div><b>Open source core</b><p>The community edition is AGPLv3. Read the read-only check, the audit log and Lean Mode line by line. <a href="https://github.com/tdb-project/tdb-community">GitHub →</a></p></div>
-          <div><b>Published advisories</b><p>Twelve security updates since September 2026, each saying what was exposed and what to do. <a href="https://docs.tdb.jiracorp.co.in/security/updates/">Advisories →</a></p></div>
+          <div><b>Published advisories</b><p>Thirteen security updates since September 2026, each saying what was exposed and what to do. <a href="https://docs.tdb.jiracorp.co.in/security/updates/">Advisories →</a></p></div>
           <div><b>Tested with</b><p>Checked end to end against real clients:</p><div class="names"><span>Claude Code</span><span>Claude Desktop</span><span>VS Code</span><span>Metabase</span><span>DBeaver</span><span>psql</span><span>pgjdbc</span></div></div>
         </div>
       </div>
