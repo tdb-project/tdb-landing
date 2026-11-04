@@ -472,6 +472,7 @@
             <a href="https://docs.tdb.jiracorp.co.in/security/updates/"><b>Advisories</b><span>Every security update, published</span></a>
             <a href="https://docs.tdb.jiracorp.co.in/security/audit/"><b>Audit log</b><span>Fields, verification, export</span></a>
             <a href="https://docs.tdb.jiracorp.co.in/security/rbac/"><b>Access control</b><span>Roles and per-key tool scopes</span></a>
+<a href="https://docs.tdb.jiracorp.co.in/auth/sso/"><b>Single sign-on</b><span>Your identity provider, groups, SCIM</span></a>
           </div>
         </li>
       </ul>
@@ -572,7 +573,7 @@
         </div>
         <div class="stage-panel" role="tabpanel" id="p-gov" aria-labelledby="t-gov" tabindex="0" hidden>
           <div><h3>Decide who may ask what.</h3><p>Each caller gets an identity and a scope. Every statement is checked as read-only before it runs, and the database session enforces it again.</p><a href="https://docs.tdb.jiracorp.co.in/architecture/">Architecture &amp; security model →</a></div>
-          <ul><li>OAuth 2.1 with PKCE, API keys, JWT</li><li>Roles, per-key tool scopes, rate limits</li><li>Read-only checked the way each SQL dialect reads it</li></ul>
+          <ul><li>Single sign-on, OAuth 2.1 with PKCE, API keys, JWT</li><li>Roles, tool scopes and rate limits by key, group or person</li><li>Read-only checked the way each SQL dialect reads it</li></ul>
         </div>
         <div class="stage-panel" role="tabpanel" id="p-qry" aria-labelledby="t-qry" tabindex="0" hidden>
           <div><h3>Answer on whatever protocol asks.</h3><p>Agents speak MCP, scripts speak REST, BI tools speak Postgres. TDB answers all three from one governed surface, with the same values on each.</p><a href="https://docs.tdb.jiracorp.co.in/api/mcp/">MCP reference →</a></div>
@@ -624,7 +625,7 @@
             <h3>The Data-Bridge</h3>
             <p class="hint">On your infrastructure</p>
             <ol class="stages">
-              <li><div><b>Identity</b><span>OAuth 2.1, API keys, roles, per-key tool scopes</span></div></li>
+              <li><div><b>Identity</b><span>Single sign-on, OAuth 2.1, API keys, roles, tool scopes</span></div></li>
               <li><div><b>Read-only check</b><span>Read the way each of five SQL dialects reads it</span></div></li>
               <li><div><b>Bounded run</b><span>Read-only session, row ceiling, timeout at the source</span></div></li>
               <li><div><b>Injection filter</b><span>Hidden instructions in data are redacted</span></div></li>
@@ -652,9 +653,9 @@
           <div class="ctable">
             <div class="crow head"><div></div><div>The Data-Bridge</div><div>Warehouse AI assistants</div><div>SaaS copilots</div><div>DIY MCP servers</div></div>
             <div class="crow"><div>Runs inside your perimeter</div><div data-l="The Data-Bridge" class="yes">Yes</div><div data-l="Warehouse AI" class="no">No</div><div data-l="SaaS copilots" class="no">No</div><div data-l="DIY MCP" class="yes">Yes</div></div>
-            <div class="crow"><div>Works on the databases you already run, all of them</div><div data-l="The Data-Bridge" class="yes">Yes, six source types</div><div data-l="Warehouse AI" class="no">Data must move in first</div><div data-l="SaaS copilots" class="no">Not a database gateway</div><div data-l="DIY MCP">Usually one database</div></div>
+            <div class="crow"><div>Works on the databases you already run, all of them</div><div data-l="The Data-Bridge" class="yes">Yes, seven source types</div><div data-l="Warehouse AI" class="no">Data must move in first</div><div data-l="SaaS copilots" class="no">Not a database gateway</div><div data-l="DIY MCP">Usually one database</div></div>
             <div class="crow"><div>An audit log you own</div><div data-l="The Data-Bridge" class="yes">Yes, hash-chained</div><div data-l="Warehouse AI" class="no">The vendor's</div><div data-l="SaaS copilots" class="no">The vendor's</div><div data-l="DIY MCP" class="no">Usually none</div></div>
-            <div class="crow"><div>Authentication and access control</div><div data-l="The Data-Bridge" class="yes">OAuth 2.1, roles, tool scopes</div><div data-l="Warehouse AI" class="yes">Yes</div><div data-l="SaaS copilots" class="yes">Yes</div><div data-l="DIY MCP" class="no">Usually none</div></div>
+            <div class="crow"><div>Authentication and access control</div><div data-l="The Data-Bridge" class="yes">Single sign-on, roles, tool scopes</div><div data-l="Warehouse AI" class="yes">Yes</div><div data-l="SaaS copilots" class="yes">Yes</div><div data-l="DIY MCP" class="no">Usually none</div></div>
             <div class="crow"><div>Open-source core you can inspect</div><div data-l="The Data-Bridge" class="yes">Yes, AGPLv3</div><div data-l="Warehouse AI" class="no">No</div><div data-l="SaaS copilots" class="no">No</div><div data-l="DIY MCP" class="yes">Usually</div></div>
           </div>
           <p class="fine">Categories, not named products, as described in <a href="https://docs.tdb.jiracorp.co.in/why-tdb/">Why TDB</a>.</p>
@@ -671,9 +672,9 @@
           <li><h3>Read-only, in five SQL dialects</h3><p>A check that reads SQL the way each engine does, read-only sessions at the source, and refusal of over-privileged database roles. We published two security advisories for this layer in 2026; your own version would need the same scrutiny.</p></li>
           <li><h3>An audit log a reviewer accepts</h3><p>Hash-chained entries, refusals included, verification on demand, retention without deletion, and incremental export to Splunk or S3.</p></li>
           <li><h3>Keeping up with MCP</h3><p>Four protocol revisions served side by side, so an AI client upgrade doesn't break your integration — and the next revision is our job, not yours.</p></li>
-          <li><h3>Identity and access</h3><p>API keys with rotation, JWT, OAuth 2.1 with PKCE for AI clients, roles, per-key tool scopes and rate limits.</p></li>
+          <li><h3>Identity and access</h3><p>Sign-in through your identity provider, SCIM provisioning, API keys with rotation, OAuth 2.1 with PKCE for AI clients, roles, tool scopes and rate limits.</p></li>
           <li><h3>Your BI tools, unchanged</h3><p>A PostgreSQL wire gateway, so Metabase, DBeaver and psql get the same governance and audit as the agents.</p></li>
-          <li><h3>Patching, forever</h3><p>Eight security updates published since September 2026, each with what was exposed and what to do. <a href="https://docs.tdb.jiracorp.co.in/security/updates/">See them all</a>.</p></li>
+          <li><h3>Patching, forever</h3><p>Ten security updates published since September 2026, each with what was exposed and what to do. <a href="https://docs.tdb.jiracorp.co.in/security/updates/">See them all</a>.</p></li>
         </ul>
         <p class="build-close">Your engineers keep the work only you can do — the agents and what they're for. TDB keeps the plumbing current.</p>
 
@@ -710,14 +711,14 @@
           <div class="req"><h3>Air-gapped install</h3><span class="pill ok">Ships</span><p>The licensed image is delivered as a tar bundle; no registry or internet access needed to run it.</p></div>
           <div class="req"><h3>Read-only access</h3><span class="pill ok">Ships</span><p>Checked before a statement runs and enforced by the database session. Free edition included.</p></div>
           <div class="req"><h3>Audit evidence</h3><span class="pill ok">Ships</span><p>Evidence for SOC 2, HIPAA and EU AI Act reviews: a hash-chained log naming the caller and AI client of every query, verification, sealed retention, Splunk and S3 export.</p></div>
-          <div class="req"><h3>Identity</h3><span class="pill ok">Ships</span><p>API keys with rotation, JWT, OAuth 2.1 with PKCE.</p></div>
-          <div class="req"><h3>Access control</h3><span class="pill ok">Ships</span><p>Roles (<code>read</code>, <code>readwrite</code>, <code>admin</code>), per-key tool scopes, per-key rate limits.</p></div>
-          <div class="req"><h3>Column and row rules, PII masking</h3><span class="pill ok">Ships</span><p>Per-key rules that withhold or mask columns and filter rows, enforced in the database on REST, MCP and the wire gateway, with the rule in the audit log. Mid-Market.</p></div>
+          <div class="req"><h3>Identity</h3><span class="pill ok">Ships</span><p>API keys with rotation, JWT, OAuth 2.1 with PKCE. The person behind each request is named in the audit log.</p></div>
+          <div class="req"><h3>Access control</h3><span class="pill ok">Ships</span><p>Roles (<code>read</code>, <code>readwrite</code>, <code>admin</code>), tool scopes by key or group, rate limits by key or person.</p></div>
+          <div class="req"><h3>Column and row rules, PII masking</h3><span class="pill ok">Ships</span><p>Rules by key, role or group that withhold or mask columns and filter rows, enforced in the database on REST, MCP and the wire gateway, with the rule in the audit log. Mid-Market.</p></div>
           <div class="req"><h3>Secrets</h3><span class="pill ok">Ships</span><p>Source credentials encrypted at rest, with no plaintext mode; API keys never written to a log.</p></div>
           <div class="req"><h3>Existing BI and SQL tools</h3><span class="pill ok">Ships</span><p>PostgreSQL wire gateway for Metabase, DBeaver, psql and JDBC clients.</p></div>
           <div class="req"><h3>Agent token cost</h3><span class="pill ok">Ships</span><p>Lean Mode per call or server-wide, free edition included; per API key in the commercial edition.</p></div>
           <div class="req"><h3>Observability</h3><span class="pill ok">Ships</span><p>Prometheus metrics and a health check.</p></div>
-          <div class="req"><h3>Single sign-on and SCIM</h3><span class="pill ok">Ships</span><p>OIDC sign-in on Mid-Market; identity-provider groups decide roles, column and row rules, and tools. Removing someone ends their access. SAML on request.</p></div>
+          <div class="req"><h3>Single sign-on and SCIM</h3><span class="pill ok">Ships</span><p>OIDC sign-in on Mid-Market. Identity-provider groups decide roles, column and row rules, and tools, and removing someone ends their access. Tested with Keycloak; ask us about your provider. SAML on request.</p></div>
           <div class="req"><h3>Results beyond 1,000 rows</h3><span class="pill road">Roadmap</span><p>Pagination and streaming. Today, aggregates and named views keep results under the ceiling.</p></div>
         </div>
       </div>
@@ -807,7 +808,8 @@
               <li>Seven MCP tools · named views · rate limiting</li>
               <li>Lean Mode per API key · schema detail levels</li>
               <li>PostgreSQL wire gateway for BI tools and SQL clients</li>
-              <li>Prometheus metrics · schema caching · SLA support (Mid-Market)</li>
+              <li>Prometheus metrics · schema caching</li>
+<li>Mid-Market: single sign-on and SCIM · column and row rules · SLA support</li>
             </ul>
             <a class="btn btn-primary" href="https://docs.tdb.jiracorp.co.in/pricing/">Compare editions</a>
           </div>
