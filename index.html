@@ -473,6 +473,7 @@
             <a href="https://docs.tdb.jiracorp.co.in/security/audit/"><b>Audit log</b><span>Fields, verification, export</span></a>
             <a href="https://docs.tdb.jiracorp.co.in/security/rbac/"><b>Access control</b><span>Roles and per-key tool scopes</span></a>
 <a href="https://docs.tdb.jiracorp.co.in/auth/sso/"><b>Single sign-on</b><span>Your identity provider, groups, SCIM</span></a>
+            <a href="https://docs.tdb.jiracorp.co.in/security/approvals/"><b>Query approvals</b><span>A person approves sensitive reads</span></a>
           </div>
         </li>
       </ul>
@@ -573,7 +574,7 @@
         </div>
         <div class="stage-panel" role="tabpanel" id="p-gov" aria-labelledby="t-gov" tabindex="0" hidden>
           <div><h3>Decide who may ask what.</h3><p>Each caller gets an identity and a scope. Every statement is checked as read-only before it runs, and the database session enforces it again.</p><a href="https://docs.tdb.jiracorp.co.in/architecture/">Architecture &amp; security model →</a></div>
-          <ul><li>Single sign-on, OAuth 2.1 with PKCE, API keys, JWT</li><li>Roles, tool scopes and rate limits by key, group or person</li><li>Read-only checked the way each SQL dialect reads it</li></ul>
+          <ul><li>Single sign-on, OAuth 2.1 with PKCE, API keys, JWT</li><li>Roles, tool scopes and rate limits by key, group or person</li><li>Column and row rules, and a person's approval before sensitive reads</li><li>Read-only checked the way each SQL dialect reads it</li></ul>
         </div>
         <div class="stage-panel" role="tabpanel" id="p-qry" aria-labelledby="t-qry" tabindex="0" hidden>
           <div><h3>Answer on whatever protocol asks.</h3><p>Agents speak MCP, scripts speak REST, BI tools speak Postgres. TDB answers all three from one governed surface, with the same values on each.</p><a href="https://docs.tdb.jiracorp.co.in/api/mcp/">MCP reference →</a></div>
@@ -807,10 +808,11 @@
               <li>Unlimited sources · OAuth 2.1 + PKCE · RBAC</li>
               <li>Signed audit log · retention · SIEM export</li>
               <li>Seven MCP tools · named views · rate limiting</li>
+              <li>Paging and streaming past 1,000 rows</li>
               <li>Lean Mode per API key · schema detail levels</li>
               <li>PostgreSQL wire gateway for BI tools and SQL clients</li>
               <li>Prometheus metrics · schema caching</li>
-<li>Mid-Market: single sign-on and SCIM · column and row rules · SLA support</li>
+<li>Mid-Market: single sign-on and SCIM · column and row rules · query approvals · SLA support</li>
             </ul>
             <a class="btn btn-primary" href="https://docs.tdb.jiracorp.co.in/pricing/">Compare editions</a>
           </div>
