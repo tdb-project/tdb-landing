@@ -722,6 +722,7 @@
           <div class="req"><h3>Single sign-on and SCIM</h3><span class="pill ok">Ships</span><p>OIDC sign-in on Mid-Market. Identity-provider groups decide roles, column and row rules, and tools, and removing someone ends their access. Tested with Keycloak; ask us about your provider. SAML on request.</p></div>
           <div class="req"><h3>Results beyond 1,000 rows</h3><span class="pill ok">Ships</span><p>Page with a cursor, or stream a whole result as NDJSON or CSV, under the same row caps and audit log.</p></div>
           <div class="req"><h3>Human approval for sensitive reads</h3><span class="pill ok">Ships</span><p>A policy rule can make a query that reads named columns wait for a person. The approver decides from the CLI or API, never the person who asked, and the audit log records the request, the decision and every run.</p></div>
+          <div class="req"><h3>Several teams or customers on one deployment</h3><span class="pill ok">Ships</span><p>Tenants on the Enterprise edition: each team or customer has its own sources, keys, rules and hash-chained audit log, chosen by the credential alone. An operator role manages tenants and reads none of their data.</p></div>
         </div>
       </div>
     </section>
@@ -813,6 +814,7 @@
               <li>PostgreSQL wire gateway for BI tools and SQL clients</li>
               <li>Prometheus metrics · schema caching</li>
 <li>Mid-Market: single sign-on and SCIM · column and row rules · query approvals · SLA support</li>
+<li>Enterprise: tenants, several teams or customers on one deployment, each with its own audit log</li>
             </ul>
             <a class="btn btn-primary" href="https://docs.tdb.jiracorp.co.in/pricing/">Compare editions</a>
           </div>
