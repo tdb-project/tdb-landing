@@ -422,7 +422,7 @@
   <div class="announce" id="announce">
     <div class="wrap">
       <span class="new">New</span>
-      <span><span class="long">Lean Mode: about a third fewer tokens per answer, same results. </span><a href="https://docs.tdb.jiracorp.co.in/api/mcp/#saving-tokens-lean-mode">See how it works →</a></span>
+      <span><span class="long">Tenants: several teams or customers on one deployment, each with its own audit log. </span><a href="https://docs.tdb.jiracorp.co.in/security/tenants/">See how it works →</a></span>
       <button type="button" aria-label="Dismiss announcement" id="announce-close">×</button>
     </div>
   </div>
@@ -892,10 +892,10 @@ Authorization: Bearer tdbk_…   (role: read, tools: query_source)</pre></div>
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       var bar = document.getElementById('announce');
-      try { if (localStorage.getItem('tdb-announce-lean') === '1') bar.hidden = true; } catch (e) {}
+      try { if (localStorage.getItem('tdb-announce-tenants') === '1') bar.hidden = true; } catch (e) {}
       document.getElementById('announce-close').addEventListener('click', function () {
         bar.hidden = true;
-        try { localStorage.setItem('tdb-announce-lean', '1'); } catch (e) {}
+        try { localStorage.setItem('tdb-announce-tenants', '1'); } catch (e) {}
       });
 
       var btns = document.querySelectorAll('.menu-btn');
