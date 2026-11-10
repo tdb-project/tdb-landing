@@ -353,6 +353,7 @@
     .proof p { margin: 0; color: var(--text-dim); font-size: .94rem; }
     .names { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
     .names span { font-size: .8rem; font-weight: 600; color: var(--text-dim); border: 1px solid var(--line); border-radius: 99px; padding: 3px 10px; background: var(--bg-soft); }
+    .names + p { margin-top: 12px; }
     @media (max-width: 860px) { .proof { grid-template-columns: 1fr; } .proof > div + div { border-left: 0; border-top: 1px solid var(--line); } }
 
     /* ---------- editions ---------- */
@@ -778,7 +779,7 @@
         <div class="proof">
           <div><b>Open source core</b><p>The community edition is AGPLv3. Read the read-only check, the audit log and Lean Mode line by line. <a href="https://github.com/tdb-project/tdb-community">GitHub →</a></p></div>
           <div><b>Published advisories</b><p>Sixteen security updates since September 2026, each saying what was exposed and what to do. <a href="https://docs.tdb.jiracorp.co.in/security/updates/">Advisories →</a></p></div>
-          <div><b>Tested with</b><p>Checked end to end against real clients:</p><div class="names"><span>Claude Code</span><span>Claude Desktop</span><span>VS Code</span><span>Metabase</span><span>DBeaver</span><span>psql</span><span>pgjdbc</span></div></div>
+          <div><b>Tested with</b><p>Checked end to end against real clients:</p><div class="names"><span>Claude Code</span><span>Claude Desktop</span><span>VS Code</span><span>Metabase</span><span>DBeaver</span><span>psql</span><span>pgjdbc</span></div><p>And real databases:</p><div class="names"><span>PostgreSQL</span><span>MySQL</span><span>SQL Server</span><span>Snowflake</span></div></div>
         </div>
       </div>
     </section>
