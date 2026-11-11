@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tdb.jiracorp.co.in/sitemap.xml
+Sitemap: https://tdb.asvanlabs.com/sitemap.xml

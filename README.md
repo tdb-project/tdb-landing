@@ -1,6 +1,6 @@
 # tdb-landing
 
-Landing page for **The Data-Bridge**, served at https://tdb.jiracorp.co.in
+Landing page for **The Data-Bridge**, served at https://tdb.asvanlabs.com
 via GitHub Pages. Static HTML (no build step).
 
 - `index.html` — the page
