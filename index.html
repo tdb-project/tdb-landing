@@ -713,7 +713,7 @@
           <div class="req"><h3>Air-gapped install</h3><span class="pill ok">Ships</span><p>The licensed image is delivered as a tar bundle; no registry or internet access needed to run it.</p></div>
           <div class="req"><h3>Read-only access</h3><span class="pill ok">Ships</span><p>Checked before a statement runs and enforced by the database session. Free edition included.</p></div>
           <div class="req"><h3>Audit evidence</h3><span class="pill ok">Ships</span><p>Evidence for SOC 2, HIPAA and EU AI Act reviews: a hash-chained log naming the caller and AI client of every query, refusal and failure, with values in SQL kept out if you choose, verification, sealed retention, Splunk and S3 export.</p></div>
-          <div class="req"><h3>Identity</h3><span class="pill ok">Ships</span><p>API keys with rotation, JWT, OAuth 2.1 with PKCE. The person behind each request is named in the audit log.</p></div>
+          <div class="req"><h3>Identity</h3><span class="pill ok">Ships</span><p>API keys with rotation, JWT, OAuth 2.1 with PKCE: claude.ai and Claude Desktop sign in as a custom connector. The person behind each request is named in the audit log.</p></div>
           <div class="req"><h3>Access control</h3><span class="pill ok">Ships</span><p>Roles (<code>read</code>, <code>readwrite</code>, <code>admin</code>), tool scopes by key or group, rate limits by key or person.</p></div>
           <div class="req"><h3>Column and row rules, PII masking</h3><span class="pill ok">Ships</span><p>Rules by key, role or group that withhold or mask columns and filter rows, enforced in the database on REST, MCP and the wire gateway, with the rule in the audit log. Mid-Market. With a rules file, a source it does not name is refused.</p></div>
           <div class="req"><h3>Secrets</h3><span class="pill ok">Ships</span><p>Source credentials encrypted at rest, with no plaintext mode; API keys never written to a log.</p></div>
@@ -779,7 +779,7 @@
         <div class="proof">
           <div><b>Open source core</b><p>The community edition is AGPLv3. Read the read-only check, the audit log and Lean Mode line by line. <a href="https://github.com/tdb-project/tdb-community">GitHub →</a></p></div>
           <div><b>Published advisories</b><p>Seventeen security updates since September 2026, each saying what was exposed and what to do. <a href="https://docs.tdb.asvanlabs.com/security/updates/">Advisories →</a></p></div>
-          <div><b>Tested with</b><p>Checked end to end against real clients:</p><div class="names"><span>Claude Code</span><span>Claude Desktop</span><span>VS Code</span><span>Metabase</span><span>DBeaver</span><span>psql</span><span>pgjdbc</span></div><p>And real databases:</p><div class="names"><span>PostgreSQL</span><span>MySQL</span><span>SQL Server</span><span>Snowflake</span></div></div>
+          <div><b>Tested with</b><p>Checked end to end against real clients:</p><div class="names"><span>Claude Code</span><span>Claude Desktop</span><span>claude.ai</span><span>VS Code</span><span>Metabase</span><span>DBeaver</span><span>psql</span><span>pgjdbc</span></div><p>And real databases:</p><div class="names"><span>PostgreSQL</span><span>MySQL</span><span>SQL Server</span><span>Snowflake</span></div></div>
         </div>
       </div>
     </section>
