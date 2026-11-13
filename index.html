@@ -87,7 +87,8 @@
     .announce button { position: absolute; right: clamp(8px, 3vw, 32px); background: none; border: 0; color: #94A3B8; font-size: 1.2rem; cursor: pointer; line-height: 1; padding: 4px 8px; }
     .announce button:hover { color: #fff; }
     .announce[hidden] { display: none; }
-    @media (max-width: 560px) { .announce .wrap { justify-content: flex-start; padding-right: 44px; } .announce .long { display: none; } }
+    .announce .short { display: none; }
+    @media (max-width: 560px) { .announce .wrap { justify-content: flex-start; padding-right: 44px; } .announce .long { display: none; } .announce .short { display: inline; } }
 
     /* ---------- nav + mega menu ---------- */
     nav.top { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.88); backdrop-filter: saturate(160%) blur(10px);
@@ -416,6 +417,23 @@
     .tour-foot { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 20px 18px; }
     .tour-foot .btn { padding: 9px 16px; font-size: .9rem; }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "The Data-Bridge",
+    "alternateName": "TDB",
+    "url": "https://tdb.asvanlabs.com/",
+    "description": "Self-hosted gateway that gives AI agents, scripts and BI tools read-only, audited access to your existing databases, with results sized to save tokens.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Linux (Docker)",
+    "license": "https://www.gnu.org/licenses/agpl-3.0.html",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Community edition, free and open source (AGPLv3)" },
+    "sameAs": ["https://github.com/tdb-project/tdb-community"],
+    "softwareHelp": "https://docs.tdb.asvanlabs.com/",
+    "publisher": { "@type": "Organization", "name": "Asvan Labs", "url": "https://asvanlabs.com/" }
+  }
+  </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -423,7 +441,7 @@
   <div class="announce" id="announce">
     <div class="wrap">
       <span class="new">New</span>
-      <span><span class="long">Tenants: several teams or customers on one deployment, each with its own audit log. </span><a href="https://docs.tdb.asvanlabs.com/security/tenants/">See how it works →</a></span>
+      <span><span class="long">Tested as a Claude custom connector: sign in from claude.ai and Claude Desktop, every call audited. </span><span class="short">Works as a Claude custom connector. </span><a href="https://docs.tdb.asvanlabs.com/auth/oauth/#connecting-claude-desktop">How to connect →</a></span>
       <button type="button" aria-label="Dismiss announcement" id="announce-close">×</button>
     </div>
   </div>
@@ -655,7 +673,7 @@
           <div class="ctable">
             <div class="crow head"><div></div><div>The Data-Bridge</div><div>Warehouse AI assistants</div><div>SaaS copilots</div><div>DIY MCP servers</div></div>
             <div class="crow"><div>Runs inside your perimeter</div><div data-l="The Data-Bridge" class="yes">Yes</div><div data-l="Warehouse AI" class="no">No</div><div data-l="SaaS copilots" class="no">No</div><div data-l="DIY MCP" class="yes">Yes</div></div>
-            <div class="crow"><div>Works on the databases you already run, all of them</div><div data-l="The Data-Bridge" class="yes">Yes, seven source types</div><div data-l="Warehouse AI" class="no">Data must move in first</div><div data-l="SaaS copilots" class="no">Not a database gateway</div><div data-l="DIY MCP">Usually one database</div></div>
+            <div class="crow"><div>Works on the databases you already run</div><div data-l="The Data-Bridge" class="yes">Yes: PostgreSQL, MySQL, SQL Server, Snowflake and files</div><div data-l="Warehouse AI" class="no">Data must move in first</div><div data-l="SaaS copilots" class="no">Not a database gateway</div><div data-l="DIY MCP">Usually one database</div></div>
             <div class="crow"><div>An audit log you own</div><div data-l="The Data-Bridge" class="yes">Yes, hash-chained</div><div data-l="Warehouse AI" class="no">The vendor's</div><div data-l="SaaS copilots" class="no">The vendor's</div><div data-l="DIY MCP" class="no">Usually none</div></div>
             <div class="crow"><div>Authentication and access control</div><div data-l="The Data-Bridge" class="yes">Single sign-on, roles, tool scopes</div><div data-l="Warehouse AI" class="yes">Yes</div><div data-l="SaaS copilots" class="yes">Yes</div><div data-l="DIY MCP" class="no">Usually none</div></div>
             <div class="crow"><div>Open-source core you can inspect</div><div data-l="The Data-Bridge" class="yes">Yes, AGPLv3</div><div data-l="Warehouse AI" class="no">No</div><div data-l="SaaS copilots" class="no">No</div><div data-l="DIY MCP" class="yes">Usually</div></div>
@@ -711,6 +729,7 @@
         <div class="reqs">
           <div class="req"><h3>Data stays in your perimeter</h3><span class="pill ok">Ships</span><p>One container on your infrastructure. Your data is never copied, and TDB sends no telemetry. Free edition included.</p></div>
           <div class="req"><h3>Air-gapped install</h3><span class="pill ok">Ships</span><p>The licensed image is delivered as a tar bundle; no registry or internet access needed to run it.</p></div>
+          <div class="req"><h3>Updates and rollback</h3><span class="pill ok">Ships</span><p>Each release arrives by download link with a SHA-256 checksum, and nothing updates on its own. A <a href="https://docs.tdb.asvanlabs.com/deployment/upgrading/">documented upgrade</a> keeps your data and settings; rolling back to the previous version is tested. Security fixes ship within 14 days for critical and high severity, 60 days otherwise.</p></div>
           <div class="req"><h3>Read-only access</h3><span class="pill ok">Ships</span><p>Checked before a statement runs and enforced by the database session. Free edition included.</p></div>
           <div class="req"><h3>Audit evidence</h3><span class="pill ok">Ships</span><p>Evidence for SOC 2, HIPAA and EU AI Act reviews: a hash-chained log naming the caller and AI client of every query, refusal and failure, with values in SQL kept out if you choose, verification, sealed retention, Splunk and S3 export.</p></div>
           <div class="req"><h3>Identity</h3><span class="pill ok">Ships</span><p>API keys with rotation, JWT, OAuth 2.1 with PKCE: claude.ai and Claude Desktop sign in as a custom connector. The person behind each request is named in the audit log.</p></div>
@@ -894,10 +913,10 @@ Authorization: Bearer tdbk_…   (role: read, tools: query_source)</pre></div>
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       var bar = document.getElementById('announce');
-      try { if (localStorage.getItem('tdb-announce-tenants') === '1') bar.hidden = true; } catch (e) {}
+      try { if (localStorage.getItem('tdb-announce-claude-connector') === '1') bar.hidden = true; } catch (e) {}
       document.getElementById('announce-close').addEventListener('click', function () {
         bar.hidden = true;
-        try { localStorage.setItem('tdb-announce-tenants', '1'); } catch (e) {}
+        try { localStorage.setItem('tdb-announce-claude-connector', '1'); } catch (e) {}
       });
 
       var btns = document.querySelectorAll('.menu-btn');

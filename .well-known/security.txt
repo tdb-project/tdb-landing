@@ -1,0 +1,9 @@
+# The Data-Bridge security contact (RFC 9116)
+# Report a vulnerability in The Data-Bridge (community or enterprise edition) or in
+# tdb.asvanlabs.com privately, with a description and steps to reproduce. How we handle
+# reports, response times and every published security update are in the Policy link.
+Contact: mailto:security@tdb.asvanlabs.com
+Expires: 2027-11-13T00:00:00.000Z
+Preferred-Languages: en
+Policy: https://docs.tdb.asvanlabs.com/security/updates/
+Canonical: https://tdb.asvanlabs.com/.well-known/security.txt
