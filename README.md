@@ -9,6 +9,6 @@ via GitHub Pages. Static HTML (no build step).
 - `404.html`, `robots.txt`, `sitemap.xml` — error page and crawler files (update `sitemap.xml`'s `lastmod` when the page changes)
 - **Mark:** the arch-bridge tile (same family as the Asvan Labs `<A>`), inline in `index.html` and `404.html` and as the favicon data URI; the file version is `asvanlabs-site/tdb-mark.svg` and `tdb-docs/docs/assets/logo.svg`. Change all of them together.
 - `.well-known/security.txt` — security contact (RFC 9116), points to `security@tdb.asvanlabs.com` and the docs' Security & updates page; **renew `Expires` before 2027-11-13**
-- `og.png` — the social card; `media/` — the 60-second tour video (`tour.webm`, `tour.mp4`), recorded on the community 0.13.0 image
+- `og.png` — the social card (1200×630; the docs carry the same file as `docs/assets/og.png`), rendered from `brand/og.html` with Playwright at 1200×630, scale 1 (recipe: `tdb-internal/docs/decisions/handover-2026-11-11.md`); edit the HTML, never the PNG; `media/` — the 60-second tour video (`tour.webm`, `tour.mp4`), recorded on the community 0.13.0 image
 
 Edit `index.html` and push to `main`; GitHub Pages redeploys automatically.

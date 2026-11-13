@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- Source of og.png (the 1200x630 social card) for tdb.asvanlabs.com and the docs.
+     Render at 1200x630, device scale 1, then copy the PNG to tdb-landing/og.png and
+     tdb-docs/docs/assets/og.png (the two are identical). Recipe: tdb-landing/README.md. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Source+Serif+4:opsz,wght@8..60,700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden; position: relative; box-sizing: border-box;
+    padding: 68px 76px 0;
+    background: radial-gradient(760px 420px at 100% 0%, rgba(79,70,229,.13), transparent 70%), #FAFBFD;
+    color: #0F172A; font-family: Inter, system-ui, sans-serif;
+  }
+  .brand { display: flex; align-items: center; gap: 17px; font-size: 30.6px; font-weight: 600; letter-spacing: -.01em; }
+  .brand svg { width: 52px; height: 52px; display: block; }
+  h1 {
+    margin: 78px 0 0; font-family: "Source Serif 4", Georgia, serif; font-weight: 700;
+    font-size: 74.6px; line-height: 1.06; letter-spacing: -.015em; max-width: 700px;
+  }
+  h1 span { color: #4F46E5; }
+  .chips { position: absolute; left: 76px; top: 503px; display: flex; gap: 14px; }
+  .chips span { font-size: 24px; font-weight: 500; color: #475569; border: 2px solid #E2E8F0; border-radius: 999px; padding: 9px 20px; background: #fff; }
+  .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: #4F46E5; }
+</style>
+</head>
+<body>
+  <div class="brand">
+    <svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1E3A8A"/><stop offset=".6" stop-color="#2563EB"/><stop offset="1" stop-color="#6366F1"/></linearGradient></defs><rect width="48" height="48" rx="12" fill="url(#t)"/><g fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 28Q24 7 38 28" stroke="#FFFFFF"/><path d="M14 28v9M34 28v9" stroke="#FFFFFF"/><path d="M7.5 28h33" stroke="#2DD4BF"/></g></svg>
+    The Data-Bridge
+  </div>
+  <h1>Governed AI access to <span>the data you already have.</span></h1>
+  <div class="chips"><span>Self-hosted</span><span>Read-only</span><span>Every query audited</span><span>Lean on tokens</span></div>
+  <div class="bar"></div>
+</body>
+</html>
