@@ -332,6 +332,9 @@
     .pill.ok { color: var(--green); border-color: rgba(21,128,61,.35); background: rgba(21,128,61,.06); }
     .pill.road { color: var(--amber); border-color: rgba(180,83,9,.35); background: rgba(180,83,9,.06); }
     @media (max-width: 720px) { .req { grid-template-columns: 1fr; gap: 6px; } }
+    .req-groups { display: grid; gap: 10px; }
+    .req-group { margin: 22px 0 0; font-size: .78rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--text-dim); }
+    .req-group:first-child { margin-top: 0; }
 
     /* ---------- audit ---------- */
     .spotlight { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: center; }
@@ -457,7 +460,7 @@
         <li>
           <button class="menu-btn" type="button" aria-expanded="false" aria-controls="m-product">Product <svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg></button>
           <div class="mega" id="m-product">
-            <a href="#how"><b>How it works</b><span>Six steps between every agent and your data</span></a>
+            <a href="#how"><b>How it works</b><span>Six checks between every agent and your data</span></a>
             <a href="#lifecycle"><b>The lifecycle</b><span>Register, govern, query, lean, audit</span></a>
             <a href="https://docs.tdb.asvanlabs.com/api/mcp/#saving-tokens-lean-mode"><b>Lean Mode</b><span>Results sized for an agent's context window</span></a>
             <a href="#audit"><b>Audit log</b><span>Hash-chained evidence you own</span></a>
@@ -544,7 +547,7 @@
             <a class="btn btn-ghost" href="mailto:hello@tdb.asvanlabs.com?subject=TDB%2030-day%20evaluation">Request a 30-day evaluation</a>
             <button class="btn btn-link" type="button" id="tour-open"><span class="play" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12"><path d="M1 1l9 5-9 5z" fill="currentColor"/></svg></span>Watch the 60-second demo</button>
           </div>
-          <p class="cta-note">Free edition: one Docker command, no account. Engineers: <a href="https://docs.tdb.asvanlabs.com/">read the docs</a>.</p>
+          <p class="cta-note">Free edition: <a href="https://docs.tdb.asvanlabs.com/getting-started/community/#step-1-run-it-no-clone-needed">one Docker command</a>, no account. Engineers: <a href="https://docs.tdb.asvanlabs.com/">read the docs</a>.</p>
         </div>
 
         <figure class="demo" role="img" aria-label="An AI agent asks a question; TDB checks its key, checks the SQL is read-only, sends a Lean result about a third smaller, and writes a signed audit entry.">
@@ -628,7 +631,7 @@
       <div class="wrap">
         <p class="sec-label">How it works</p>
         <h2>One governed, lean surface in front of every database you run.</h2>
-        <p class="sec-lede">Every request — from an agent, a script or a BI tool — passes the same six steps on its way to your data and back, with no per-dataset API to build.</p>
+        <p class="sec-lede">Every request — from an agent, a script or a BI tool — passes the same six checks on its way to your data and back, with no per-dataset API to build.</p>
 
         <div class="pipeline">
           <div class="pipe-col">
@@ -647,7 +650,7 @@
             <p class="hint">On your infrastructure</p>
             <ol class="stages">
               <li><div><b>Identity</b><span>Single sign-on, OAuth 2.1, API keys, roles, tool scopes</span></div></li>
-              <li><div><b>Read-only check</b><span>Read the way each of five SQL dialects reads it</span></div></li>
+              <li><div><b>Read-only check</b><span>Read the way each source engine reads it</span></div></li>
               <li><div><b>Bounded run</b><span>Read-only session, row ceiling, timeout at the source</span></div></li>
               <li><div><b>Injection filter</b><span>Hidden instructions in data are redacted</span></div></li>
               <li class="hl"><div><b>Lean Mode</b><span>Results sized for the agent: ~⅓ fewer tokens, same answers</span></div></li>
@@ -691,7 +694,7 @@
         <h2>What your team would otherwise build — and keep building.</h2>
         <p class="sec-lede">Connecting one agent to one database takes an afternoon. Making it safe enough for production data, and keeping it that way as databases, clients and the MCP spec move, is a standing commitment. This is the part TDB takes off your roadmap.</p>
         <ul class="build">
-          <li><h3>Read-only, in five SQL dialects</h3><p>A check that reads SQL the way each engine does, read-only sessions at the source, and refusal of over-privileged database roles. We published two security advisories for this layer in 2026; your own version would need the same scrutiny.</p></li>
+          <li><h3>Read-only, in each engine's own SQL</h3><p>A check that reads SQL the way each engine does, read-only sessions at the source, and refusal of over-privileged database roles. We published two security advisories for this layer in 2026; your own version would need the same scrutiny.</p></li>
           <li><h3>An audit log a reviewer accepts</h3><p>Hash-chained entries, refusals and failures included, values in SQL kept out if you choose, verification on demand, retention without deletion, and incremental export to Splunk or S3.</p></li>
           <li><h3>Keeping up with MCP</h3><p>Four protocol revisions served side by side, so an AI client upgrade doesn't break your integration — and the next revision is our job, not yours.</p></li>
           <li><h3>Identity and access</h3><p>Sign-in through your identity provider, SCIM provisioning, API keys with rotation, OAuth 2.1 with PKCE for AI clients, roles, tool scopes and rate limits.</p></li>
@@ -728,24 +731,36 @@
         <p class="sec-label">Requirements</p>
         <h2>Check it against your requirements list.</h2>
         <p class="sec-lede">What ships today and what is on the roadmap, without dates we can't keep. Unless marked, each item is in the commercial edition.</p>
-        <div class="reqs">
-          <div class="req"><h3>Data stays in your perimeter</h3><span class="pill ok">Ships</span><p>One container on your infrastructure. Your data is never copied, and TDB sends no telemetry. Free edition included.</p></div>
-          <div class="req"><h3>Air-gapped install</h3><span class="pill ok">Ships</span><p>The licensed image is delivered as a tar bundle; no registry or internet access needed to run it. Claude Desktop and Claude Code reach it from your users' computers, so it can stay in a zone with no internet access. <a href="https://docs.tdb.asvanlabs.com/deployment/private-network/">Claude in a private network</a></p></div>
-          <div class="req"><h3>Updates and rollback</h3><span class="pill ok">Ships</span><p>Each release arrives by download link with a SHA-256 checksum, and nothing updates on its own. A <a href="https://docs.tdb.asvanlabs.com/deployment/upgrading/">documented upgrade</a> keeps your data and settings; rolling back to the previous version is tested. Security fixes ship within 14 days for critical and high severity, 60 days otherwise.</p></div>
-          <div class="req"><h3>Read-only access</h3><span class="pill ok">Ships</span><p>Checked before a statement runs and enforced by the database session. Free edition included.</p></div>
-          <div class="req"><h3>Audit evidence</h3><span class="pill ok">Ships</span><p>Evidence for SOC 2, HIPAA and EU AI Act reviews: a hash-chained log naming the caller and AI client of every query, refusal and failure, with values in SQL kept out if you choose, verification, sealed retention, Splunk and S3 export.</p></div>
-          <div class="req"><h3>Identity</h3><span class="pill ok">Ships</span><p>API keys with rotation, JWT, OAuth 2.1 with PKCE: claude.ai and Claude Desktop sign in as a custom connector. The person behind each request is named in the audit log.</p></div>
-          <div class="req"><h3>Access control</h3><span class="pill ok">Ships</span><p>Roles (<code>read</code>, <code>readwrite</code>, <code>admin</code>), tool scopes by key or group, rate limits by key or person.</p></div>
-          <div class="req"><h3>Column and row rules, PII masking</h3><span class="pill ok">Ships</span><p>Rules by key, role or group that withhold or mask columns and filter rows, enforced in the database on REST, MCP and the wire gateway, with the rule in the audit log. Mid-Market. With a rules file, a source it does not name is refused.</p></div>
-          <div class="req"><h3>Secrets</h3><span class="pill ok">Ships</span><p>Source credentials encrypted at rest, with no plaintext mode; API keys never written to a log.</p></div>
-          <div class="req"><h3>Existing BI and SQL tools</h3><span class="pill ok">Ships</span><p>PostgreSQL wire gateway for Metabase, DBeaver, psql and JDBC clients.</p></div>
-          <div class="req"><h3>Agent token cost</h3><span class="pill ok">Ships</span><p>Lean Mode per call or server-wide, free edition included; per API key in the commercial edition.</p></div>
-          <div class="req"><h3>Observability</h3><span class="pill ok">Ships</span><p>Prometheus metrics and a health check.</p></div>
-          <div class="req"><h3>Single sign-on and SCIM</h3><span class="pill ok">Ships</span><p>OIDC sign-in on Mid-Market. Identity-provider groups decide roles, column and row rules, and tools, and removing someone ends their access. Tested with Keycloak; ask us about your provider. SAML on request.</p></div>
-          <div class="req"><h3>Results beyond 1,000 rows</h3><span class="pill ok">Ships</span><p>Page with a cursor, or stream a whole result as NDJSON or CSV, under the same row caps and audit log.</p></div>
-          <div class="req"><h3>Human approval for sensitive reads</h3><span class="pill ok">Ships</span><p>A policy rule can make a query that reads named columns wait for a person. The approver decides from the CLI or API, never the person who asked, and the audit log records the request, the decision and every run.</p></div>
-          <div class="req"><h3>Several teams or customers on one deployment</h3><span class="pill ok">Ships</span><p>Tenants on the Enterprise edition: each team or customer has its own sources, keys, rules and hash-chained audit log, chosen by the credential alone. An operator role manages tenants and reads none of their data.</p></div>
-          <div class="req"><h3>More sources, exporters and sign-in</h3><span class="pill road">On request</span><p>BigQuery, JSON and NDJSON files, and MongoDB as sources; Datadog and OpenTelemetry for audit export; SAML sign-in. Each is built when a customer needs it, with no published date. Tell us if one decides your evaluation.</p></div>
+        <div class="req-groups">
+          <h3 class="req-group">Deployment and data</h3>
+          <div class="reqs">
+            <div class="req"><h3>Data stays in your perimeter</h3><span class="pill ok">Ships</span><p>One container on your infrastructure. Your data is never copied, and TDB sends no telemetry. Free edition included.</p></div>
+            <div class="req"><h3>Air-gapped install</h3><span class="pill ok">Ships</span><p>The licensed image is delivered as a tar bundle; no registry or internet access needed to run it. Claude Desktop and Claude Code reach it from your users' computers, so it can stay in a zone with no internet access. <a href="https://docs.tdb.asvanlabs.com/deployment/private-network/">Claude in a private network</a></p></div>
+            <div class="req"><h3>Updates and rollback</h3><span class="pill ok">Ships</span><p>Each release arrives by download link with a SHA-256 checksum, and nothing updates on its own. A <a href="https://docs.tdb.asvanlabs.com/deployment/upgrading/">documented upgrade</a> keeps your data and settings; rolling back to the previous version is tested. Security fixes ship within 14 days for critical and high severity, 60 days otherwise.</p></div>
+            <div class="req"><h3>Read-only access</h3><span class="pill ok">Ships</span><p>Checked before a statement runs and enforced by the database session. Free edition included.</p></div>
+          </div>
+          <h3 class="req-group">Identity and access</h3>
+          <div class="reqs">
+            <div class="req"><h3>Identity</h3><span class="pill ok">Ships</span><p>API keys with rotation, JWT, OAuth 2.1 with PKCE: claude.ai and Claude Desktop sign in as a custom connector. The person behind each request is named in the audit log.</p></div>
+            <div class="req"><h3>Access control</h3><span class="pill ok">Ships</span><p>Roles (<code>read</code>, <code>readwrite</code>, <code>admin</code>), tool scopes by key or group, rate limits by key or person.</p></div>
+            <div class="req"><h3>Column and row rules, PII masking</h3><span class="pill ok">Ships</span><p>Rules by key, role or group that withhold or mask columns and filter rows, enforced in the database on REST, MCP and the wire gateway, with the rule in the audit log. Mid-Market. With a rules file, a source it does not name is refused.</p></div>
+            <div class="req"><h3>Single sign-on and SCIM</h3><span class="pill ok">Ships</span><p>OIDC sign-in on Mid-Market. Identity-provider groups decide roles, column and row rules, and tools, and removing someone ends their access. Tested with Keycloak; ask us about your provider. SAML on request.</p></div>
+            <div class="req"><h3>Human approval for sensitive reads</h3><span class="pill ok">Ships</span><p>A policy rule can make a query that reads named columns wait for a person. The approver decides from the CLI or API, never the person who asked, and the audit log records the request, the decision and every run.</p></div>
+            <div class="req"><h3>Several teams or customers on one deployment</h3><span class="pill ok">Ships</span><p>Tenants on the Enterprise edition: each team or customer has its own sources, keys, rules and hash-chained audit log, chosen by the credential alone. An operator role manages tenants and reads none of their data.</p></div>
+            <div class="req"><h3>Secrets</h3><span class="pill ok">Ships</span><p>Source credentials encrypted at rest, with no plaintext mode; API keys never written to a log.</p></div>
+          </div>
+          <h3 class="req-group">Audit and operations</h3>
+          <div class="reqs">
+            <div class="req"><h3>Audit evidence</h3><span class="pill ok">Ships</span><p>Evidence for SOC 2, HIPAA and EU AI Act reviews: a hash-chained log naming the caller and AI client of every query, refusal and failure, with values in SQL kept out if you choose, verification, sealed retention, Splunk and S3 export.</p></div>
+            <div class="req"><h3>Observability</h3><span class="pill ok">Ships</span><p>Prometheus metrics and a health check.</p></div>
+          </div>
+          <h3 class="req-group">Agents, BI tools and scale</h3>
+          <div class="reqs">
+            <div class="req"><h3>Existing BI and SQL tools</h3><span class="pill ok">Ships</span><p>PostgreSQL wire gateway for Metabase, DBeaver, psql and JDBC clients.</p></div>
+            <div class="req"><h3>Agent token cost</h3><span class="pill ok">Ships</span><p>Lean Mode per call or server-wide, free edition included; per API key in the commercial edition.</p></div>
+            <div class="req"><h3>Results beyond 1,000 rows</h3><span class="pill ok">Ships</span><p>Page with a cursor, or stream a whole result as NDJSON or CSV, under the same row caps and audit log.</p></div>
+            <div class="req"><h3>More sources, exporters and sign-in</h3><span class="pill road">On request</span><p>BigQuery, JSON and NDJSON files, and MongoDB as sources; Datadog and OpenTelemetry for audit export; SAML sign-in. Each is built when a customer needs it, with no published date. Tell us if one decides your evaluation.</p></div>
+          </div>
         </div>
       </div>
     </section>
