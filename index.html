@@ -229,6 +229,34 @@
     .stage-panel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
     .stage-panel li { display: flex; gap: 10px; font-size: .95rem; color: var(--text); background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
     .stage-panel li::before { content: "✓"; color: var(--green); font-weight: 700; }
+    .shot { margin: 22px 0 0; }
+    .shot img { display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: var(--shadow); }
+    .shot figcaption { font-size: .8rem; color: var(--text-faint); margin-top: 8px; line-height: 1.45; }
+    .tamper { margin-top: 48px; display: grid; grid-template-columns: 1fr 1.3fr; gap: 36px; align-items: center; }
+    .tamper h3 { font-family: var(--serif); font-size: 1.6rem; margin: 0 0 10px; letter-spacing: -.01em; }
+    .tamper p { color: var(--text-dim); margin: 0; }
+    .tamper .shot { margin: 0; }
+    @media (max-width: 900px) { .tamper { grid-template-columns: 1fr; } }
+    .proof-shot { margin: 28px 0 0; max-width: 980px; }
+    .proof-shot img { display: block; width: 100%; height: auto; border-radius: var(--radius); box-shadow: var(--shadow); }
+    .proof-shot figcaption { font-size: .85rem; color: var(--text-dim); margin-top: 10px; max-width: 70ch; }
+    .vis { height: 64px; margin: 0 0 18px; display: flex; flex-wrap: wrap; gap: 6px; align-content: center; font: 600 .68rem var(--mono); }
+    .vis .no, .vis .ok { padding: 3px 8px; border-radius: 6px; border: 1px solid; white-space: nowrap; }
+    .vis .no { color: #B91C1C; background: #FEF2F2; border-color: #FECACA; }
+    .vis .ok { color: #15803D; background: #F0FDF4; border-color: #BBF7D0; }
+    .vis.bars { display: grid; grid-template-columns: 70px 1fr 58px; gap: 6px 8px; align-items: center; font: 600 .74rem var(--sans, inherit); color: var(--text-dim); }
+    .vis.bars i { display: block; height: 8px; border-radius: 99px; background: var(--line-strong); }
+    .vis.bars i.l { background: var(--accent); }
+    .vis.bars b { text-align: right; font-variant-numeric: tabular-nums; color: var(--text); }
+    .vis.chain { flex-wrap: nowrap; gap: 0; align-items: center; }
+    .vis.chain span { border: 1px solid var(--line-strong); border-radius: 7px; padding: 5px 7px; background: var(--bg-soft); color: var(--text-dim); line-height: 1.3; font-weight: 500; font-size: .68rem; }
+    .vis.chain span b { display: block; color: var(--text); font-size: .74rem; }
+    .vis.chain em { flex: 0 0 18px; height: 2px; background: var(--accent); }
+    .demo-thumb { display: block; margin: 0 auto 28px; padding: 0; border: 0; background: none; cursor: pointer; position: relative; width: min(560px, 100%); border-radius: 14px; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
+    .demo-thumb img { display: block; width: 100%; height: auto; }
+    .demo-thumb span { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(15,23,42,.25); }
+    .demo-thumb span b { width: 64px; height: 64px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 1.4rem; padding-left: 4px; }
+    .demo-thumb small { display: block; color: #CBD5E1; font-size: .85rem; margin-top: 10px; }
     @media (max-width: 860px) {
       .stages-tabs { grid-template-columns: repeat(5, minmax(120px, 1fr)); overflow-x: auto; scrollbar-width: thin; padding-bottom: 4px; }
       .stage-panel { grid-template-columns: 1fr; }
@@ -570,7 +598,7 @@
         <div class="stats" role="list">
           <div class="stat" role="listitem"><b>~⅓ fewer</b><span>tokens on large results with Lean Mode — a smaller bill and more room for the agent to think</span></div>
           <div class="stat" role="listitem"><b>Same answers</b><span>Lean Mode on or off, all 21 questions in our accuracy test came back the same</span></div>
-          <div class="stat" role="listitem"><b>8 sources</b><span>PostgreSQL, MySQL, SQL Server, Snowflake, ClickHouse, CSV, Parquet, DuckDB — any MCP client, and Postgres BI tools in the commercial edition</span></div>
+          <div class="stat" role="listitem"><b>9 sources</b><span>PostgreSQL, MySQL, SQL Server, Snowflake, ClickHouse, MongoDB, CSV, Parquet, DuckDB — any MCP client, and Postgres BI tools in the commercial edition</span></div>
           <div class="stat" role="listitem"><b>1 command</b><span>The free edition runs in a single Docker container. No account, no data copied</span></div>
         </div>
         <p class="stats-note">Token figures measured with Claude Code and Claude Opus 5.5, October 2026. Lean Mode is opt-in. <a href="https://docs.tdb.asvanlabs.com/api/mcp/#saving-tokens-lean-mode">How we measured</a></p>
@@ -592,23 +620,23 @@
         </div>
 
         <div class="stage-panel" role="tabpanel" id="p-reg" aria-labelledby="t-reg" tabindex="0">
-          <div><h3>Register a source once.</h3><p>Point TDB at a database or a file. It keeps the credentials encrypted and gives the source a governed name; nobody downstream ever sees a connection string.</p><a href="https://docs.tdb.asvanlabs.com/api/sources/">Registering sources →</a></div>
-          <ul><li>PostgreSQL, MySQL, SQL Server, Snowflake, ClickHouse, CSV, Parquet and DuckDB</li><li>A whole database or a single table</li><li>Credentials encrypted at rest, no plaintext mode</li></ul>
+          <div><h3>Register a source once.</h3><p>Point TDB at a database or a file. It keeps the credentials encrypted and gives the source a governed name; nobody downstream ever sees a connection string.</p><a href="https://docs.tdb.asvanlabs.com/api/sources/">Registering sources →</a><figure class="shot"><a href="media/lc-register.webp"><img src="media/lc-register.webp" width="1244" height="784" alt="Registering a CSV source over REST, then reading the schema TDB detected: six columns with their types." loading="lazy" decoding="async"></a></figure></div>
+          <ul><li>PostgreSQL, MySQL, SQL Server, Snowflake, ClickHouse, MongoDB, CSV, Parquet and DuckDB</li><li>A whole database or a single table</li><li>Credentials encrypted at rest, no plaintext mode</li></ul>
         </div>
         <div class="stage-panel" role="tabpanel" id="p-gov" aria-labelledby="t-gov" tabindex="0" hidden>
-          <div><h3>Decide who may ask what.</h3><p>Each caller gets an identity and a scope. Every statement is checked as read-only before it runs, and the database session enforces it again.</p><a href="https://docs.tdb.asvanlabs.com/architecture/">Architecture &amp; security model →</a></div>
+          <div><h3>Decide who may ask what.</h3><p>Each caller gets an identity and a scope. Every statement is checked as read-only before it runs, and the database session enforces it again.</p><a href="https://docs.tdb.asvanlabs.com/architecture/">Architecture &amp; security model →</a><figure class="shot"><a href="media/lc-govern.webp"><img src="media/lc-govern.webp" width="1244" height="608" alt="Two refused requests: a wrong API key gets 401, and a DELETE gets 400, blocked as a write." loading="lazy" decoding="async"></a></figure></div>
           <ul><li>Single sign-on, OAuth 2.1 with PKCE, API keys, JWT</li><li>Roles, tool scopes and rate limits by key, group or person</li><li>Column and row rules, and a person's approval before sensitive reads</li><li>Read-only checked the way each SQL dialect reads it</li></ul>
         </div>
         <div class="stage-panel" role="tabpanel" id="p-qry" aria-labelledby="t-qry" tabindex="0" hidden>
-          <div><h3>Answer on whatever protocol asks.</h3><p>Agents speak MCP, scripts speak REST, BI tools speak Postgres. TDB answers all three from one governed surface, with the same values on each.</p><a href="https://docs.tdb.asvanlabs.com/api/mcp/">MCP reference →</a></div>
+          <div><h3>Answer on whatever protocol asks.</h3><p>Agents speak MCP, scripts speak REST, BI tools speak Postgres. TDB answers all three from one governed surface, with the same values on each.</p><a href="https://docs.tdb.asvanlabs.com/api/mcp/">MCP reference →</a><figure class="shot"><a href="media/lc-query.webp"><img src="media/lc-query.webp" width="1244" height="756" alt="An agent asks which region grew fastest; the MCP query_source tool returns growth by region, EMEA first at 18 percent." loading="lazy" decoding="async"></a></figure></div>
           <ul><li>MCP 2026-07-28 and earlier revisions, side by side</li><li>REST with an OpenAPI description</li><li>Postgres wire gateway for Metabase, DBeaver, psql</li></ul>
         </div>
         <div class="stage-panel" role="tabpanel" id="p-lean" aria-labelledby="t-lean" tabindex="0" hidden>
-          <div><h3>Send the answer, not the overhead.</h3><p>Lean Mode shapes results for an agent's context window. Rows travel as arrays, schemas as types, and long text can be trimmed with a visible marker.</p><a href="https://docs.tdb.asvanlabs.com/api/mcp/#saving-tokens-lean-mode">Saving tokens →</a></div>
+          <div><h3>Send the answer, not the overhead.</h3><p>Lean Mode shapes results for an agent's context window. Rows travel as arrays, schemas as types, and long text can be trimmed with a visible marker.</p><a href="https://docs.tdb.asvanlabs.com/api/mcp/#saving-tokens-lean-mode">Saving tokens →</a><figure class="shot"><a href="media/lc-lean.webp"><img src="media/lc-lean.webp" width="1244" height="688" alt="The same 100 rows returned twice over MCP: 14,313 characters as standard, 7,526 with Lean Mode." loading="lazy" decoding="async"></a></figure></div>
           <ul><li>A 100-row answer: 10,412 → 6,868 tokens</li><li>A 30-table schema: 5,235 → 3,025 tokens</li><li>Same answers on all 21 test questions</li></ul>
         </div>
         <div class="stage-panel" role="tabpanel" id="p-aud" aria-labelledby="t-aud" tabindex="0" hidden>
-          <div><h3>Keep the evidence.</h3><p>Every query, refusal and failure is written to a log on your infrastructure, naming the caller and the AI client, and chained so an edit is detectable.</p><a href="https://docs.tdb.asvanlabs.com/security/audit/">Audit log →</a></div>
+          <div><h3>Keep the evidence.</h3><p>Every query, refusal and failure is written to a log on your infrastructure, naming the caller and the AI client, and chained so an edit is detectable.</p><a href="https://docs.tdb.asvanlabs.com/security/audit/">Audit log →</a><figure class="shot"><a href="media/lc-audit.webp"><img src="media/lc-audit.webp" width="1244" height="404" alt="The last three audit entries: a query naming its MCP client, a refused API key and a refused write." loading="lazy" decoding="async"></a></figure></div>
           <ul><li>Hash-chained entries with on-demand verification</li><li>Refusals and failures recorded, not just successes</li><li>An option to keep values in SQL out of the log</li><li>Incremental export to Splunk or S3</li></ul>
         </div>
       </div>
@@ -620,9 +648,9 @@
         <h2>Production-safe AI access, without building it yourself.</h2>
         <p class="sec-lede">Connecting a model to a database is the easy half. The governance around it is the half that keeps projects out of production.</p>
         <div class="values">
-          <div class="value"><div class="num">01</div><h3>Governed access, not raw credentials.</h3><p>Agents get a key scoped to what they may ask — never your database password. Every statement is checked as read-only before it runs, and the database session enforces it again.</p></div>
-          <div class="value"><div class="num">02</div><h3>Answers, not token overhead.</h3><p>Lean Mode sends results sized for the agent: about a third fewer tokens on large results, with the same answers. Aggregates and filters run in the database, so the agent reads the answer, not the rows behind it.</p></div>
-          <div class="value"><div class="num">03</div><h3>Evidence, not trust.</h3><p>Every query, refusal and AI client is recorded in a log you own — even the free edition writes one. The commercial edition chains it so an edit is detectable, and exports it to the SIEM you already run.</p></div>
+          <div class="value"><div class="vis" aria-hidden="true"><span class="no">401 invalid_api_key</span><span class="no">400 DELETE blocked</span><span class="ok">200 SELECT</span></div><div class="num">01</div><h3>Governed access, not raw credentials.</h3><p>Agents get a key scoped to what they may ask — never your database password. Every statement is checked as read-only before it runs, and the database session enforces it again.</p></div>
+          <div class="value"><div class="vis bars" aria-hidden="true"><span>Standard</span><i></i><b>10,412</b><span>Lean</span><i class="l" style="width:66%"></i><b>6,868</b></div><div class="num">02</div><h3>Answers, not token overhead.</h3><p>Lean Mode sends results sized for the agent: about a third fewer tokens on large results, with the same answers. Aggregates and filters run in the database, so the agent reads the answer, not the rows behind it.</p></div>
+          <div class="value"><div class="vis chain" aria-hidden="true"><span><b>#4127</b>hash e70a</span><em></em><span><b>#4128</b>prev e70a</span><em></em><span><b>#4129</b>prev 51c3</span></div><div class="num">03</div><h3>Evidence, not trust.</h3><p>Every query, refusal and AI client is recorded in a log you own — even the free edition writes one. The commercial edition chains it so an edit is detectable, and exports it to the SIEM you already run.</p></div>
         </div>
       </div>
     </section>
@@ -667,6 +695,7 @@
               <li>SQL Server</li>
               <li>Snowflake</li>
               <li>ClickHouse</li>
+              <li>MongoDB</li>
               <li>CSV and Parquet files, DuckDB databases</li>
             </ul>
           </div>
@@ -678,7 +707,7 @@
           <div class="ctable">
             <div class="crow head"><div></div><div>The Data-Bridge</div><div>Warehouse AI assistants</div><div>SaaS copilots</div><div>DIY MCP servers</div></div>
             <div class="crow"><div>Runs inside your perimeter</div><div data-l="The Data-Bridge" class="yes">Yes</div><div data-l="Warehouse AI" class="no">No</div><div data-l="SaaS copilots" class="no">No</div><div data-l="DIY MCP" class="yes">Yes</div></div>
-            <div class="crow"><div>Works on the databases you already run</div><div data-l="The Data-Bridge" class="yes">Yes: PostgreSQL, MySQL, SQL Server, Snowflake, ClickHouse and files</div><div data-l="Warehouse AI" class="no">Data must move in first</div><div data-l="SaaS copilots" class="no">Not a database gateway</div><div data-l="DIY MCP">Usually one database</div></div>
+            <div class="crow"><div>Works on the databases you already run</div><div data-l="The Data-Bridge" class="yes">Yes: PostgreSQL, MySQL, SQL Server, Snowflake, ClickHouse, MongoDB and files</div><div data-l="Warehouse AI" class="no">Data must move in first</div><div data-l="SaaS copilots" class="no">Not a database gateway</div><div data-l="DIY MCP">Usually one database</div></div>
             <div class="crow"><div>An audit log you own</div><div data-l="The Data-Bridge" class="yes">Yes, hash-chained</div><div data-l="Warehouse AI" class="no">The vendor's</div><div data-l="SaaS copilots" class="no">The vendor's</div><div data-l="DIY MCP" class="no">Usually none</div></div>
             <div class="crow"><div>Authentication and access control</div><div data-l="The Data-Bridge" class="yes">Single sign-on, roles, tool scopes</div><div data-l="Warehouse AI" class="yes">Yes</div><div data-l="SaaS copilots" class="yes">Yes</div><div data-l="DIY MCP" class="no">Usually none</div></div>
             <div class="crow"><div>Open-source core you can inspect</div><div data-l="The Data-Bridge" class="yes">Yes, AGPLv3</div><div data-l="Warehouse AI" class="no">No</div><div data-l="SaaS copilots" class="no">No</div><div data-l="DIY MCP" class="yes">Usually</div></div>
@@ -759,7 +788,7 @@
             <div class="req"><h3>Existing BI and SQL tools</h3><span class="pill ok">Ships</span><p>PostgreSQL wire gateway for Metabase, DBeaver, psql and JDBC clients.</p></div>
             <div class="req"><h3>Agent token cost</h3><span class="pill ok">Ships</span><p>Lean Mode per call or server-wide, free edition included; per API key in the commercial edition.</p></div>
             <div class="req"><h3>Results beyond 1,000 rows</h3><span class="pill ok">Ships</span><p>Page with a cursor, or stream a whole result as NDJSON or CSV, under the same row caps and audit log.</p></div>
-            <div class="req"><h3>More sources, exporters and sign-in</h3><span class="pill road">On request</span><p>BigQuery, JSON and NDJSON files, and MongoDB as sources; Datadog and OpenTelemetry for audit export; SAML sign-in. Each is built when a customer needs it, with no published date. Tell us if one decides your evaluation.</p></div>
+            <div class="req"><h3>More sources, exporters and sign-in</h3><span class="pill road">On request</span><p>BigQuery and JSON or NDJSON files as sources; Datadog and OpenTelemetry for audit export; SAML sign-in. Each is built when a customer needs it, with no published date. Tell us if one decides your evaluation.</p></div>
           </div>
         </div>
       </div>
@@ -804,6 +833,10 @@
 }</pre>
           </div>
         </div>
+        <div class="tamper">
+          <div><h3>Edit one line, and the log says so.</h3><p>Each entry carries the hash of the one before it. Change a single value by hand and verification names the entry that no longer matches. Commercial edition; the free edition writes the same entries without the chain. <a href="https://docs.tdb.asvanlabs.com/security/audit/">How verification works →</a></p></div>
+          <figure class="shot"><a href="media/audit-tamper.webp"><img src="media/audit-tamper.webp" width="1244" height="488" alt="Audit verify returns valid with 3 entries; after one line is edited by hand, rows_returned 4 changed to 1, verify returns valid false, hash mismatch at seq 1." loading="lazy" decoding="async"></a></figure>
+        </div>
       </div>
     </section>
 
@@ -815,8 +848,9 @@
         <div class="proof">
           <div><b>Open source core</b><p>The community edition is AGPLv3. Read the read-only check, the audit log and Lean Mode line by line. <a href="https://github.com/tdb-project/tdb-community">GitHub →</a></p></div>
           <div><b>Published advisories</b><p>Twenty-nine security updates since September 2026, each saying what was exposed and what to do. <a href="https://docs.tdb.asvanlabs.com/security/updates/">Advisories →</a></p></div>
-          <div><b>Tested with</b><p>Checked end to end against real clients:</p><div class="names"><span>Claude Code</span><span>Claude Desktop</span><span>claude.ai</span><span>VS Code</span><span>Metabase</span><span>DBeaver</span><span>psql</span><span>pgjdbc</span></div><p>And real databases:</p><div class="names"><span>PostgreSQL</span><span>MySQL</span><span>SQL Server</span><span>Snowflake</span></div></div>
+          <div><b>Tested with</b><p>Checked end to end against real clients:</p><div class="names"><span>Claude Code</span><span>Claude Desktop</span><span>claude.ai</span><span>VS Code</span><span>Metabase</span><span>DBeaver</span><span>psql</span><span>pgjdbc</span></div><p>And real databases:</p><div class="names"><span>PostgreSQL</span><span>MySQL</span><span>SQL Server</span><span>Snowflake</span><span>ClickHouse</span><span>MongoDB</span></div></div>
         </div>
+        <figure class="proof-shot"><img src="media/proof-metabase.webp" width="1804" height="1406" alt="Metabase showing a bar chart of Q3 revenue by region, read from PostgreSQL through the TDB wire gateway, above the audit entry TDB wrote for it: event query, transport pgwire, client_user analyst, rows_returned 4, outcome ok." loading="lazy" decoding="async"><figcaption>Metabase, unchanged, pointed at TDB as if it were PostgreSQL: the chart, and the audit entry TDB wrote for the read behind it. Real output from tdb-enterprise 0.40.0 and Metabase 0.57.</figcaption></figure>
       </div>
     </section>
 
@@ -843,7 +877,7 @@
             <div class="edition-head"><h3>Enterprise</h3><span class="tag">Commercial</span></div>
             <p class="meta">Self-hosted · 30-day evaluation available</p>
             <ul>
-              <li>PostgreSQL, MySQL, SQL Server, Snowflake, ClickHouse, Parquet files, DuckDB databases</li>
+              <li>PostgreSQL, MySQL, SQL Server, Snowflake, ClickHouse, MongoDB, Parquet files, DuckDB databases</li>
               <li>Unlimited sources · OAuth 2.1 + PKCE · RBAC</li>
               <li>Signed audit log · retention · SIEM export</li>
               <li>Seven MCP tools · named views · rate limiting</li>
@@ -862,6 +896,7 @@
 
     <section class="closer">
       <div class="wrap center">
+        <button class="demo-thumb" type="button" id="tour-open-2" aria-label="Watch the 60-second demo"><img src="media/tour-poster.jpg" width="1280" height="720" alt="" loading="lazy" decoding="async"><span><b>▶</b></span></button>
         <h2>Try it against your own CSV in a minute.</h2>
         <p class="sec-lede">Nothing to sign up for. If it fits, get in touch about the commercial edition and a 30-day evaluation.</p>
         <div class="cta-row" style="justify-content:center">
@@ -1046,6 +1081,7 @@ Authorization: Bearer tdbk_…   (role: read, tools: query_source)</pre></div>
         dlg.showModal(); mode(false);
         if (!reduce) { var pr = player.play(); if (pr && pr.catch) pr.catch(function () {}); }
       });
+      document.getElementById('tour-open-2').addEventListener('click', function () { document.getElementById('tour-open').click(); });
       dlg.querySelector('[data-close]').addEventListener('click', function () { dlg.close(); });
       dlg.querySelector('[data-prev]').addEventListener('click', function () { show(at - 1); });
       dlg.querySelector('[data-next]').addEventListener('click', function () { if (at === slides.length - 1) dlg.close(); else show(at + 1); });
